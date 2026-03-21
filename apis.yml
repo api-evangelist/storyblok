@@ -1,0 +1,135 @@
+aid: storyblok
+url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/apis.yml
+modified: '2026-03-21'
+apis:
+  - aid: storyblok:content-delivery-api-v2
+    name: Storyblok Content Delivery API v2
+    tags:
+      - Content Delivery
+      - Headless CMS
+      - REST
+      - Content Management
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.storyblok.com
+    humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+    properties:
+      - url: https://www.storyblok.com/docs/api/content-delivery/v2
+        type: Documentation
+      - type: OpenAPI
+        url: openapi/storyblok-content-delivery-api-v2-openapi.yml
+    description: >-
+      The Storyblok Content Delivery API v2 is a REST API that enables developers
+      to fetch published content from a Storyblok space for delivery to end users
+      across web, mobile, and other channels. It provides access to stories,
+      datasources, links, tags, and asset metadata through predictable endpoints
+      with token-based authentication. The API supports filtering, pagination,
+      full-text search, and relation resolution, allowing developers to retrieve
+      precisely the content their application needs. It is optimized for
+      performance and available across multiple regional endpoints to minimize
+      latency for global deployments.
+
+  - aid: storyblok:content-delivery-api-v1
+    name: Storyblok Content Delivery API v1
+    tags:
+      - Content Delivery
+      - Headless CMS
+      - REST
+      - Legacy
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://api.storyblok.com
+    humanURL: https://www.storyblok.com/docs/api/content-delivery/v1
+    properties:
+      - url: https://www.storyblok.com/docs/api/content-delivery/v1
+        type: Documentation
+    description: >-
+      The Storyblok Content Delivery API v1 is the original REST API for
+      retrieving published content from Storyblok spaces. It provides access to
+      stories, components, datasources, and links using a public or preview API
+      token for authentication. While v2 is the recommended version for new
+      projects, v1 remains supported for existing integrations and projects that
+      have not yet migrated. The API follows standard REST conventions and returns
+      JSON-encoded responses.
+
+  - aid: storyblok:management-api
+    name: Storyblok Management API
+    tags:
+      - Content Management
+      - Headless CMS
+      - REST
+      - Administration
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://mapi.storyblok.com
+    humanURL: https://www.storyblok.com/docs/api/management
+    properties:
+      - url: https://www.storyblok.com/docs/api/management
+        type: Documentation
+      - type: OpenAPI
+        url: openapi/storyblok-management-api-openapi.yml
+      - type: AsyncAPI
+        url: asyncapi/storyblok-webhooks-asyncapi.yml
+    description: >-
+      The Storyblok Management API is a REST API that allows developers to
+      programmatically create, read, update, and delete content and configuration
+      within a Storyblok space. It supports managing stories, components, assets,
+      datasources, collaborators, webhooks, and space settings. The API uses
+      OAuth or personal access tokens for authentication and is suitable for
+      building editorial tooling, content migration scripts, CI/CD pipelines, and
+      automated publishing workflows. All write operations are scoped to
+      individual spaces and respect role-based access control.
+
+  - aid: storyblok:graphql-api
+    name: Storyblok GraphQL API
+    tags:
+      - GraphQL
+      - Content Delivery
+      - Headless CMS
+      - Query Language
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://gapi.storyblok.com
+    humanURL: https://www.storyblok.com/docs/api
+    properties:
+      - url: https://www.storyblok.com/docs/api
+        type: Documentation
+    description: >-
+      The Storyblok GraphQL API provides an alternative to the REST Content
+      Delivery API, enabling developers to query published content using GraphQL
+      syntax. It allows clients to request exactly the fields they need, reducing
+      over-fetching and enabling efficient batched queries in a single request.
+      The schema is automatically generated based on the component definitions
+      configured in a Storyblok space. Regional endpoints are available for
+      different geographic regions to reduce latency in global applications.
+
+  - aid: storyblok:image-service
+    name: Storyblok Image Service
+    tags:
+      - Images
+      - Media
+      - Transformation
+      - CDN
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    baseURL: https://img2.storyblok.com
+    humanURL: https://www.storyblok.com/docs/concepts/assets
+    properties:
+      - url: https://www.storyblok.com/docs/concepts/assets
+        type: Documentation
+      - type: OpenAPI
+        url: openapi/storyblok-image-service-openapi.yml
+    description: >-
+      The Storyblok Image Service is a URL-based image transformation API that
+      allows developers to resize, crop, convert, and optimize images hosted in
+      Storyblok's asset CDN. Transformations are applied by constructing a
+      specific URL with parameters that specify dimensions, format conversion,
+      quality, focal point, and filter effects. The service eliminates the need
+      for a separate image processing pipeline and is suitable for responsive
+      images, thumbnails, and format-optimized delivery across web and mobile
+      applications. Images are served via a global CDN for fast delivery.
+
+common:
+  - type: JSON-LD
+    url: json-ld/storyblok-context.jsonld
+  - type: JSONSchema
+    url: json-schema/storyblok-story-schema.json
+  - type: JSONSchema
+    url: json-schema/storyblok-component-schema.json
+  - type: JSONSchema
+    url: json-schema/storyblok-webhook-payload-schema.json

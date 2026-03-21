@@ -1,0 +1,207 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://storyblok.com/schemas/story.json",
+  "title": "Storyblok Story",
+  "description": "A content entry (story) in Storyblok. Stories hold structured content defined by a component schema and include metadata such as publication timestamps, slugs, and language alternates.",
+  "type": "object",
+  "required": ["id", "uuid", "name", "slug", "full_slug", "content", "created_at"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique numeric identifier of the story within the space."
+    },
+    "uuid": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Universally unique identifier for cross-space references and relation resolution."
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Display name of the story as shown in the Storyblok editor."
+    },
+    "slug": {
+      "type": "string",
+      "pattern": "^[a-z0-9-_]+$",
+      "description": "URL-safe slug segment of the story within its parent folder."
+    },
+    "full_slug": {
+      "type": "string",
+      "description": "Full path of the story including parent folder slugs, used as the primary URL identifier."
+    },
+    "content": {
+      "type": "object",
+      "description": "The story content as a nested JSON object. Structure is determined by the assigned component schema. Always includes a component field identifying the root component type.",
+      "required": ["component"],
+      "properties": {
+        "component": {
+          "type": "string",
+          "description": "Technical name of the component schema used for this story content."
+        },
+        "_uid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for the root content block."
+        }
+      },
+      "additionalProperties": true
+    },
+    "is_startpage": {
+      "type": "boolean",
+      "description": "True if this story is the start page (index entry) of its parent folder."
+    },
+    "is_folder": {
+      "type": "boolean",
+      "description": "True if this story is a folder rather than a content entry."
+    },
+    "parent_id": {
+      "type": ["integer", "null"],
+      "description": "Numeric ID of the parent folder story, or null if the story is at the root level."
+    },
+    "group_id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "UUID used to group alternate language versions of the same story together."
+    },
+    "published": {
+      "type": "boolean",
+      "description": "True if the story currently has an active published version visible via the public API token."
+    },
+    "published_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the story was most recently published. Null if never published."
+    },
+    "first_published_at": {
+      "type": ["string", "null"],
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the story was first ever published. Null if never published."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the story was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the most recent modification to the story."
+    },
+    "sort_by_date": {
+      "type": ["string", "null"],
+      "description": "Optional date string used for custom date-based sorting of stories in lists."
+    },
+    "tag_list": {
+      "type": "array",
+      "description": "List of tag slugs applied to this story for categorization and filtering.",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "position": {
+      "type": "integer",
+      "description": "Numeric sort position of the story within its parent folder."
+    },
+    "pinned": {
+      "type": "boolean",
+      "description": "True if the story is pinned in the editor interface for quick access."
+    },
+    "default_full_slug": {
+      "type": ["string", "null"],
+      "description": "The default language full_slug when the story has alternate language translations."
+    },
+    "translated_slugs": {
+      "type": "array",
+      "description": "Language-specific slug overrides for alternate language versions of this story.",
+      "items": {
+        "$ref": "#/$defs/TranslatedSlug"
+      }
+    },
+    "alternates": {
+      "type": "array",
+      "description": "Metadata references to alternate language versions of this story.",
+      "items": {
+        "$ref": "#/$defs/StoryAlternate"
+      }
+    },
+    "meta_data": {
+      "type": ["object", "null"],
+      "description": "Arbitrary custom metadata key-value pairs attached to the story.",
+      "additionalProperties": true
+    },
+    "path": {
+      "type": ["string", "null"],
+      "description": "Custom URL path override for the story, used instead of the full_slug."
+    }
+  },
+  "$defs": {
+    "TranslatedSlug": {
+      "type": "object",
+      "description": "A language-specific slug override for an alternate language version of a story.",
+      "required": ["lang", "path"],
+      "properties": {
+        "lang": {
+          "type": "string",
+          "description": "ISO language code for this translated slug, such as de or fr."
+        },
+        "path": {
+          "type": "string",
+          "description": "The translated slug path for this language version."
+        },
+        "name": {
+          "type": ["string", "null"],
+          "description": "Optional translated display name for this language version."
+        }
+      }
+    },
+    "StoryAlternate": {
+      "type": "object",
+      "description": "Brief metadata about an alternate language version of a story.",
+      "required": ["id", "full_slug"],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "description": "Numeric ID of the alternate story."
+        },
+        "name": {
+          "type": "string",
+          "description": "Display name of the alternate story."
+        },
+        "slug": {
+          "type": "string",
+          "description": "Slug segment of the alternate story."
+        },
+        "full_slug": {
+          "type": "string",
+          "description": "Full path of the alternate story."
+        },
+        "is_folder": {
+          "type": "boolean",
+          "description": "True if the alternate is a folder."
+        },
+        "parent_id": {
+          "type": ["integer", "null"],
+          "description": "Parent folder ID of the alternate story."
+        }
+      }
+    },
+    "ContentBlock": {
+      "type": "object",
+      "description": "A nestable content block within a story's content tree. Each block is identified by a component type and a unique block ID.",
+      "required": ["component", "_uid"],
+      "properties": {
+        "component": {
+          "type": "string",
+          "description": "Technical name of the component schema defining this block's fields."
+        },
+        "_uid": {
+          "type": "string",
+          "format": "uuid",
+          "description": "Unique identifier for this content block instance."
+        }
+      },
+      "additionalProperties": true
+    }
+  }
+}

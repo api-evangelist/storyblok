@@ -1,0 +1,216 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://storyblok.com/schemas/webhook-payload.json",
+  "title": "Storyblok Webhook Payload",
+  "description": "The payload delivered by Storyblok to registered webhook endpoint URLs when subscribed events occur in a space. Payloads are delivered as HTTP POST requests with Content-Type: application/json. An optional webhook-signature HMAC-SHA1 header is included when a webhook secret is configured.",
+  "type": "object",
+  "required": ["action", "space_id", "text"],
+  "properties": {
+    "action": {
+      "type": "string",
+      "description": "The event action that triggered the webhook delivery. Identifies the type of event and the affected resource type.",
+      "enum": [
+        "published",
+        "unpublished",
+        "deleted",
+        "moved",
+        "created",
+        "entries_updated"
+      ]
+    },
+    "space_id": {
+      "type": "integer",
+      "description": "Numeric ID of the Storyblok space in which the event occurred."
+    },
+    "text": {
+      "type": "string",
+      "description": "Human-readable description of the event including the resource name, ID, and action performed."
+    },
+    "story_id": {
+      "type": "integer",
+      "description": "Numeric ID of the story that triggered the event. Present for story.published, story.unpublished, story.deleted, and story.moved events."
+    },
+    "full_slug": {
+      "type": "string",
+      "description": "Full URL slug of the affected story at the time of the event. Present for story.published and story.moved events."
+    },
+    "asset_id": {
+      "type": "integer",
+      "description": "Numeric ID of the asset that triggered the event. Present for asset.created and asset.deleted events."
+    },
+    "datasource_id": {
+      "type": "integer",
+      "description": "Numeric ID of the datasource whose entries were updated. Present for datasource.entries_updated events."
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/$defs/StoryPublishedPayload"
+    },
+    {
+      "$ref": "#/$defs/StoryUnpublishedPayload"
+    },
+    {
+      "$ref": "#/$defs/StoryDeletedPayload"
+    },
+    {
+      "$ref": "#/$defs/StoryMovedPayload"
+    },
+    {
+      "$ref": "#/$defs/AssetEventPayload"
+    },
+    {
+      "$ref": "#/$defs/DatasourceEventPayload"
+    }
+  ],
+  "$defs": {
+    "StoryPublishedPayload": {
+      "type": "object",
+      "description": "Webhook payload for the story.published event, delivered when a story is published.",
+      "required": ["action", "story_id", "space_id", "text", "full_slug"],
+      "properties": {
+        "action": {
+          "type": "string",
+          "const": "published",
+          "description": "Always published for this event type."
+        },
+        "story_id": {
+          "type": "integer",
+          "description": "ID of the story that was published."
+        },
+        "space_id": {
+          "type": "integer",
+          "description": "ID of the space containing the published story."
+        },
+        "full_slug": {
+          "type": "string",
+          "description": "Full URL slug of the published story."
+        },
+        "text": {
+          "type": "string",
+          "description": "Human-readable description of the publication event."
+        }
+      }
+    },
+    "StoryUnpublishedPayload": {
+      "type": "object",
+      "description": "Webhook payload for the story.unpublished event, delivered when a story is removed from public access.",
+      "required": ["action", "story_id", "space_id", "text"],
+      "properties": {
+        "action": {
+          "type": "string",
+          "const": "unpublished",
+          "description": "Always unpublished for this event type."
+        },
+        "story_id": {
+          "type": "integer",
+          "description": "ID of the story that was unpublished."
+        },
+        "space_id": {
+          "type": "integer",
+          "description": "ID of the space containing the story."
+        },
+        "text": {
+          "type": "string",
+          "description": "Human-readable description of the unpublish event."
+        }
+      }
+    },
+    "StoryDeletedPayload": {
+      "type": "object",
+      "description": "Webhook payload for the story.deleted event, delivered when a story is permanently removed from the space.",
+      "required": ["action", "story_id", "space_id", "text"],
+      "properties": {
+        "action": {
+          "type": "string",
+          "const": "deleted",
+          "description": "Always deleted for this event type."
+        },
+        "story_id": {
+          "type": "integer",
+          "description": "ID of the story that was deleted."
+        },
+        "space_id": {
+          "type": "integer",
+          "description": "ID of the space from which the story was deleted."
+        },
+        "text": {
+          "type": "string",
+          "description": "Human-readable description of the deletion event."
+        }
+      }
+    },
+    "StoryMovedPayload": {
+      "type": "object",
+      "description": "Webhook payload for the story.moved event, delivered when a story is moved to a different folder.",
+      "required": ["action", "story_id", "space_id", "text"],
+      "properties": {
+        "action": {
+          "type": "string",
+          "const": "moved",
+          "description": "Always moved for this event type."
+        },
+        "story_id": {
+          "type": "integer",
+          "description": "ID of the story that was moved."
+        },
+        "space_id": {
+          "type": "integer",
+          "description": "ID of the space containing the story."
+        },
+        "text": {
+          "type": "string",
+          "description": "Human-readable description of the move event."
+        }
+      }
+    },
+    "AssetEventPayload": {
+      "type": "object",
+      "description": "Webhook payload for asset events including asset.created and asset.deleted.",
+      "required": ["action", "asset_id", "space_id", "text"],
+      "properties": {
+        "action": {
+          "type": "string",
+          "enum": ["created", "deleted"],
+          "description": "The asset action: created when a new asset is uploaded, deleted when an asset is removed."
+        },
+        "asset_id": {
+          "type": "integer",
+          "description": "ID of the asset that was created or deleted."
+        },
+        "space_id": {
+          "type": "integer",
+          "description": "ID of the space containing the asset."
+        },
+        "text": {
+          "type": "string",
+          "description": "Human-readable description of the asset event."
+        }
+      }
+    },
+    "DatasourceEventPayload": {
+      "type": "object",
+      "description": "Webhook payload for datasource.entries_updated events, delivered when datasource entries change.",
+      "required": ["action", "datasource_id", "space_id", "text"],
+      "properties": {
+        "action": {
+          "type": "string",
+          "const": "entries_updated",
+          "description": "Always entries_updated for datasource events."
+        },
+        "datasource_id": {
+          "type": "integer",
+          "description": "ID of the datasource whose entries were updated."
+        },
+        "space_id": {
+          "type": "integer",
+          "description": "ID of the space containing the datasource."
+        },
+        "text": {
+          "type": "string",
+          "description": "Human-readable description of the datasource update event."
+        }
+      }
+    }
+  }
+}

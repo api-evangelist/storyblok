@@ -1,0 +1,254 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "storyblok": "https://www.storyblok.com/vocab/",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "dcterms": "http://purl.org/dc/terms/",
+    "owl": "http://www.w3.org/2002/07/owl#",
+
+    "Story": {
+      "@id": "storyblok:Story",
+      "@context": {
+        "id": "schema:identifier",
+        "uuid": {
+          "@id": "storyblok:uuid",
+          "@type": "@id"
+        },
+        "name": "schema:name",
+        "slug": "storyblok:slug",
+        "fullSlug": "storyblok:fullSlug",
+        "content": "schema:mainContentOfPage",
+        "isStartpage": "storyblok:isStartpage",
+        "isFolder": "storyblok:isFolder",
+        "parentId": "storyblok:parentId",
+        "groupId": {
+          "@id": "storyblok:groupId",
+          "@type": "@id"
+        },
+        "published": "schema:isAccessibleForFree",
+        "publishedAt": {
+          "@id": "schema:datePublished",
+          "@type": "xsd:dateTime"
+        },
+        "firstPublishedAt": {
+          "@id": "storyblok:firstPublishedAt",
+          "@type": "xsd:dateTime"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        },
+        "tagList": {
+          "@id": "schema:keywords",
+          "@container": "@set"
+        },
+        "position": "schema:position",
+        "alternates": {
+          "@id": "schema:workTranslation",
+          "@container": "@set"
+        },
+        "translatedSlugs": {
+          "@id": "storyblok:translatedSlugs",
+          "@container": "@set"
+        },
+        "path": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "metaData": "storyblok:metaData"
+      }
+    },
+
+    "Space": {
+      "@id": "storyblok:Space",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "domain": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "plan": "storyblok:plan",
+        "planLevel": "storyblok:planLevel",
+        "defaultLang": "storyblok:defaultLang",
+        "languages": {
+          "@id": "schema:availableLanguage",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "storiesCount": "storyblok:storiesCount",
+        "assetsCount": "storyblok:assetsCount",
+        "collaboratorsCount": "storyblok:collaboratorsCount"
+      }
+    },
+
+    "Component": {
+      "@id": "storyblok:Component",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "displayName": "storyblok:displayName",
+        "isRoot": "storyblok:isRoot",
+        "isNestable": "storyblok:isNestable",
+        "schema": "storyblok:schema",
+        "componentGroupUuid": {
+          "@id": "storyblok:componentGroupUuid",
+          "@type": "@id"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Asset": {
+      "@id": "storyblok:Asset",
+      "@context": {
+        "id": "schema:identifier",
+        "filename": {
+          "@id": "schema:contentUrl",
+          "@type": "@id"
+        },
+        "contentType": "schema:encodingFormat",
+        "contentLength": "schema:contentSize",
+        "alt": "schema:description",
+        "title": "schema:name",
+        "copyright": "dcterms:rights",
+        "focus": "storyblok:focus",
+        "isPrivate": "storyblok:isPrivate",
+        "assetFolderId": "storyblok:assetFolderId",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Datasource": {
+      "@id": "storyblok:Datasource",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "slug": "storyblok:slug",
+        "dimensions": {
+          "@id": "storyblok:dimensions",
+          "@container": "@set"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "DatasourceEntry": {
+      "@id": "storyblok:DatasourceEntry",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "value": "schema:value",
+        "dimensionValue": "storyblok:dimensionValue"
+      }
+    },
+
+    "WebhookEndpoint": {
+      "@id": "storyblok:WebhookEndpoint",
+      "@context": {
+        "id": "schema:identifier",
+        "name": "schema:name",
+        "url": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "actions": {
+          "@id": "storyblok:actions",
+          "@container": "@set"
+        },
+        "description": "schema:description",
+        "activated": "schema:isAccessibleForFree",
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    },
+
+    "Collaborator": {
+      "@id": "storyblok:Collaborator",
+      "@context": {
+        "id": "schema:identifier",
+        "userId": "storyblok:userId",
+        "role": "schema:roleName",
+        "invited": "storyblok:invited",
+        "user": "schema:Person"
+      }
+    },
+
+    "Tag": {
+      "@id": "storyblok:Tag",
+      "@context": {
+        "name": "schema:name",
+        "taggingsCount": "storyblok:taggingsCount"
+      }
+    },
+
+    "Link": {
+      "@id": "storyblok:Link",
+      "@context": {
+        "id": "schema:identifier",
+        "uuid": {
+          "@id": "storyblok:uuid",
+          "@type": "@id"
+        },
+        "name": "schema:name",
+        "slug": "storyblok:slug",
+        "isFolder": "storyblok:isFolder",
+        "isStartpage": "storyblok:isStartpage",
+        "parentId": "storyblok:parentId",
+        "published": "schema:isAccessibleForFree",
+        "position": "schema:position",
+        "realPath": {
+          "@id": "schema:url",
+          "@type": "@id"
+        },
+        "publishedAt": {
+          "@id": "schema:datePublished",
+          "@type": "xsd:dateTime"
+        },
+        "createdAt": {
+          "@id": "dcterms:created",
+          "@type": "xsd:dateTime"
+        },
+        "updatedAt": {
+          "@id": "dcterms:modified",
+          "@type": "xsd:dateTime"
+        }
+      }
+    }
+  }
+}

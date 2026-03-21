@@ -1,0 +1,220 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Image Service
+  description: >-
+    The Storyblok Image Service is a URL-based image transformation API that
+    allows developers to resize, crop, convert, and optimize images hosted in
+    Storyblok's asset CDN. Transformations are applied by constructing a
+    specific URL with path segments and filter parameters that specify
+    dimensions, format conversion, quality, focal point, and filter effects.
+    The service eliminates the need for a separate image processing pipeline
+    and is suitable for responsive images, thumbnails, and format-optimized
+    delivery across web and mobile applications. Images are served via a
+    global CDN for fast delivery.
+  version: '2'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+externalDocs:
+  description: Storyblok Image Service Documentation
+  url: https://www.storyblok.com/docs/api/image-service
+servers:
+  - url: https://img2.storyblok.com
+    description: Storyblok Image CDN
+tags:
+  - name: Image Transformation
+    description: >-
+      URL-based image transformation operations applied by constructing a
+      specific path structure following the base asset URL. All operations
+      require the /m/ path segment prefix.
+paths:
+  /{asset_path}/m/:
+    get:
+      operationId: getOriginalImage
+      summary: Retrieve original image with transformation routing enabled
+      description: >-
+        Returns the original image without any transformation. The /m/ path
+        segment activates the Image Service transformation routing for all
+        subsequent operations. Any further path segments after /m/ apply
+        transformations such as resizing, cropping, and filter effects.
+      tags:
+        - Image Transformation
+      parameters:
+        - $ref: '#/components/parameters/AssetPath'
+      responses:
+        '200':
+          description: The image was returned successfully.
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /{asset_path}/m/{width}x{height}:
+    get:
+      operationId: resizeImage
+      summary: Resize an image to specified dimensions
+      description: >-
+        Returns the image resized to the specified width and height in pixels.
+        If only width is provided (e.g., 500x0), the height is scaled
+        proportionally. If only height is provided (e.g., 0x300), the width
+        is scaled proportionally. Both dimensions set to 0 returns the original
+        size.
+      tags:
+        - Image Transformation
+      parameters:
+        - $ref: '#/components/parameters/AssetPath'
+        - name: width
+          in: path
+          description: >-
+            Target width in pixels. Set to 0 to scale proportionally
+            based on height.
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          example: 500
+        - name: height
+          in: path
+          description: >-
+            Target height in pixels. Set to 0 to scale proportionally
+            based on width.
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          example: 300
+      responses:
+        '200':
+          description: The resized image was returned successfully.
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /{asset_path}/m/{width}x{height}/filters:{filter_chain}:
+    get:
+      operationId: transformImageWithFilters
+      summary: Transform image with resize and filter chain
+      description: >-
+        Returns the image after applying a resize operation and one or more
+        filters. Filters are chained using colons in the filter_chain path
+        segment. Supported filter functions include format(webp|jpeg|png|avif),
+        quality(0-100), fill(color_hex), blur(amount), grayscale(), focal(x:y),
+        rotate(degrees), brightness(amount), and crop(top_left_x, top_left_y,
+        bottom_right_x, bottom_right_y). Multiple filters are separated by
+        colons, for example filters:format(webp):quality(80).
+      tags:
+        - Image Transformation
+      parameters:
+        - $ref: '#/components/parameters/AssetPath'
+        - name: width
+          in: path
+          description: Target width in pixels. Set to 0 for proportional scaling.
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          example: 800
+        - name: height
+          in: path
+          description: Target height in pixels. Set to 0 for proportional scaling.
+          required: true
+          schema:
+            type: integer
+            minimum: 0
+          example: 600
+        - name: filter_chain
+          in: path
+          description: >-
+            Colon-separated chain of filter function calls to apply to the
+            image. Each filter is specified as name(value). For example:
+            format(webp):quality(80):fill(transparent).
+          required: true
+          schema:
+            type: string
+          example: format(webp):quality(80)
+      responses:
+        '200':
+          description: The transformed image was returned successfully.
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /{asset_path}/m/fit-in/{width}x{height}:
+    get:
+      operationId: fitInImage
+      summary: Fit image within specified dimensions without cropping
+      description: >-
+        Returns the image scaled to fit within the specified width and height
+        while maintaining aspect ratio and without cropping. The resulting
+        image will not exceed the specified dimensions but may be smaller
+        if the aspect ratios differ. Combine with a fill filter to pad the
+        background color.
+      tags:
+        - Image Transformation
+      parameters:
+        - $ref: '#/components/parameters/AssetPath'
+        - name: width
+          in: path
+          description: Maximum width in pixels for the fit-in operation.
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          example: 400
+        - name: height
+          in: path
+          description: Maximum height in pixels for the fit-in operation.
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          example: 400
+      responses:
+        '200':
+          description: The fit-in image was returned successfully.
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  parameters:
+    AssetPath:
+      name: asset_path
+      in: path
+      description: >-
+        The path portion of the original Storyblok asset CDN URL after the
+        hostname. For example, if the asset URL is
+        https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path
+        is f/12345/1200x800/photo.jpg.
+      required: true
+      schema:
+        type: string
+      example: f/12345/1200x800/photo.jpg
+
+  responses:
+    NotFound:
+      description: The requested asset was not found at the given path.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              error:
+                type: string
+                description: Error message describing why the asset was not found.

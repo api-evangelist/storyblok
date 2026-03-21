@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://storyblok.com/schemas/component.json",
+  "title": "Storyblok Component",
+  "description": "A component definition in Storyblok that specifies the content schema for a story type. Components define the available fields, their types, and validation rules used by the Storyblok editor and content API.",
+  "type": "object",
+  "required": ["id", "name", "schema"],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "description": "Unique numeric identifier of the component within the space."
+    },
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9_-]+$",
+      "description": "Technical name and identifier of the component. Used as the value of the component field in story content."
+    },
+    "display_name": {
+      "type": ["string", "null"],
+      "description": "Optional human-readable display name shown in the Storyblok editor, overriding the technical name."
+    },
+    "is_root": {
+      "type": "boolean",
+      "description": "True if this component can be used as the root-level component of a story."
+    },
+    "is_nestable": {
+      "type": "boolean",
+      "description": "True if this component can be nested inside blok fields of other components."
+    },
+    "component_group_uuid": {
+      "type": ["string", "null"],
+      "format": "uuid",
+      "description": "UUID of the component group this component belongs to, used for organization in the editor."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of when the component was created."
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp of the most recent modification to the component."
+    },
+    "schema": {
+      "type": "object",
+      "description": "Map of field names to field definition objects. Each field definition specifies the type and configuration for a content field available in stories using this component.",
+      "additionalProperties": {
+        "$ref": "#/$defs/FieldDefinition"
+      }
+    },
+    "image": {
+      "type": ["string", "null"],
+      "format": "uri",
+      "description": "Optional thumbnail image URL displayed for this component in the editor."
+    },
+    "preview_field": {
+      "type": ["string", "null"],
+      "description": "Field name used as the preview label for component instances in the editor."
+    },
+    "icon": {
+      "type": ["string", "null"],
+      "description": "Icon identifier used for this component in the Storyblok editor interface."
+    },
+    "color": {
+      "type": ["string", "null"],
+      "pattern": "^#[0-9a-fA-F]{6}$",
+      "description": "Hex color code used to visually distinguish this component in the editor."
+    }
+  },
+  "$defs": {
+    "FieldDefinition": {
+      "type": "object",
+      "description": "Definition of a single content field within a component schema.",
+      "required": ["type"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "description": "The field type determining what content the field accepts and how it is rendered in the editor.",
+          "enum": [
+            "text",
+            "textarea",
+            "bloks",
+            "option",
+            "options",
+            "image",
+            "number",
+            "boolean",
+            "markdown",
+            "richtext",
+            "table",
+            "multilink",
+            "asset",
+            "multiasset",
+            "datetime",
+            "section",
+            "custom",
+            "plugin"
+          ]
+        },
+        "display_name": {
+          "type": "string",
+          "description": "Human-readable label displayed for this field in the Storyblok editor."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "True if this field must have a value before the story can be saved."
+        },
+        "description": {
+          "type": "string",
+          "description": "Help text displayed below the field in the editor."
+        },
+        "default_value": {
+          "description": "Default value pre-populated when a new story using this component is created."
+        },
+        "pos": {
+          "type": "integer",
+          "description": "Sort position of this field within the component schema for editor display ordering."
+        },
+        "translatable": {
+          "type": "boolean",
+          "description": "True if this field can have separate values per language in multi-language spaces."
+        },
+        "restrict_components": {
+          "type": "boolean",
+          "description": "For bloks fields: true if only specific whitelisted components can be added."
+        },
+        "component_whitelist": {
+          "type": "array",
+          "description": "For bloks fields with restrict_components: list of allowed component names.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "options": {
+          "type": "array",
+          "description": "For option and options fields: list of available selection choices.",
+          "items": {
+            "$ref": "#/$defs/FieldOption"
+          }
+        },
+        "source": {
+          "type": "string",
+          "description": "For option and options fields: datasource slug to populate choices from.",
+          "enum": ["internal", "external", "internal_languages", "internal_stories"]
+        },
+        "datasource_slug": {
+          "type": "string",
+          "description": "For option fields sourced from a datasource: the datasource slug to query."
+        },
+        "max_length": {
+          "type": "integer",
+          "description": "For text and textarea fields: maximum number of characters allowed."
+        },
+        "min_value": {
+          "type": "number",
+          "description": "For number fields: minimum numeric value allowed."
+        },
+        "max_value": {
+          "type": "number",
+          "description": "For number fields: maximum numeric value allowed."
+        },
+        "filetypes": {
+          "type": "array",
+          "description": "For asset fields: list of allowed file type extensions.",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "FieldOption": {
+      "type": "object",
+      "description": "A selectable option for option and options field types.",
+      "required": ["name", "value"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Display label for this option shown in the editor dropdown or checkbox list."
+        },
+        "value": {
+          "type": "string",
+          "description": "The actual value stored in story content when this option is selected."
+        }
+      }
+    }
+  }
+}

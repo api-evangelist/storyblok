@@ -1,0 +1,945 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Content Delivery API v2
+  description: >-
+    The Storyblok Content Delivery API v2 is a REST API that enables developers
+    to fetch published content from a Storyblok space for delivery to end users
+    across web, mobile, and other channels. It provides access to stories,
+    datasources, links, tags, and asset metadata through predictable endpoints
+    with token-based authentication. The API supports filtering, pagination,
+    full-text search, and relation resolution, allowing developers to retrieve
+    precisely the content their application needs. It is optimized for
+    performance and available across multiple regional endpoints to minimize
+    latency for global deployments.
+  version: '2'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+externalDocs:
+  description: Storyblok Content Delivery API v2 Documentation
+  url: https://www.storyblok.com/docs/api/content-delivery/v2
+servers:
+  - url: https://api.storyblok.com/v2/cdn
+    description: Global Production Server
+  - url: https://api-us.storyblok.com/v2/cdn
+    description: US Production Server
+  - url: https://api-ap.storyblok.com/v2/cdn
+    description: Asia-Pacific Production Server
+  - url: https://api-ca.storyblok.com/v2/cdn
+    description: Canada Production Server
+  - url: https://api-cn.storyblok.com/v2/cdn
+    description: China Production Server
+tags:
+  - name: Stories
+    description: >-
+      Stories are the content entries in Storyblok. Each story is defined by
+      a component schema and holds the content of a page, post, or any other
+      structured content type.
+  - name: Datasources
+    description: >-
+      Datasources are reusable key-value collections used for options lists,
+      translations, and configuration data within Storyblok spaces.
+  - name: Links
+    description: >-
+      The links endpoint returns a flat or tree-structured list of all story
+      URLs in a space, suitable for navigation generation and sitemap building.
+  - name: Tags
+    description: >-
+      Tags are labels attached to stories to support filtering and
+      categorization of content in a Storyblok space.
+security:
+  - apiToken: []
+paths:
+  /stories:
+    get:
+      operationId: listStories
+      summary: List multiple stories
+      description: >-
+        Returns a paginated list of published stories from the space. Stories
+        can be filtered by slug, tag, component type, and custom fields. The
+        response includes the story content along with metadata such as
+        publication dates and alternate language versions. Pagination is
+        controlled via the page and per_page query parameters.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/Token'
+        - $ref: '#/components/parameters/Version'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: starts_with
+          in: query
+          description: >-
+            Filter stories by full_slug prefix. Only stories whose full_slug
+            starts with the given value are returned. Useful for fetching
+            content within a specific folder.
+          required: false
+          schema:
+            type: string
+          example: blog/
+        - name: by_slugs
+          in: query
+          description: >-
+            Comma-separated list of full_slug values to retrieve specific
+            stories by their slugs.
+          required: false
+          schema:
+            type: string
+        - name: excluding_slugs
+          in: query
+          description: >-
+            Comma-separated list of full_slug values to exclude from the
+            results.
+          required: false
+          schema:
+            type: string
+        - name: with_tag
+          in: query
+          description: >-
+            Comma-separated list of tag slugs to filter stories by. Multiple
+            tags are treated as an OR condition.
+          required: false
+          schema:
+            type: string
+        - name: is_startpage
+          in: query
+          description: >-
+            Set to 1 to only return folder start pages. Set to 0 to exclude
+            them. Omit to return all stories.
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: sort_by
+          in: query
+          description: >-
+            Sort the response by a specific field and direction. Supports all
+            default story fields and custom fields defined in the component
+            schema. Format: field:asc or field:desc.
+          required: false
+          schema:
+            type: string
+          example: published_at:desc
+        - name: search_term
+          in: query
+          description: >-
+            Full-text search term to filter stories whose content fields
+            contain the given string.
+          required: false
+          schema:
+            type: string
+        - name: resolve_relations
+          in: query
+          description: >-
+            Comma-separated list of component.field paths to resolve referenced
+            story relations inline in the response.
+          required: false
+          schema:
+            type: string
+        - name: resolve_links
+          in: query
+          description: >-
+            Set to story to resolve story link fields. Set to url to resolve
+            to the story URL string.
+          required: false
+          schema:
+            type: string
+            enum: [story, url]
+        - name: language
+          in: query
+          description: >-
+            ISO language code to return the story content in the specified
+            language. Falls back to the default language if the translation
+            is unavailable.
+          required: false
+          schema:
+            type: string
+          example: en
+        - name: fallback_lang
+          in: query
+          description: >-
+            Fallback language code used when the requested language translation
+            is not available.
+          required: false
+          schema:
+            type: string
+        - name: filter_query
+          in: query
+          description: >-
+            Object to filter stories by custom field values using operators
+            such as in, not_in, like, gt-int, lt-int. Keys are field paths
+            relative to the story content object.
+          required: false
+          schema:
+            type: object
+            additionalProperties: true
+        - name: by_uuids
+          in: query
+          description: >-
+            Comma-separated list of story UUIDs to retrieve specific stories
+            by their unique identifiers.
+          required: false
+          schema:
+            type: string
+        - name: excluding_ids
+          in: query
+          description: >-
+            Comma-separated list of story IDs to exclude from the results.
+          required: false
+          schema:
+            type: string
+        - name: per_page
+          in: query
+          description: >-
+            Number of stories to return per page. Maximum 100.
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+            maximum: 100
+            default: 25
+        - name: cv
+          in: query
+          description: >-
+            Cache version timestamp. Pass the current Unix timestamp to
+            bypass CDN caching and retrieve the latest content.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of stories was returned successfully.
+          headers:
+            Total:
+              description: Total number of stories matching the query.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Story'
+                  cv:
+                    type: integer
+                    description: Cache version value for subsequent requests.
+                  rels:
+                    type: array
+                    description: Resolved relation stories when resolve_relations is used.
+                    items:
+                      $ref: '#/components/schemas/Story'
+                  links:
+                    type: array
+                    description: Resolved link stories when resolve_links is set to story.
+                    items:
+                      $ref: '#/components/schemas/Story'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /stories/{slug}:
+    get:
+      operationId: getStoryBySlug
+      summary: Retrieve a single story by slug
+      description: >-
+        Returns a single published story identified by its full_slug. The slug
+        is the path of the story within the space, such as home or blog/my-post.
+        The response includes the full story content, metadata, and optionally
+        resolved relations and links.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/StorySlug'
+        - $ref: '#/components/parameters/Token'
+        - $ref: '#/components/parameters/Version'
+        - name: resolve_relations
+          in: query
+          description: >-
+            Comma-separated list of component.field paths to resolve referenced
+            story relations inline in the response.
+          required: false
+          schema:
+            type: string
+        - name: resolve_links
+          in: query
+          description: >-
+            Set to story to resolve story link fields. Set to url to resolve
+            to the story URL string.
+          required: false
+          schema:
+            type: string
+            enum: [story, url]
+        - name: language
+          in: query
+          description: >-
+            ISO language code to return the story content in the specified
+            language.
+          required: false
+          schema:
+            type: string
+        - name: cv
+          in: query
+          description: >-
+            Cache version timestamp to bypass CDN caching.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The story was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  story:
+                    $ref: '#/components/schemas/Story'
+                  cv:
+                    type: integer
+                    description: Cache version value.
+                  rels:
+                    type: array
+                    description: Resolved relation stories.
+                    items:
+                      $ref: '#/components/schemas/Story'
+                  links:
+                    type: array
+                    description: Resolved link stories.
+                    items:
+                      $ref: '#/components/schemas/Story'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /stories/{id}:
+    get:
+      operationId: getStoryById
+      summary: Retrieve a single story by ID
+      description: >-
+        Returns a single published story identified by its numeric ID. This
+        endpoint is useful when you have a story ID from a relation field
+        and need to retrieve the full story object.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/StoryId'
+        - $ref: '#/components/parameters/Token'
+        - $ref: '#/components/parameters/Version'
+        - name: language
+          in: query
+          description: ISO language code to return the story content in.
+          required: false
+          schema:
+            type: string
+        - name: cv
+          in: query
+          description: Cache version timestamp to bypass CDN caching.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The story was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  story:
+                    $ref: '#/components/schemas/Story'
+                  cv:
+                    type: integer
+                    description: Cache version value.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /datasources:
+    get:
+      operationId: listDatasources
+      summary: List all datasources
+      description: >-
+        Returns a list of all datasources defined in the space. Datasources are
+        reusable collections of key-value pairs used for options lists,
+        translations, and configuration. Use this endpoint to discover available
+        datasources before fetching their entries.
+      tags:
+        - Datasources
+      parameters:
+        - $ref: '#/components/parameters/Token'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: search
+          in: query
+          description: Filter datasources by name using a partial text match.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of datasources was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Datasource'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /datasource_entries:
+    get:
+      operationId: listDatasourceEntries
+      summary: List datasource entries
+      description: >-
+        Returns the key-value entries for a specific datasource. Optionally
+        filter by dimension to retrieve locale-specific or variant values.
+        Results are paginated and can be filtered by datasource slug or ID.
+      tags:
+        - Datasources
+      parameters:
+        - $ref: '#/components/parameters/Token'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: datasource
+          in: query
+          description: >-
+            The slug of the datasource to retrieve entries from.
+          required: false
+          schema:
+            type: string
+          example: colors
+        - name: datasource_id
+          in: query
+          description: >-
+            The numeric ID of the datasource to retrieve entries from.
+          required: false
+          schema:
+            type: integer
+        - name: dimension
+          in: query
+          description: >-
+            Dimension slug to retrieve dimension-specific values alongside
+            the default values.
+          required: false
+          schema:
+            type: string
+        - name: cv
+          in: query
+          description: Cache version timestamp to bypass CDN caching.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of datasource entries was returned successfully.
+          headers:
+            Total:
+              description: Total number of entries in the datasource.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasource_entries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatasourceEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /links:
+    get:
+      operationId: listLinks
+      summary: List all links
+      description: >-
+        Returns a flat or tree-structured map of all story URLs in the space.
+        This endpoint is commonly used to generate navigation menus, breadcrumbs,
+        and sitemaps. The response is keyed by story UUID and each entry contains
+        the slug, name, and parent information.
+      tags:
+        - Links
+      parameters:
+        - $ref: '#/components/parameters/Token'
+        - $ref: '#/components/parameters/Version'
+        - name: starts_with
+          in: query
+          description: >-
+            Filter links by full_slug prefix to return only links in a
+            specific folder.
+          required: false
+          schema:
+            type: string
+        - name: paginated
+          in: query
+          description: >-
+            Set to 1 to enable pagination on the links response. When enabled,
+            use page and per_page parameters to control the result set.
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: including_dates
+          in: query
+          description: >-
+            Set to 1 to include published_at, created_at, and updated_at
+            timestamps in each link entry.
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: cv
+          in: query
+          description: Cache version timestamp to bypass CDN caching.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A map of links was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  links:
+                    type: object
+                    description: >-
+                      Map of story UUID to link object representing all
+                      stories in the space.
+                    additionalProperties:
+                      $ref: '#/components/schemas/Link'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /tags:
+    get:
+      operationId: listTags
+      summary: List all tags
+      description: >-
+        Returns a list of all tags used in published stories within the space.
+        Tags can be used to filter stories by calling the stories endpoint with
+        the with_tag parameter.
+      tags:
+        - Tags
+      parameters:
+        - $ref: '#/components/parameters/Token'
+        - name: starts_with
+          in: query
+          description: >-
+            Filter tags by prefix. Only tags whose name starts with the given
+            value are returned.
+          required: false
+          schema:
+            type: string
+        - name: cv
+          in: query
+          description: Cache version timestamp to bypass CDN caching.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A list of tags was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tags:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Tag'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: query
+      name: token
+      description: >-
+        Public API token for accessing published content, or Preview API token
+        for accessing draft and published content. Tokens are scoped to a
+        specific Storyblok space.
+
+  parameters:
+    Token:
+      name: token
+      in: query
+      description: >-
+        The API access token for the space. Use the public token to access
+        published content or the preview token to access draft content.
+      required: true
+      schema:
+        type: string
+      example: your-public-token
+
+    Version:
+      name: version
+      in: query
+      description: >-
+        Content version to retrieve. Use published to get published content
+        (default) or draft to get the latest saved draft. The draft version
+        requires the preview API token.
+      required: false
+      schema:
+        type: string
+        enum: [published, draft]
+        default: published
+
+    Page:
+      name: page
+      in: query
+      description: >-
+        Page number for paginated results. Starts at 1. Requesting a page
+        higher than the last available page returns an empty array.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+
+    PerPage:
+      name: per_page
+      in: query
+      description: >-
+        Number of items to return per page. Maximum is 100 for most endpoints.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+
+    StorySlug:
+      name: slug
+      in: path
+      description: >-
+        The full_slug of the story, which is the path within the space such
+        as home or blog/my-post.
+      required: true
+      schema:
+        type: string
+      example: blog/my-first-post
+
+    StoryId:
+      name: id
+      in: path
+      description: The numeric ID of the story.
+      required: true
+      schema:
+        type: integer
+      example: 123456
+
+  responses:
+    Unauthorized:
+      description: >-
+        The request was not authenticated. Ensure the token query parameter
+        contains a valid public or preview API token for the space.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFound:
+      description: >-
+        The requested story was not found. Check that the slug or ID is
+        correct and that the story is published when using the public token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    UnprocessableEntity:
+      description: >-
+        The request parameters were invalid. Check the query parameter values
+        for format errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Story:
+      type: object
+      description: >-
+        A story is a content entry in Storyblok. It holds structured content
+        defined by a component schema and metadata such as dates, slug, and
+        language alternates.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the story.
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier of the story.
+        name:
+          type: string
+          description: Display name of the story as shown in the Storyblok editor.
+        slug:
+          type: string
+          description: >-
+            URL-safe slug of the story within its parent folder.
+        full_slug:
+          type: string
+          description: >-
+            Full path of the story including any parent folder slugs, used
+            as the primary URL identifier.
+        content:
+          type: object
+          description: >-
+            The story content as a nested JSON object. The structure is
+            determined by the component schema assigned to this story. Always
+            includes a component field with the component type name.
+          additionalProperties: true
+        is_startpage:
+          type: boolean
+          description: >-
+            True if this story is the start page (index) of its parent folder.
+        parent_id:
+          type: integer
+          nullable: true
+          description: Numeric ID of the parent folder story, or null if at root.
+        group_id:
+          type: string
+          format: uuid
+          description: >-
+            UUID used to group alternate language versions of the same story.
+        first_published_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: ISO 8601 timestamp of when the story was first published.
+        published_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: ISO 8601 timestamp of when the story was most recently published.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the story was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of the most recent update.
+        sort_by_date:
+          type: string
+          nullable: true
+          description: Optional date string used for custom date-based sorting.
+        tag_list:
+          type: array
+          description: List of tag slugs attached to this story.
+          items:
+            type: string
+        is_folder:
+          type: boolean
+          description: True if this story is a folder rather than a content entry.
+        default_full_slug:
+          type: string
+          nullable: true
+          description: Default language full_slug when the story has language alternates.
+        translated_slugs:
+          type: array
+          description: >-
+            Language-specific slug overrides for alternate language versions.
+          items:
+            type: object
+            properties:
+              path:
+                type: string
+                description: Translated slug path.
+              name:
+                type: string
+                nullable: true
+                description: Translated story name.
+              lang:
+                type: string
+                description: Language code for this translation.
+        alternates:
+          type: array
+          description: >-
+            Metadata about alternate language versions of this story.
+          items:
+            $ref: '#/components/schemas/StoryAlternate'
+
+    StoryAlternate:
+      type: object
+      description: Metadata about an alternate language version of a story.
+      properties:
+        id:
+          type: integer
+          description: Numeric ID of the alternate story.
+        name:
+          type: string
+          description: Name of the alternate story.
+        slug:
+          type: string
+          description: Slug of the alternate story.
+        full_slug:
+          type: string
+          description: Full slug of the alternate story.
+        is_folder:
+          type: boolean
+          description: True if the alternate story is a folder.
+        parent_id:
+          type: integer
+          nullable: true
+          description: Parent ID of the alternate story.
+
+    Datasource:
+      type: object
+      description: >-
+        A datasource is a named collection of key-value entries used for
+        options lists, translations, and other reusable configuration values.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the datasource.
+        name:
+          type: string
+          description: Human-readable name of the datasource.
+        slug:
+          type: string
+          description: URL-safe slug used to query the datasource entries.
+        dimensions:
+          type: array
+          description: >-
+            List of dimensions defined for this datasource, enabling
+            locale-specific or variant values alongside default values.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Unique ID of the dimension.
+              name:
+                type: string
+                description: Display name of the dimension.
+              entry_value:
+                type: string
+                description: Dimension slug used in API queries.
+              datasource_id:
+                type: integer
+                description: ID of the parent datasource.
+              created_at:
+                type: string
+                format: date-time
+                description: Creation timestamp.
+              updated_at:
+                type: string
+                format: date-time
+                description: Last update timestamp.
+
+    DatasourceEntry:
+      type: object
+      description: >-
+        A single key-value entry within a datasource. Optionally includes a
+        dimension-specific value when a dimension filter is applied.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the datasource entry.
+        name:
+          type: string
+          description: Human-readable label for this entry, often used as display text.
+        value:
+          type: string
+          description: The value associated with this entry's key.
+        dimension_value:
+          type: string
+          nullable: true
+          description: >-
+            Dimension-specific value returned when a dimension query parameter
+            is provided.
+
+    Link:
+      type: object
+      description: >-
+        A link entry representing a story's position in the space hierarchy,
+        including its URL slug, parent, and folder status.
+      properties:
+        id:
+          type: integer
+          description: Numeric ID of the story.
+        slug:
+          type: string
+          description: Slug segment of the story within its parent folder.
+        name:
+          type: string
+          description: Display name of the story.
+        is_folder:
+          type: boolean
+          description: True if this link represents a folder.
+        parent_id:
+          type: integer
+          nullable: true
+          description: Numeric ID of the parent folder, or null if at root.
+        published:
+          type: boolean
+          description: True if the story is currently published.
+        position:
+          type: integer
+          description: Sort position of the story within its parent folder.
+        uuid:
+          type: string
+          format: uuid
+          description: UUID of the story.
+        is_startpage:
+          type: boolean
+          description: True if this story is the start page of its parent folder.
+        real_path:
+          type: string
+          nullable: true
+          description: Custom URL path override if set on the story.
+        published_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of last publication. Only returned when including_dates=1.
+        created_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Creation timestamp. Only returned when including_dates=1.
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Last update timestamp. Only returned when including_dates=1.
+
+    Tag:
+      type: object
+      description: A tag label attached to stories for filtering and categorization.
+      properties:
+        name:
+          type: string
+          description: The tag name as it appears on stories.
+        taggings_count:
+          type: integer
+          description: Number of published stories that have this tag applied.
+
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable error message describing what went wrong.

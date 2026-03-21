@@ -1,0 +1,350 @@
+asyncapi: 2.6.0
+info:
+  title: Storyblok Webhooks
+  description: >-
+    The Storyblok Webhook system delivers real-time event notifications to
+    registered HTTP endpoints when content events occur in a Storyblok space.
+    Events are triggered by actions such as story publication, unpublication,
+    deletion, asset upload, and datasource updates. Webhook payloads are
+    delivered as HTTP POST requests with a JSON body and an optional
+    HMAC-SHA1 signature header for payload integrity verification.
+    Webhooks are configured per space and managed via the Management API or
+    the Storyblok dashboard.
+  version: '1'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+externalDocs:
+  description: Storyblok Webhooks Documentation
+  url: https://www.storyblok.com/docs/concepts/webhooks
+servers:
+  customerEndpoint:
+    url: '{webhookUrl}'
+    protocol: https
+    description: >-
+      The customer-defined HTTPS endpoint registered to receive webhook event
+      notifications from Storyblok. The URL is configured when creating a
+      webhook endpoint via the Management API or dashboard.
+    variables:
+      webhookUrl:
+        description: >-
+          The fully-qualified HTTPS URL of the endpoint that will receive
+          webhook POST requests from Storyblok.
+    security:
+      - webhookSignature: []
+channels:
+  /webhook:
+    description: >-
+      The webhook delivery channel. Storyblok POSTs event payloads to the
+      registered endpoint URL when subscribed actions occur in the space.
+      The endpoint must respond with a 2xx HTTP status code within 120 seconds
+      to be considered a successful delivery. For long-running tasks, respond
+      immediately with 202 Accepted and process asynchronously.
+    publish:
+      operationId: receiveStoryblokEvent
+      summary: Receive a Storyblok space event notification
+      description: >-
+        Called by Storyblok when a subscribed event fires in the space. The
+        payload identifies the action type, the affected resource IDs, and the
+        space context. Verify the webhook-signature header before processing
+        the payload to ensure the request originated from Storyblok.
+      message:
+        oneOf:
+          - $ref: '#/components/messages/StoryPublished'
+          - $ref: '#/components/messages/StoryUnpublished'
+          - $ref: '#/components/messages/StoryDeleted'
+          - $ref: '#/components/messages/StoryMoved'
+          - $ref: '#/components/messages/AssetCreated'
+          - $ref: '#/components/messages/AssetDeleted'
+          - $ref: '#/components/messages/DatasourceEntriesUpdated'
+components:
+  securitySchemes:
+    webhookSignature:
+      type: httpApiKey
+      in: header
+      name: webhook-signature
+      description: >-
+        HMAC-SHA1 signature of the raw request body, generated using the
+        webhook secret configured on the endpoint. Recipients should compute
+        the HMAC-SHA1 of the raw body bytes using the shared secret and
+        compare it to this header value to verify authenticity.
+
+  messages:
+    StoryPublished:
+      name: StoryPublished
+      title: Story Published
+      summary: A story was published in the space.
+      description: >-
+        Delivered when a story transitions to published state, either via
+        the editor, the Management API, or a scheduled publication. This
+        event is useful for triggering cache invalidation, static site
+        rebuilds, or search index updates.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          webhook-signature:
+            type: string
+            description: >-
+              HMAC-SHA1 signature of the raw request body for integrity
+              verification.
+          content-type:
+            type: string
+            description: Always application/json.
+      payload:
+        $ref: '#/components/schemas/StoryEventPayload'
+      examples:
+        - name: StoryPublishedExample
+          payload:
+            action: published
+            story_id: 123456
+            space_id: 12345
+            text: Story "My Blog Post" (123456) published
+            full_slug: blog/my-blog-post
+
+    StoryUnpublished:
+      name: StoryUnpublished
+      title: Story Unpublished
+      summary: A story was unpublished in the space.
+      description: >-
+        Delivered when a published story is unpublished, removing it from
+        public access via the Content Delivery API. Useful for cache
+        invalidation and removal from search indexes.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          webhook-signature:
+            type: string
+            description: HMAC-SHA1 signature for integrity verification.
+      payload:
+        $ref: '#/components/schemas/StoryEventPayload'
+      examples:
+        - name: StoryUnpublishedExample
+          payload:
+            action: unpublished
+            story_id: 123456
+            space_id: 12345
+            text: Story "My Blog Post" (123456) unpublished
+
+    StoryDeleted:
+      name: StoryDeleted
+      title: Story Deleted
+      summary: A story was permanently deleted from the space.
+      description: >-
+        Delivered when a story is deleted from the space. After deletion, the
+        story is no longer accessible via either the Content Delivery or
+        Management APIs. Useful for cleaning up derived data such as search
+        index entries or generated files.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          webhook-signature:
+            type: string
+            description: HMAC-SHA1 signature for integrity verification.
+      payload:
+        $ref: '#/components/schemas/StoryEventPayload'
+      examples:
+        - name: StoryDeletedExample
+          payload:
+            action: deleted
+            story_id: 123456
+            space_id: 12345
+            text: Story "My Blog Post" (123456) deleted
+
+    StoryMoved:
+      name: StoryMoved
+      title: Story Moved
+      summary: A story was moved to a different folder in the space.
+      description: >-
+        Delivered when a story's position in the folder hierarchy changes,
+        resulting in a new full_slug. Useful for updating navigation caches,
+        redirects, and sitemap data that depend on story URLs.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          webhook-signature:
+            type: string
+            description: HMAC-SHA1 signature for integrity verification.
+      payload:
+        $ref: '#/components/schemas/StoryEventPayload'
+      examples:
+        - name: StoryMovedExample
+          payload:
+            action: moved
+            story_id: 123456
+            space_id: 12345
+            text: Story "My Blog Post" (123456) moved
+
+    AssetCreated:
+      name: AssetCreated
+      title: Asset Created
+      summary: A new asset was uploaded to the space.
+      description: >-
+        Delivered when a new file is successfully uploaded to the space's
+        asset library. Includes the asset ID so the asset details can be
+        retrieved via the Management API if needed.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          webhook-signature:
+            type: string
+            description: HMAC-SHA1 signature for integrity verification.
+      payload:
+        $ref: '#/components/schemas/AssetEventPayload'
+      examples:
+        - name: AssetCreatedExample
+          payload:
+            action: created
+            asset_id: 78901
+            space_id: 12345
+            text: Asset "hero-image.jpg" (78901) created
+
+    AssetDeleted:
+      name: AssetDeleted
+      title: Asset Deleted
+      summary: An asset was deleted from the space.
+      description: >-
+        Delivered when an asset is removed from the space's asset library.
+        Stories that reference the deleted asset will display broken media.
+        Use this event to clean up any external references to the asset.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          webhook-signature:
+            type: string
+            description: HMAC-SHA1 signature for integrity verification.
+      payload:
+        $ref: '#/components/schemas/AssetEventPayload'
+      examples:
+        - name: AssetDeletedExample
+          payload:
+            action: deleted
+            asset_id: 78901
+            space_id: 12345
+            text: Asset "hero-image.jpg" (78901) deleted
+
+    DatasourceEntriesUpdated:
+      name: DatasourceEntriesUpdated
+      title: Datasource Entries Updated
+      summary: Datasource entries were created, updated, or deleted.
+      description: >-
+        Delivered when entries in a datasource are modified via the Management
+        API or editor. Useful for invalidating caches that depend on datasource
+        values such as navigation options or translations.
+      contentType: application/json
+      headers:
+        type: object
+        properties:
+          webhook-signature:
+            type: string
+            description: HMAC-SHA1 signature for integrity verification.
+      payload:
+        $ref: '#/components/schemas/DatasourceEventPayload'
+      examples:
+        - name: DatasourceUpdatedExample
+          payload:
+            action: entries_updated
+            datasource_id: 456
+            space_id: 12345
+            text: Datasource "Colors" (456) entries updated
+
+  schemas:
+    StoryEventPayload:
+      type: object
+      description: >-
+        Payload delivered by Storyblok for story-related webhook events.
+        Identifies the affected story, the action performed, and the space
+        context.
+      required:
+        - action
+        - story_id
+        - space_id
+        - text
+      properties:
+        action:
+          type: string
+          description: >-
+            The event action that triggered the webhook. One of published,
+            unpublished, deleted, or moved.
+          enum:
+            - published
+            - unpublished
+            - deleted
+            - moved
+        story_id:
+          type: integer
+          description: Numeric ID of the story that triggered the event.
+        space_id:
+          type: integer
+          description: Numeric ID of the space in which the event occurred.
+        text:
+          type: string
+          description: >-
+            Human-readable description of the event, including the story name,
+            ID, and action.
+        full_slug:
+          type: string
+          description: >-
+            Full URL slug of the story at the time of the event. Present for
+            published and moved events.
+
+    AssetEventPayload:
+      type: object
+      description: >-
+        Payload delivered by Storyblok for asset-related webhook events.
+        Identifies the affected asset, the action performed, and the space
+        context.
+      required:
+        - action
+        - asset_id
+        - space_id
+        - text
+      properties:
+        action:
+          type: string
+          description: The event action. One of created or deleted.
+          enum:
+            - created
+            - deleted
+        asset_id:
+          type: integer
+          description: Numeric ID of the asset that triggered the event.
+        space_id:
+          type: integer
+          description: Numeric ID of the space in which the event occurred.
+        text:
+          type: string
+          description: >-
+            Human-readable description of the event, including the asset
+            filename, ID, and action.
+
+    DatasourceEventPayload:
+      type: object
+      description: >-
+        Payload delivered by Storyblok for datasource-related webhook events.
+        Identifies the affected datasource and the space context.
+      required:
+        - action
+        - datasource_id
+        - space_id
+        - text
+      properties:
+        action:
+          type: string
+          description: The event action. Currently entries_updated.
+          enum:
+            - entries_updated
+        datasource_id:
+          type: integer
+          description: Numeric ID of the datasource that was updated.
+        space_id:
+          type: integer
+          description: Numeric ID of the space in which the event occurred.
+        text:
+          type: string
+          description: Human-readable description of the datasource update event.
