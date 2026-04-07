@@ -31,11 +31,6 @@ servers:
   - url: https://api-cn.storyblok.com/v2/cdn
     description: China Production Server
 tags:
-  - name: Stories
-    description: >-
-      Stories are the content entries in Storyblok. Each story is defined by
-      a component schema and holds the content of a page, post, or any other
-      structured content type.
   - name: Datasources
     description: >-
       Datasources are reusable key-value collections used for options lists,
@@ -44,10 +39,11 @@ tags:
     description: >-
       The links endpoint returns a flat or tree-structured list of all story
       URLs in a space, suitable for navigation generation and sitemap building.
-  - name: Tags
+  - name: Stories
     description: >-
-      Tags are labels attached to stories to support filtering and
-      categorization of content in a Storyblok space.
+      Stories are the content entries in Storyblok. Each story is defined by
+      a component schema and holds the content of a page, post, or any other
+      structured content type.
 security:
   - apiToken: []
 paths:
@@ -534,8 +530,7 @@ paths:
         Returns a list of all tags used in published stories within the space.
         Tags can be used to filter stories by calling the stories endpoint with
         the with_tag parameter.
-      tags:
-        - Tags
+      tags: []
       parameters:
         - $ref: '#/components/parameters/Token'
         - name: starts_with

@@ -22,6 +22,25 @@ servers:
   - url: https://mapi.storyblok.com/v1
     description: Management API Production Server
 tags:
+  - name: Assets
+    description: >-
+      Assets are files stored in Storyblok's asset library, including images,
+      documents, and other media. The Management API allows uploading, tagging,
+      and organizing assets.
+  - name: Collaborators
+    description: >-
+      Collaborators are users invited to a Storyblok space with specific roles
+      and permissions. The Management API allows adding, updating, and removing
+      collaborators.
+  - name: Components
+    description: >-
+      Components define the schema and field structure for story content. This
+      includes managing component definitions, field types, and component groups.
+  - name: Datasources
+    description: >-
+      Datasources and their entries can be created and managed via the
+      Management API, enabling programmatic updates to options lists and
+      translations.
   - name: Spaces
     description: >-
       Spaces are the top-level containers in Storyblok. Each space has its own
@@ -32,35 +51,11 @@ tags:
       Stories are content entries in Storyblok. The Management API provides
       full CRUD access to stories, including creating drafts, publishing,
       unpublishing, and bulk operations.
-  - name: Components
-    description: >-
-      Components define the schema and field structure for story content. This
-      includes managing component definitions, field types, and component groups.
-  - name: Assets
-    description: >-
-      Assets are files stored in Storyblok's asset library, including images,
-      documents, and other media. The Management API allows uploading, tagging,
-      and organizing assets.
-  - name: Datasources
-    description: >-
-      Datasources and their entries can be created and managed via the
-      Management API, enabling programmatic updates to options lists and
-      translations.
-  - name: Collaborators
-    description: >-
-      Collaborators are users invited to a Storyblok space with specific roles
-      and permissions. The Management API allows adding, updating, and removing
-      collaborators.
   - name: Webhooks
     description: >-
       Webhooks allow external services to be notified when events occur in a
       Storyblok space, such as story publication or asset upload. The Management
       API provides full CRUD operations for webhook configuration.
-  - name: Tags
-    description: >-
-      Tags can be created and assigned to stories to support content
-      categorization and filtering. The Management API provides endpoints for
-      managing tag definitions.
 security:
   - personalAccessToken: []
   - oauthToken: []
