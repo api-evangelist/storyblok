@@ -1,0 +1,64 @@
+{
+  "title": "Storyblok Story Structure",
+  "description": "JSON structure documentation for a Storyblok story object as returned by the Content Delivery API",
+  "type": "object",
+  "fields": [
+    { "name": "id", "type": "integer", "description": "Unique numeric identifier of the story", "required": true },
+    { "name": "uuid", "type": "string", "format": "uuid", "description": "Universally unique identifier", "required": true },
+    { "name": "name", "type": "string", "description": "Display name of the story in the editor", "required": true },
+    { "name": "slug", "type": "string", "description": "URL-safe slug segment within parent folder", "required": true },
+    { "name": "full_slug", "type": "string", "description": "Full path including parent folder slugs", "required": true },
+    { "name": "default_full_slug", "type": "string", "description": "Default full slug if language-specific slugs are configured" },
+    { "name": "created_at", "type": "string", "format": "date-time", "description": "ISO 8601 creation timestamp", "required": true },
+    { "name": "published_at", "type": "string", "format": "date-time", "description": "ISO 8601 timestamp of last publication" },
+    { "name": "first_published_at", "type": "string", "format": "date-time", "description": "ISO 8601 timestamp of first publication" },
+    { "name": "sort_by_date", "type": "string", "description": "Custom date field for sorting" },
+    { "name": "release_id", "type": "integer", "description": "Release ID if story is in a release" },
+    { "name": "lang", "type": "string", "description": "Language code (default or locale code)" },
+    {
+      "name": "content",
+      "type": "object",
+      "description": "Structured content of the story defined by its component schema",
+      "required": true,
+      "fields": [
+        { "name": "_uid", "type": "string", "description": "Unique block identifier" },
+        { "name": "component", "type": "string", "description": "Component type name defining the schema" }
+      ],
+      "additionalFields": "Dynamic fields defined by the component schema"
+    },
+    { "name": "position", "type": "integer", "description": "Sort position within parent folder (lower = higher in list)" },
+    { "name": "tag_list", "type": "array", "items": { "type": "string" }, "description": "Tags assigned to the story" },
+    { "name": "is_startpage", "type": "boolean", "description": "Whether this story is the folder/space startpage" },
+    { "name": "parent_id", "type": "integer", "description": "ID of parent folder (0 for root-level stories)" },
+    { "name": "group_id", "type": "string", "format": "uuid", "description": "Shared group ID across language variants of the same story" },
+    {
+      "name": "alternates",
+      "type": "array",
+      "description": "Language alternate versions of this story",
+      "items": {
+        "type": "object",
+        "fields": [
+          { "name": "id", "type": "integer" },
+          { "name": "name", "type": "string" },
+          { "name": "slug", "type": "string" },
+          { "name": "full_slug", "type": "string" },
+          { "name": "is_folder", "type": "boolean" },
+          { "name": "parent_id", "type": "integer" }
+        ]
+      }
+    },
+    {
+      "name": "translated_slugs",
+      "type": "array",
+      "description": "Language-specific slug overrides",
+      "items": {
+        "type": "object",
+        "fields": [
+          { "name": "path", "type": "string" },
+          { "name": "name", "type": "string" },
+          { "name": "lang", "type": "string" }
+        ]
+      }
+    }
+  ]
+}

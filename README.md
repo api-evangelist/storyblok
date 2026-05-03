@@ -1,112 +1,174 @@
 # Storyblok (storyblok)
-Storyblok is a headless CMS platform that enables developers and content teams to build, manage, and deliver structured content across web, mobile, and other digital channels. It provides a suite of APIs including REST and GraphQL content delivery, a management API for editorial automation, and an image transformation service, all accessible through its developer platform at storyblok.com/docs/api.
+Storyblok is a headless content management system (CMS) with a visual editor that enables developers and content editors to collaboratively build and manage digital experiences. It provides APIs for content delivery, content management, image optimization, and webhook-based event notifications. Storyblok supports composable content through reusable components, multi-language content, and multi-site management with real-time collaboration features.
 
 **URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/apis.yml)
 
 ## Scope
 
-- **Type:** Contract
-- **Position:** Consuming
+- **Type:** Index
+- **Position:** Consumer
 - **Access:** 3rd-Party
 
-## Tags:
+## Tags
 
- - Headless CMS, Content Management, Content Delivery, REST, GraphQL, Media
+- CMS
+- Content Delivery
+- Content Management
+- Headless CMS
+- Image Optimization
+- REST API
+- Visual Editor
+- Webhooks
 
 ## Timestamps
 
-- **Created:** 2026-03-21
-- **Modified:** 2026-03-21
+- **Created:** 2026-05-02
+- **Modified:** 2026-05-02
 
 ## APIs
 
-### Storyblok Content Delivery API v2
-The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+### Storyblok Content Delivery API
+The Content Delivery API v2 enables fetching published content from a Storyblok space for delivery to web, mobile, and other channels. Provides access to stories, datasources, links, tags, and asset metadata with filtering, pagination, and relation resolution across multiple regional endpoints.
 
 **Human URL:** [https://www.storyblok.com/docs/api/content-delivery/v2](https://www.storyblok.com/docs/api/content-delivery/v2)
+**Base URL:** https://api.storyblok.com/v2/cdn
 
+#### Tags
 
-#### Tags:
-
- - Content Delivery, Headless CMS, REST, Content Management
+- Content Delivery, Headless CMS, REST API, Stories
 
 #### Properties
 
 - [Documentation](https://www.storyblok.com/docs/api/content-delivery/v2)
-- [OpenAPI](openapi/storyblok-content-delivery-api-v2-openapi.yml)
-
-### Storyblok Content Delivery API v1
-The Storyblok Content Delivery API v1 is the original REST API for retrieving published content from Storyblok spaces. It provides access to stories, components, datasources, and links using a public or preview API token for authentication. While v2 is the recommended version for new projects, v1 remains supported for existing integrations and projects that have not yet migrated. The API follows standard REST conventions and returns JSON-encoded responses.
-
-**Human URL:** [https://www.storyblok.com/docs/api/content-delivery/v1](https://www.storyblok.com/docs/api/content-delivery/v1)
-
-
-#### Tags:
-
- - Content Delivery, Headless CMS, REST, Legacy
-
-#### Properties
-
-- [Documentation](https://www.storyblok.com/docs/api/content-delivery/v1)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-content-delivery-api-v2-openapi.yml)
 
 ### Storyblok Management API
-The Storyblok Management API is a REST API that allows developers to programmatically create, read, update, and delete content and configuration within a Storyblok space. It supports managing stories, components, assets, datasources, collaborators, webhooks, and space settings. The API uses OAuth or personal access tokens for authentication and is suitable for building editorial tooling, content migration scripts, CI/CD pipelines, and automated publishing workflows. All write operations are scoped to individual spaces and respect role-based access control.
+REST API for programmatically creating, reading, updating, and deleting content and configuration within a Storyblok space. Supports stories, components, assets, datasources, collaborators, webhooks, and space settings. Used for editorial tooling, content migration, CI/CD pipelines, and automated publishing workflows.
 
 **Human URL:** [https://www.storyblok.com/docs/api/management](https://www.storyblok.com/docs/api/management)
+**Base URL:** https://mapi.storyblok.com/v1
 
+#### Tags
 
-#### Tags:
-
- - Content Management, Headless CMS, REST, Administration
+- Assets, CMS, Components, Content Management, REST API, Stories, Webhooks
 
 #### Properties
 
 - [Documentation](https://www.storyblok.com/docs/api/management)
-- [OpenAPI](openapi/storyblok-management-api-openapi.yml)
-- [AsyncAPI](asyncapi/storyblok-webhooks-asyncapi.yml)
-
-### Storyblok GraphQL API
-The Storyblok GraphQL API provides an alternative to the REST Content Delivery API, enabling developers to query published content using GraphQL syntax. It allows clients to request exactly the fields they need, reducing over-fetching and enabling efficient batched queries in a single request. The schema is automatically generated based on the component definitions configured in a Storyblok space. Regional endpoints are available for different geographic regions to reduce latency in global applications.
-
-**Human URL:** [https://www.storyblok.com/docs/api](https://www.storyblok.com/docs/api)
-
-
-#### Tags:
-
- - GraphQL, Content Delivery, Headless CMS, Query Language
-
-#### Properties
-
-- [Documentation](https://www.storyblok.com/docs/api)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-management-api-openapi.yml)
 
 ### Storyblok Image Service
-The Storyblok Image Service is a URL-based image transformation API that allows developers to resize, crop, convert, and optimize images hosted in Storyblok's asset CDN. Transformations are applied by constructing a specific URL with parameters that specify dimensions, format conversion, quality, focal point, and filter effects. The service eliminates the need for a separate image processing pipeline and is suitable for responsive images, thumbnails, and format-optimized delivery across web and mobile applications. Images are served via a global CDN for fast delivery.
+URL-based image transformation API for resizing, cropping, converting, and optimizing images hosted in Storyblok's asset CDN. Transformations are defined in the URL path with dimensions, format, quality, and filter chain parameters.
 
-**Human URL:** [https://www.storyblok.com/docs/concepts/assets](https://www.storyblok.com/docs/concepts/assets)
+**Human URL:** [https://www.storyblok.com/docs/image-service](https://www.storyblok.com/docs/image-service)
+**Base URL:** https://a.storyblok.com
 
+#### Tags
 
-#### Tags:
-
- - Images, Media, Transformation, CDN
+- Image Optimization, Image Processing, Media
 
 #### Properties
 
-- [Documentation](https://www.storyblok.com/docs/concepts/assets)
-- [OpenAPI](openapi/storyblok-image-service-openapi.yml)
+- [Documentation](https://www.storyblok.com/docs/image-service)
+- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-image-service-openapi.yml)
+
+### Storyblok Webhooks
+Storyblok emits webhook events when content actions occur in a space such as story publication, unpublication, deletion, asset upload, and pipeline stage transitions.
+
+**Human URL:** [https://www.storyblok.com/docs/guide/in-depth/webhooks](https://www.storyblok.com/docs/guide/in-depth/webhooks)
+
+#### Tags
+
+- AsyncAPI, Events, Real-Time, Webhooks
+
+#### Properties
+
+- [Documentation](https://www.storyblok.com/docs/guide/in-depth/webhooks)
+- [AsyncAPI](https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/asyncapi/storyblok-webhooks-asyncapi.yml)
+
+## Artifacts
+
+### OpenAPI Specs
+
+| File | Description |
+|---|---|
+| [storyblok-content-delivery-api-v2-openapi.yml](openapi/storyblok-content-delivery-api-v2-openapi.yml) | Content Delivery API v2 OpenAPI specification |
+| [storyblok-management-api-openapi.yml](openapi/storyblok-management-api-openapi.yml) | Management API OpenAPI specification |
+| [storyblok-image-service-openapi.yml](openapi/storyblok-image-service-openapi.yml) | Image Service OpenAPI specification |
+
+### AsyncAPI Specs
+
+| File | Description |
+|---|---|
+| [storyblok-webhooks-asyncapi.yml](asyncapi/storyblok-webhooks-asyncapi.yml) | Webhook event schemas |
+
+### Capabilities
+
+| File | Description |
+|---|---|
+| [content-management.yaml](capabilities/content-management.yaml) | Unified content management and delivery workflow |
+| [shared/content-delivery.yaml](capabilities/shared/content-delivery.yaml) | Content Delivery API shared capability |
+| [shared/management.yaml](capabilities/shared/management.yaml) | Management API shared capability |
+
+### Rules
+
+| File | Description |
+|---|---|
+| [storyblok-rules.yml](rules/storyblok-rules.yml) | Spectral ruleset enforcing Storyblok API conventions |
+
+### JSON Schemas
+
+| File | Description |
+|---|---|
+| [storyblok-story-schema.json](json-schema/storyblok-story-schema.json) | Story entity JSON Schema |
+| [storyblok-component-schema.json](json-schema/storyblok-component-schema.json) | Component definition JSON Schema |
+| [storyblok-webhook-payload-schema.json](json-schema/storyblok-webhook-payload-schema.json) | Webhook payload JSON Schema |
+
+### JSON Structure
+
+| File | Description |
+|---|---|
+| [storyblok-story-structure.json](json-structure/storyblok-story-structure.json) | Story object field documentation |
+
+### JSON-LD
+
+| File | Description |
+|---|---|
+| [storyblok-context.jsonld](json-ld/storyblok-context.jsonld) | JSON-LD context mapping Storyblok vocabulary |
+
+### Examples
+
+| File | Description |
+|---|---|
+| [storyblok-list-stories-example.json](examples/storyblok-list-stories-example.json) | List stories request/response example |
+| [storyblok-create-story-example.json](examples/storyblok-create-story-example.json) | Create story request/response example |
+| [storyblok-get-image-transform-example.json](examples/storyblok-get-image-transform-example.json) | Image Service transformation examples |
+
+### Vocabulary
+
+| File | Description |
+|---|---|
+| [storyblok-vocabulary.yml](vocabulary/storyblok-vocabulary.yml) | Domain vocabulary for Storyblok CMS concepts |
 
 ## Common Properties
 
-- [Portal](https://www.storyblok.com/developers)
+- [Portal](https://www.storyblok.com/)
 - [Documentation](https://www.storyblok.com/docs)
-- [Website](https://www.storyblok.com/)
-- [PrivacyPolicy](https://www.storyblok.com/privacy-policy)
-- [TermsOfService](https://www.storyblok.com/terms-of-service)
-- [Support](https://www.storyblok.com/support)
+- [Pricing](https://www.storyblok.com/pricing)
 - [Blog](https://www.storyblok.com/blog)
-- [Login](https://app.storyblok.com/#!/)
+- [About](https://www.storyblok.com/about)
+- [Changelog](https://www.storyblok.com/changelog)
+- [Contact](https://www.storyblok.com/contact)
+- [Status](https://status.storyblok.com/)
+- [Support](https://www.storyblok.com/support)
+- [Privacy Policy](https://www.storyblok.com/legal/privacy-policy)
+- [Terms of Service](https://www.storyblok.com/legal/terms-of-service)
+- [Sign Up](https://app.storyblok.com/#!/signup)
+- [Login](https://app.storyblok.com/)
+- [GitHub Org](https://github.com/storyblok)
 
 ## Maintainers
 
-**FN:** API Evangelist
+**FN:** Kin Lane
 
-**Email:** info@apievangelist.com
+**Email:** kin@apievangelist.com

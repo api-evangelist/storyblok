@@ -1,0 +1,30 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "https://a.storyblok.com/f/12345/my-image.jpg/m/800x600",
+    "description": "Resize image to 800x600 pixels using smart cropping"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+      "Content-Type": "image/jpeg",
+      "Cache-Control": "max-age=31536000",
+      "Content-Length": "85234"
+    },
+    "description": "Returns the resized and optimized JPEG image binary"
+  },
+  "variants": [
+    {
+      "description": "Resize to 400x300 with filter chain (quality 80, grayscale)",
+      "url": "https://a.storyblok.com/f/12345/my-image.jpg/m/400x300/filters:quality(80):grayscale()"
+    },
+    {
+      "description": "Fit-in resize maintaining aspect ratio",
+      "url": "https://a.storyblok.com/f/12345/my-image.jpg/m/fit-in/800x600"
+    },
+    {
+      "description": "Smart crop with focus point",
+      "url": "https://a.storyblok.com/f/12345/my-image.jpg/m/400x400/smart"
+    }
+  ]
+}
