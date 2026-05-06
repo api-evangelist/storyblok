@@ -4,104 +4,70 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: Storyblok
 providerId: storyblok
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
   - CMS
   - Content Delivery
-  - Content Management
   - Headless CMS
-  - Image Optimization
   - REST API
-  - Visual Editor
-  - Webhooks
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the Storyblok API surface. Captures per-tier
-  quotas, burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to
-  be replaced with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+description: Storyblok publishes per-second rate limits on the Content Delivery API that vary by request
+  type. Cached CDN requests get the highest ceiling (1,000 RPS); uncached single content entries and small
+  listings allow 50 RPS, with limits scaling down as listing page size grows. Limits are per token/space.
+  Beyond steady-state limits the API returns HTTP 429 and clients are expected to back off.
+sources:
+  - https://www.storyblok.com/docs/api/content-delivery/v2
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
-  serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
+  - name: Cached CDN Requests
+    scope: token
+    metric: requests_per_second
+    limit: 1000
+    timeFrame: second
+    notes: Cached responses served from the CDN.
+  - name: Single Content Entry
+    scope: token
+    metric: requests_per_second
+    limit: 50
+    timeFrame: second
+    notes: Single uncached content entry retrieval.
+  - name: Listings up to 25 Entries
+    scope: token
+    metric: requests_per_second
+    limit: 50
+    timeFrame: second
+    notes: List endpoints returning 25 or fewer entries per page.
+  - name: Listings 25-50 Entries
+    scope: token
+    metric: requests_per_second
+    limit: 15
+    timeFrame: second
+  - name: Listings 50-75 Entries
+    scope: token
+    metric: requests_per_second
     limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - Storyblok Content Delivery API
-      - Storyblok Management API
-      - Storyblok Image Service
-      - Storyblok Webhooks
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - Storyblok Content Delivery API
-      - Storyblok Management API
-      - Storyblok Image Service
-      - Storyblok Webhooks
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - Storyblok Content Delivery API
-      - Storyblok Management API
-      - Storyblok Image Service
-      - Storyblok Webhooks
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - Storyblok Content Delivery API
-      - Storyblok Management API
-      - Storyblok Image Service
-      - Storyblok Webhooks
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - Storyblok Content Delivery API
-      - Storyblok Management API
-      - Storyblok Image Service
-      - Storyblok Webhooks
+    timeFrame: second
+  - name: Listings 75-100 Entries
+    scope: token
+    metric: requests_per_second
+    limit: 6
+    timeFrame: second
+    notes: Per-second cap is reduced proportionally as page size increases beyond 25 entries.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Throttling Response
+    description: When the rate limit is exceeded the API returns HTTP 429; clients should pause and retry
+      with backoff.
+  - name: Caching
+    description: Storyblok recommends prioritizing cached requests, which have a 20x higher per-second
+      ceiling than uncached single-entry requests.
+  - name: Exponential Backoff
+    description: Use exponential backoff with jitter on retry to avoid synchronized retry storms.
+  - name: Plan Quotas
+    description: Beyond per-second limits, monthly API request totals are bound by the subscribed plan
+      (100k Starter, 1M Growth, 4M Growth Plus); overages above plan caps are billed at $10 per 1M extra
+      requests.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

@@ -1,5 +1,6 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
@@ -8,158 +9,99 @@ alignedWith:
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
 provider: Storyblok
 providerId: storyblok
-publisherName: Storyblok
-serviceCategory: API
+publisherName: Storyblok GmbH
+serviceCategory: Headless CMS
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
+  - FinOps
+  - FOCUS
   - CMS
   - Content Delivery
-  - Content Management
   - Headless CMS
-  - Image Optimization
-  - REST API
-  - Visual Editor
-  - Webhooks
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the Storyblok API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+description: FOCUS-aligned FinOps definition for Storyblok. Storyblok bills a tiered monthly or annual
+  subscription with included quotas for traffic, API requests, AI credits, locales, and seats; overages
+  on each meter are billed as separate line items at published per-unit rates.
+sources:
+  - https://www.storyblok.com/pricing
+  - https://www.storyblok.com/docs/api/content-delivery/v2
 billingModel:
-  pricingCategory: Usage-Based
-  billingFrequency: Monthly
+  pricingCategory: Tiered Subscription + Usage Overages
+  billingFrequency: Monthly or Annual
   billingCurrency: USD
   chargeCategories:
     - Usage
     - Purchase
     - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
+    - Credit
 focusColumns:
   ServiceName: Storyblok
-  ServiceCategory: Developer Tools / API
+  ServiceCategory: Content Management
   ProviderName: Storyblok
-  PublisherName: Storyblok
-  InvoiceIssuerName: Storyblok
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  PublisherName: Storyblok GmbH
+  InvoiceIssuerName: Storyblok GmbH
   BillingCurrency: USD
   ChargeCategory: Usage
 meters:
+  - name: base_subscription
+    description: Monthly or annual base plan fee for the subscribed tier
+    unit: month
+    aggregation: sum
+    dimensions:
+      - plan
+  - name: user_seats
+    description: Active user seats above the included count, billed at $15/seat/month
+    unit: seat
+    aggregation: max
+    dimensions:
+      - plan
+      - role
+  - name: traffic_gb
+    description: Outbound traffic served above the included plan allotment, billed at $75 per 250GB
+    unit: GB
+    aggregation: sum
+    dimensions:
+      - region
+      - space
   - name: api_requests
-    description: Count of billable API requests
+    description: Content Delivery API requests above the included plan allotment, billed at $10 per 1M
     unit: request
     aggregation: sum
     dimensions:
       - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - cache_status
+      - space
+  - name: locales
+    description: Locales above the included count, billed at $20/locale/month
+    unit: locale
+    aggregation: max
+    dimensions:
+      - locale_code
+      - space
+  - name: ai_credits
+    description: AI credits consumed above the included plan allotment, billed at $20 per 200k credits
+    unit: credit
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
-    aggregation: sum
-    dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: Storyblok Content Delivery API
-    baseURL: https://api.storyblok.com/v2/cdn
-    tags:
-      - Content Delivery
-      - Headless CMS
-      - REST API
-      - Stories
-    serviceName: Storyblok Content Delivery API
-    serviceCategory: API
-  - name: Storyblok Management API
-    baseURL: https://mapi.storyblok.com/v1
-    tags:
-      - Assets
-      - CMS
-      - Components
-      - Content Management
-      - REST API
-      - Stories
-      - Webhooks
-    serviceName: Storyblok Management API
-    serviceCategory: API
-  - name: Storyblok Image Service
-    baseURL: https://a.storyblok.com
-    tags:
-      - Image Optimization
-      - Image Processing
-      - Media
-    serviceName: Storyblok Image Service
-    serviceCategory: API
-  - name: Storyblok Webhooks
-    baseURL: ''
-    tags:
-      - AsyncAPI
-      - Events
-      - Real-Time
-      - Webhooks
-    serviceName: Storyblok Webhooks
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - feature
+      - space
+principles:
+  - name: Visibility
+    description: Use the Storyblok account dashboard usage views to track traffic GB, API requests,
+      AI credit consumption, seats, and locales against included plan allotments.
+  - name: Allocation
+    description: Allocate cost by space and locale; use Storyblok spaces as the primary attribution
+      boundary for multi-product tenants.
+  - name: Optimization
+    description: Maximize the use of cached CDN requests (1,000 RPS limit vs 50 RPS uncached) to stay
+      under the API request quota; consolidate locales onto fewer paid locales where possible; choose
+      annual billing for the published discount on Growth and Growth Plus.
+  - name: Accountability
+    description: Assign a Storyblok workspace owner per space; review monthly usage against included
+      limits to forecast overage spend; escalate to Premium/Elite when overages exceed roughly 1.5-2x
+      the next tier's base price.
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com
