@@ -1,0 +1,140 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Storyblok Content Delivery API v2 — Datasources
+  description: 'Storyblok Content Delivery API v2 — Datasources. 2 operations. Lead operation: List datasource entries. Self-contained
+    Naftiko capability covering one Storyblok business surface.'
+  tags:
+  - Storyblok
+  - Datasources
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    STORYBLOK_API_KEY: STORYBLOK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-delivery-api-v2-datasources
+    baseUri: https://api.storyblok.com/v2/cdn
+    description: Storyblok Content Delivery API v2 — Datasources business capability. Self-contained, no shared references.
+    resources:
+    - name: datasource_entries
+      path: /datasource_entries
+      operations:
+      - name: listdatasourceentries
+        method: GET
+        description: List datasource entries
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: datasource
+          in: query
+          type: string
+          description: The slug of the datasource to retrieve entries from.
+        - name: datasource_id
+          in: query
+          type: integer
+          description: The numeric ID of the datasource to retrieve entries from.
+        - name: dimension
+          in: query
+          type: string
+          description: Dimension slug to retrieve dimension-specific values alongside the default values.
+        - name: cv
+          in: query
+          type: integer
+          description: Cache version timestamp to bypass CDN caching.
+    - name: datasources
+      path: /datasources
+      operations:
+      - name: listdatasources
+        method: GET
+        description: List all datasources
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: search
+          in: query
+          type: string
+          description: Filter datasources by name using a partial text match.
+    authentication:
+      type: apikey
+      key: token
+      value: '{{env.STORYBLOK_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: content-delivery-api-v2-datasources-rest
+    port: 8080
+    description: REST adapter for Storyblok Content Delivery API v2 — Datasources. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/datasource-entries
+      name: datasource-entries
+      description: REST surface for datasource_entries.
+      operations:
+      - method: GET
+        name: listdatasourceentries
+        description: List datasource entries
+        call: content-delivery-api-v2-datasources.listdatasourceentries
+        with:
+          datasource: rest.datasource
+          datasource_id: rest.datasource_id
+          dimension: rest.dimension
+          cv: rest.cv
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/datasources
+      name: datasources
+      description: REST surface for datasources.
+      operations:
+      - method: GET
+        name: listdatasources
+        description: List all datasources
+        call: content-delivery-api-v2-datasources.listdatasources
+        with:
+          search: rest.search
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-delivery-api-v2-datasources-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Storyblok Content Delivery API v2 — Datasources. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: list-datasource-entries
+      description: List datasource entries
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-delivery-api-v2-datasources.listdatasourceentries
+      with:
+        datasource: tools.datasource
+        datasource_id: tools.datasource_id
+        dimension: tools.dimension
+        cv: tools.cv
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: list-all-datasources
+      description: List all datasources
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-delivery-api-v2-datasources.listdatasources
+      with:
+        search: tools.search
+      outputParameters:
+      - type: object
+        mapping: $.

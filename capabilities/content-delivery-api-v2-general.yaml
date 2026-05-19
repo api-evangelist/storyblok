@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Storyblok Content Delivery API v2
+  description: 'Storyblok Content Delivery API v2. 1 operations. Lead operation: List all tags. Self-contained Naftiko capability
+    covering one Storyblok business surface.'
+  tags:
+  - Storyblok
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    STORYBLOK_API_KEY: STORYBLOK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-delivery-api-v2-general
+    baseUri: https://api.storyblok.com/v2/cdn
+    description: Storyblok Content Delivery API v2 business capability. Self-contained, no shared references.
+    resources:
+    - name: tags
+      path: /tags
+      operations:
+      - name: listtags
+        method: GET
+        description: List all tags
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: starts_with
+          in: query
+          type: string
+          description: Filter tags by prefix. Only tags whose name starts with the given value are returned.
+        - name: cv
+          in: query
+          type: integer
+          description: Cache version timestamp to bypass CDN caching.
+    authentication:
+      type: apikey
+      key: token
+      value: '{{env.STORYBLOK_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: content-delivery-api-v2-general-rest
+    port: 8080
+    description: REST adapter for Storyblok Content Delivery API v2. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/tags
+      name: tags
+      description: REST surface for tags.
+      operations:
+      - method: GET
+        name: listtags
+        description: List all tags
+        call: content-delivery-api-v2-general.listtags
+        with:
+          starts_with: rest.starts_with
+          cv: rest.cv
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-delivery-api-v2-general-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Storyblok Content Delivery API v2. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-all-tags
+      description: List all tags
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-delivery-api-v2-general.listtags
+      with:
+        starts_with: tools.starts_with
+        cv: tools.cv
+      outputParameters:
+      - type: object
+        mapping: $.

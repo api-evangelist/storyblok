@@ -1,0 +1,100 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Storyblok Content Delivery API v2 — Links
+  description: 'Storyblok Content Delivery API v2 — Links. 1 operations. Lead operation: List all links. Self-contained Naftiko
+    capability covering one Storyblok business surface.'
+  tags:
+  - Storyblok
+  - Links
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    STORYBLOK_API_KEY: STORYBLOK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-delivery-api-v2-links
+    baseUri: https://api.storyblok.com/v2/cdn
+    description: Storyblok Content Delivery API v2 — Links business capability. Self-contained, no shared references.
+    resources:
+    - name: links
+      path: /links
+      operations:
+      - name: listlinks
+        method: GET
+        description: List all links
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: starts_with
+          in: query
+          type: string
+          description: Filter links by full_slug prefix to return only links in a specific folder.
+        - name: paginated
+          in: query
+          type: integer
+          description: Set to 1 to enable pagination on the links response. When enabled, use page and per_page parameters
+            to control the result set.
+        - name: including_dates
+          in: query
+          type: integer
+          description: Set to 1 to include published_at, created_at, and updated_at timestamps in each link entry.
+        - name: cv
+          in: query
+          type: integer
+          description: Cache version timestamp to bypass CDN caching.
+    authentication:
+      type: apikey
+      key: token
+      value: '{{env.STORYBLOK_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: content-delivery-api-v2-links-rest
+    port: 8080
+    description: REST adapter for Storyblok Content Delivery API v2 — Links. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/links
+      name: links
+      description: REST surface for links.
+      operations:
+      - method: GET
+        name: listlinks
+        description: List all links
+        call: content-delivery-api-v2-links.listlinks
+        with:
+          starts_with: rest.starts_with
+          paginated: rest.paginated
+          including_dates: rest.including_dates
+          cv: rest.cv
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-delivery-api-v2-links-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Storyblok Content Delivery API v2 — Links. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-all-links
+      description: List all links
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-delivery-api-v2-links.listlinks
+      with:
+        starts_with: tools.starts_with
+        paginated: tools.paginated
+        including_dates: tools.including_dates
+        cv: tools.cv
+      outputParameters:
+      - type: object
+        mapping: $.

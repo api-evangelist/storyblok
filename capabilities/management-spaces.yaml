@@ -1,0 +1,70 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Storyblok Management API — Spaces
+  description: 'Storyblok Management API — Spaces. 1 operations. Lead operation: Retrieve a space. Self-contained Naftiko
+    capability covering one Storyblok business surface.'
+  tags:
+  - Storyblok
+  - Spaces
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    STORYBLOK_API_KEY: STORYBLOK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-spaces
+    baseUri: https://mapi.storyblok.com/v1
+    description: Storyblok Management API — Spaces business capability. Self-contained, no shared references.
+    resources:
+    - name: spaces-space_id
+      path: /spaces/{space_id}
+      operations:
+      - name: getspace
+        method: GET
+        description: Retrieve a space
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.STORYBLOK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-spaces-rest
+    port: 8080
+    description: REST adapter for Storyblok Management API — Spaces. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/spaces/{space-id}
+      name: spaces-space-id
+      description: REST surface for spaces-space_id.
+      operations:
+      - method: GET
+        name: getspace
+        description: Retrieve a space
+        call: management-spaces.getspace
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-spaces-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Storyblok Management API — Spaces. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: retrieve-space
+      description: Retrieve a space
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-spaces.getspace
+      outputParameters:
+      - type: object
+        mapping: $.

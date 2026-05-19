@@ -1,0 +1,282 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Storyblok Content Delivery API v2 — Stories
+  description: 'Storyblok Content Delivery API v2 — Stories. 3 operations. Lead operation: List multiple stories. Self-contained
+    Naftiko capability covering one Storyblok business surface.'
+  tags:
+  - Storyblok
+  - Stories
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    STORYBLOK_API_KEY: STORYBLOK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: content-delivery-api-v2-stories
+    baseUri: https://api.storyblok.com/v2/cdn
+    description: Storyblok Content Delivery API v2 — Stories business capability. Self-contained, no shared references.
+    resources:
+    - name: stories
+      path: /stories
+      operations:
+      - name: liststories
+        method: GET
+        description: List multiple stories
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: starts_with
+          in: query
+          type: string
+          description: Filter stories by full_slug prefix. Only stories whose full_slug starts with the given value are returned.
+            Useful for fetching content within a specific folder.
+        - name: by_slugs
+          in: query
+          type: string
+          description: Comma-separated list of full_slug values to retrieve specific stories by their slugs.
+        - name: excluding_slugs
+          in: query
+          type: string
+          description: Comma-separated list of full_slug values to exclude from the results.
+        - name: with_tag
+          in: query
+          type: string
+          description: Comma-separated list of tag slugs to filter stories by. Multiple tags are treated as an OR condition.
+        - name: is_startpage
+          in: query
+          type: integer
+          description: Set to 1 to only return folder start pages. Set to 0 to exclude them. Omit to return all stories.
+        - name: sort_by
+          in: query
+          type: string
+          description: 'Sort the response by a specific field and direction. Supports all default story fields and custom
+            fields defined in the component schema. Format: field:asc or f'
+        - name: search_term
+          in: query
+          type: string
+          description: Full-text search term to filter stories whose content fields contain the given string.
+        - name: resolve_relations
+          in: query
+          type: string
+          description: Comma-separated list of component.field paths to resolve referenced story relations inline in the response.
+        - name: resolve_links
+          in: query
+          type: string
+          description: Set to story to resolve story link fields. Set to url to resolve to the story URL string.
+        - name: language
+          in: query
+          type: string
+          description: ISO language code to return the story content in the specified language. Falls back to the default
+            language if the translation is unavailable.
+        - name: fallback_lang
+          in: query
+          type: string
+          description: Fallback language code used when the requested language translation is not available.
+        - name: filter_query
+          in: query
+          type: object
+          description: Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int.
+            Keys are field paths relative to the story content obj
+        - name: by_uuids
+          in: query
+          type: string
+          description: Comma-separated list of story UUIDs to retrieve specific stories by their unique identifiers.
+        - name: excluding_ids
+          in: query
+          type: string
+          description: Comma-separated list of story IDs to exclude from the results.
+        - name: per_page
+          in: query
+          type: integer
+          description: Number of stories to return per page. Maximum 100.
+        - name: cv
+          in: query
+          type: integer
+          description: Cache version timestamp. Pass the current Unix timestamp to bypass CDN caching and retrieve the latest
+            content.
+    - name: stories-id
+      path: /stories/{id}
+      operations:
+      - name: getstorybyid
+        method: GET
+        description: Retrieve a single story by ID
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: language
+          in: query
+          type: string
+          description: ISO language code to return the story content in.
+        - name: cv
+          in: query
+          type: integer
+          description: Cache version timestamp to bypass CDN caching.
+    - name: stories-slug
+      path: /stories/{slug}
+      operations:
+      - name: getstorybyslug
+        method: GET
+        description: Retrieve a single story by slug
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: resolve_relations
+          in: query
+          type: string
+          description: Comma-separated list of component.field paths to resolve referenced story relations inline in the response.
+        - name: resolve_links
+          in: query
+          type: string
+          description: Set to story to resolve story link fields. Set to url to resolve to the story URL string.
+        - name: language
+          in: query
+          type: string
+          description: ISO language code to return the story content in the specified language.
+        - name: cv
+          in: query
+          type: integer
+          description: Cache version timestamp to bypass CDN caching.
+    authentication:
+      type: apikey
+      key: token
+      value: '{{env.STORYBLOK_API_KEY}}'
+      placement: query
+  exposes:
+  - type: rest
+    namespace: content-delivery-api-v2-stories-rest
+    port: 8080
+    description: REST adapter for Storyblok Content Delivery API v2 — Stories. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/stories
+      name: stories
+      description: REST surface for stories.
+      operations:
+      - method: GET
+        name: liststories
+        description: List multiple stories
+        call: content-delivery-api-v2-stories.liststories
+        with:
+          starts_with: rest.starts_with
+          by_slugs: rest.by_slugs
+          excluding_slugs: rest.excluding_slugs
+          with_tag: rest.with_tag
+          is_startpage: rest.is_startpage
+          sort_by: rest.sort_by
+          search_term: rest.search_term
+          resolve_relations: rest.resolve_relations
+          resolve_links: rest.resolve_links
+          language: rest.language
+          fallback_lang: rest.fallback_lang
+          filter_query: rest.filter_query
+          by_uuids: rest.by_uuids
+          excluding_ids: rest.excluding_ids
+          per_page: rest.per_page
+          cv: rest.cv
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/stories/{id}
+      name: stories-id
+      description: REST surface for stories-id.
+      operations:
+      - method: GET
+        name: getstorybyid
+        description: Retrieve a single story by ID
+        call: content-delivery-api-v2-stories.getstorybyid
+        with:
+          language: rest.language
+          cv: rest.cv
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/stories/{slug}
+      name: stories-slug
+      description: REST surface for stories-slug.
+      operations:
+      - method: GET
+        name: getstorybyslug
+        description: Retrieve a single story by slug
+        call: content-delivery-api-v2-stories.getstorybyslug
+        with:
+          resolve_relations: rest.resolve_relations
+          resolve_links: rest.resolve_links
+          language: rest.language
+          cv: rest.cv
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: content-delivery-api-v2-stories-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Storyblok Content Delivery API v2 — Stories. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: list-multiple-stories
+      description: List multiple stories
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-delivery-api-v2-stories.liststories
+      with:
+        starts_with: tools.starts_with
+        by_slugs: tools.by_slugs
+        excluding_slugs: tools.excluding_slugs
+        with_tag: tools.with_tag
+        is_startpage: tools.is_startpage
+        sort_by: tools.sort_by
+        search_term: tools.search_term
+        resolve_relations: tools.resolve_relations
+        resolve_links: tools.resolve_links
+        language: tools.language
+        fallback_lang: tools.fallback_lang
+        filter_query: tools.filter_query
+        by_uuids: tools.by_uuids
+        excluding_ids: tools.excluding_ids
+        per_page: tools.per_page
+        cv: tools.cv
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-single-story-id
+      description: Retrieve a single story by ID
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-delivery-api-v2-stories.getstorybyid
+      with:
+        language: tools.language
+        cv: tools.cv
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-single-story-slug
+      description: Retrieve a single story by slug
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: content-delivery-api-v2-stories.getstorybyslug
+      with:
+        resolve_relations: tools.resolve_relations
+        resolve_links: tools.resolve_links
+        language: tools.language
+        cv: tools.cv
+      outputParameters:
+      - type: object
+        mapping: $.

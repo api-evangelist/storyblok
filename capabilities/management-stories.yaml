@@ -1,0 +1,333 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Storyblok Management API — Stories
+  description: 'Storyblok Management API — Stories. 7 operations. Lead operation: List stories in a space. Self-contained
+    Naftiko capability covering one Storyblok business surface.'
+  tags:
+  - Storyblok
+  - Stories
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    STORYBLOK_API_KEY: STORYBLOK_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: management-stories
+    baseUri: https://mapi.storyblok.com/v1
+    description: Storyblok Management API — Stories business capability. Self-contained, no shared references.
+    resources:
+    - name: spaces-space_id-stories
+      path: /spaces/{space_id}/stories
+      operations:
+      - name: listmanagementstories
+        method: GET
+        description: List stories in a space
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: with_tag
+          in: query
+          type: string
+          description: Filter stories that have this tag applied.
+        - name: folder_only
+          in: query
+          type: integer
+          description: Set to 1 to only return folder stories.
+        - name: story_only
+          in: query
+          type: integer
+          description: Set to 1 to exclude folder stories from the results.
+        - name: by_slugs
+          in: query
+          type: string
+          description: Comma-separated list of full_slug values to filter by.
+        - name: search
+          in: query
+          type: string
+          description: Text search to filter stories by name.
+        - name: sort_by
+          in: query
+          type: string
+          description: Field and direction to sort by, formatted as field:asc or field:desc.
+        - name: starts_with
+          in: query
+          type: string
+          description: Filter stories whose full_slug starts with this prefix.
+        - name: in_trash
+          in: query
+          type: integer
+          description: Set to 1 to return only stories in the trash.
+        - name: in_release
+          in: query
+          type: integer
+          description: Filter stories belonging to a specific release ID.
+      - name: createstory
+        method: POST
+        description: Create a story
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: spaces-space_id-stories-story_id
+      path: /spaces/{space_id}/stories/{story_id}
+      operations:
+      - name: getmanagementstory
+        method: GET
+        description: Retrieve a single story
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatestory
+        method: PUT
+        description: Update a story
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletestory
+        method: DELETE
+        description: Delete a story
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: spaces-space_id-stories-story_id-publish
+      path: /spaces/{space_id}/stories/{story_id}/publish
+      operations:
+      - name: publishstory
+        method: GET
+        description: Publish a story
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: release_id
+          in: query
+          type: integer
+          description: Publish the story as part of a specific release rather than immediately to production.
+        - name: lang
+          in: query
+          type: string
+          description: Language code to publish a specific translation of the story.
+    - name: spaces-space_id-stories-story_id-unpublish
+      path: /spaces/{space_id}/stories/{story_id}/unpublish
+      operations:
+      - name: unpublishstory
+        method: GET
+        description: Unpublish a story
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.STORYBLOK_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: management-stories-rest
+    port: 8080
+    description: REST adapter for Storyblok Management API — Stories. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/spaces/{space-id}/stories
+      name: spaces-space-id-stories
+      description: REST surface for spaces-space_id-stories.
+      operations:
+      - method: GET
+        name: listmanagementstories
+        description: List stories in a space
+        call: management-stories.listmanagementstories
+        with:
+          with_tag: rest.with_tag
+          folder_only: rest.folder_only
+          story_only: rest.story_only
+          by_slugs: rest.by_slugs
+          search: rest.search
+          sort_by: rest.sort_by
+          starts_with: rest.starts_with
+          in_trash: rest.in_trash
+          in_release: rest.in_release
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createstory
+        description: Create a story
+        call: management-stories.createstory
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/spaces/{space-id}/stories/{story-id}
+      name: spaces-space-id-stories-story-id
+      description: REST surface for spaces-space_id-stories-story_id.
+      operations:
+      - method: GET
+        name: getmanagementstory
+        description: Retrieve a single story
+        call: management-stories.getmanagementstory
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatestory
+        description: Update a story
+        call: management-stories.updatestory
+        with:
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletestory
+        description: Delete a story
+        call: management-stories.deletestory
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/spaces/{space-id}/stories/{story-id}/publish
+      name: spaces-space-id-stories-story-id-publish
+      description: REST surface for spaces-space_id-stories-story_id-publish.
+      operations:
+      - method: GET
+        name: publishstory
+        description: Publish a story
+        call: management-stories.publishstory
+        with:
+          release_id: rest.release_id
+          lang: rest.lang
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/spaces/{space-id}/stories/{story-id}/unpublish
+      name: spaces-space-id-stories-story-id-unpublish
+      description: REST surface for spaces-space_id-stories-story_id-unpublish.
+      operations:
+      - method: GET
+        name: unpublishstory
+        description: Unpublish a story
+        call: management-stories.unpublishstory
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: management-stories-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Storyblok Management API — Stories. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: list-stories-space
+      description: List stories in a space
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-stories.listmanagementstories
+      with:
+        with_tag: tools.with_tag
+        folder_only: tools.folder_only
+        story_only: tools.story_only
+        by_slugs: tools.by_slugs
+        search: tools.search
+        sort_by: tools.sort_by
+        starts_with: tools.starts_with
+        in_trash: tools.in_trash
+        in_release: tools.in_release
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: create-story
+      description: Create a story
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: management-stories.createstory
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: retrieve-single-story
+      description: Retrieve a single story
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-stories.getmanagementstory
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: update-story
+      description: Update a story
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: management-stories.updatestory
+      with:
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: delete-story
+      description: Delete a story
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: management-stories.deletestory
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: publish-story
+      description: Publish a story
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-stories.publishstory
+      with:
+        release_id: tools.release_id
+        lang: tools.lang
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: unpublish-story
+      description: Unpublish a story
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: management-stories.unpublishstory
+      outputParameters:
+      - type: object
+        mapping: $.
