@@ -1,0 +1,95 @@
+arazzo: 1.0.1
+info:
+  title: Storyblok Clone Component
+  summary: Read an existing component definition, recreate it under a new name, and confirm it via the component list.
+  description: >-
+    Duplicates a component schema so it can be forked or migrated. An existing
+    component is read by ID to capture its field schema and nesting flags, a new
+    component is created under a different name reusing that schema, and the
+    space component list is then read back to confirm the clone is registered.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: managementApi
+  url: ../openapi/storyblok-management-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: clone-component
+  summary: Copy a component's schema into a new component and verify it exists.
+  description: >-
+    Reads a source component, recreates its schema under a new name, and reads
+    the component list back to confirm the clone is present.
+  inputs:
+    type: object
+    required:
+    - space_id
+    - component_id
+    - newComponentName
+    properties:
+      space_id:
+        type: integer
+        description: Numeric ID of the Storyblok space.
+      component_id:
+        type: integer
+        description: Numeric ID of the source component to clone.
+      newComponentName:
+        type: string
+        description: Technical name for the new cloned component.
+  steps:
+  - stepId: getComponent
+    description: Read the source component to capture its schema and nesting flags.
+    operationId: getComponent
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    - name: component_id
+      in: path
+      value: $inputs.component_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      sourceSchema: $response.body#/component/schema
+      isRoot: $response.body#/component/is_root
+      isNestable: $response.body#/component/is_nestable
+  - stepId: createClone
+    description: >-
+      Create a new component under the supplied name reusing the source
+      component's schema and nesting flags.
+    operationId: createComponent
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    requestBody:
+      contentType: application/json
+      payload:
+        component:
+          name: $inputs.newComponentName
+          schema: $steps.getComponent.outputs.sourceSchema
+          is_root: $steps.getComponent.outputs.isRoot
+          is_nestable: $steps.getComponent.outputs.isNestable
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      clonedComponentId: $response.body#/component/id
+  - stepId: verifyClone
+    description: >-
+      List the space components, filtered by the new name, to confirm the clone
+      is registered.
+    operationId: listComponents
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    - name: search
+      in: query
+      value: $inputs.newComponentName
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      components: $response.body#/components
+  outputs:
+    clonedComponentId: $steps.createClone.outputs.clonedComponentId
+    components: $steps.verifyClone.outputs.components

@@ -1,0 +1,88 @@
+arazzo: 1.0.1
+info:
+  title: Storyblok Onboard Collaborator
+  summary: Validate the space, invite a collaborator with a role, then list collaborators to confirm the invitation.
+  description: >-
+    Grants a teammate access to a space. The space is validated, a collaborator
+    is invited by email with an assigned role, and the space collaborator list
+    is then read back to confirm the new collaborator is present. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: managementApi
+  url: ../openapi/storyblok-management-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: onboard-collaborator
+  summary: Invite a collaborator to a space and verify the invitation landed.
+  description: >-
+    Confirms the target space, invites a user by email with a role, and reads
+    the collaborator list back to confirm the new member appears.
+  inputs:
+    type: object
+    required:
+    - space_id
+    - email
+    - role
+    properties:
+      space_id:
+        type: integer
+        description: Numeric ID of the Storyblok space.
+      email:
+        type: string
+        description: Email address of the user to invite.
+      role:
+        type: string
+        description: Role to assign — one of admin, editor, or viewer.
+      spaceRoleId:
+        type: integer
+        description: Optional custom space role ID to assign instead of a built-in role.
+  steps:
+  - stepId: validateSpace
+    description: Confirm the target space exists and is accessible before inviting.
+    operationId: getSpace
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      spaceId: $response.body#/space/id
+  - stepId: addCollaborator
+    description: Invite the user to the space and assign their role.
+    operationId: addCollaborator
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    requestBody:
+      contentType: application/json
+      payload:
+        collaborator:
+          email: $inputs.email
+          role: $inputs.role
+          space_role_id: $inputs.spaceRoleId
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      collaboratorId: $response.body#/collaborator/id
+      invited: $response.body#/collaborator/invited
+  - stepId: verifyCollaborator
+    description: >-
+      List the space collaborators to confirm the newly invited collaborator
+      is present.
+    operationId: listCollaborators
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      collaborators: $response.body#/collaborators
+  outputs:
+    collaboratorId: $steps.addCollaborator.outputs.collaboratorId
+    invited: $steps.addCollaborator.outputs.invited
+    collaborators: $steps.verifyCollaborator.outputs.collaborators

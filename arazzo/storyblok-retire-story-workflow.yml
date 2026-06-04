@@ -1,0 +1,100 @@
+arazzo: 1.0.1
+info:
+  title: Storyblok Retire Story
+  summary: Read a story, unpublish it to pull it from delivery, then optionally delete it from the space.
+  description: >-
+    The decommissioning path for a story that approximates an editorial
+    workflow stage transition from live to retired. The story is read to
+    confirm its current state, unpublished so it is removed from public
+    delivery, and then branches: when the caller requests permanent removal the
+    story is deleted, otherwise the flow ends leaving the draft intact for later
+    republishing. Storyblok has no discrete workflow-stage write endpoint, so
+    publish state transitions stand in for stage changes here. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: managementApi
+  url: ../openapi/storyblok-management-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: retire-story
+  summary: Unpublish a story and optionally delete it, with a branch on hard delete.
+  description: >-
+    Reads a story, removes it from public delivery by unpublishing, and either
+    permanently deletes it or leaves the draft intact based on the hardDelete
+    input.
+  inputs:
+    type: object
+    required:
+    - space_id
+    - story_id
+    - hardDelete
+    properties:
+      space_id:
+        type: integer
+        description: Numeric ID of the Storyblok space.
+      story_id:
+        type: integer
+        description: Numeric ID of the story to retire.
+      hardDelete:
+        type: boolean
+        description: Set to true to permanently delete the story after unpublishing.
+  steps:
+  - stepId: getStory
+    description: Read the story to confirm its current state before retiring it.
+    operationId: getManagementStory
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    - name: story_id
+      in: path
+      value: $inputs.story_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      storyName: $response.body#/story/name
+  - stepId: unpublishStory
+    description: >-
+      Unpublish the story, removing it from public access while preserving its
+      draft content.
+    operationId: unpublishStory
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    - name: story_id
+      in: path
+      value: $inputs.story_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      unpublishedStoryId: $response.body#/story/id
+    onSuccess:
+    - name: deleteRequested
+      type: goto
+      stepId: deleteStory
+      criteria:
+      - condition: $inputs.hardDelete == true
+    - name: keepDraft
+      type: end
+      criteria:
+      - condition: $inputs.hardDelete == false
+  - stepId: deleteStory
+    description: Permanently delete the story from the space.
+    operationId: deleteStory
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    - name: story_id
+      in: path
+      value: $inputs.story_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deletedStatus: $statusCode
+  outputs:
+    unpublishedStoryId: $steps.unpublishStory.outputs.unpublishedStoryId
+    deletedStatus: $steps.deleteStory.outputs.deletedStatus

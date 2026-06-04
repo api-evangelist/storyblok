@@ -1,0 +1,107 @@
+arazzo: 1.0.1
+info:
+  title: Storyblok Tag-Driven Content Sync
+  summary: Discover tags, list the stories carrying a chosen tag, then fetch the full content of the first match.
+  description: >-
+    A read-side delivery flow for syndicating tagged content. The space's tags
+    are first discovered, the stories carrying a chosen tag are listed, and the
+    full content of the first matching story is then fetched by slug. Storyblok
+    exposes tags as a read-only derived list on the Content Delivery API — tags
+    are created implicitly by attaching tag_list values to stories rather than
+    through a dedicated tag-write endpoint — so this flow consumes tags rather
+    than authoring them. Every step spells out its request inline so the flow
+    can be read and executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentDeliveryApi
+  url: ../openapi/storyblok-content-delivery-api-v2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: tag-driven-content-sync
+  summary: List tags, find stories by tag, and fetch the first matching story.
+  description: >-
+    Discovers available tags, retrieves the stories carrying a chosen tag, and
+    pulls the full content of the first match by its slug.
+  inputs:
+    type: object
+    required:
+    - deliveryToken
+    - tag
+    properties:
+      deliveryToken:
+        type: string
+        description: Public Content Delivery API token for the space.
+      tag:
+        type: string
+        description: The tag slug to filter stories by.
+      version:
+        type: string
+        description: Content version to retrieve — published (default) or draft.
+  steps:
+  - stepId: listTags
+    description: Discover the tags currently used by published stories in the space.
+    operationId: listTags
+    parameters:
+    - name: token
+      in: query
+      value: $inputs.deliveryToken
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      tags: $response.body#/tags
+  - stepId: listStoriesByTag
+    description: List published stories that carry the chosen tag.
+    operationId: listStories
+    parameters:
+    - name: token
+      in: query
+      value: $inputs.deliveryToken
+    - name: with_tag
+      in: query
+      value: $inputs.tag
+    - name: version
+      in: query
+      value: $inputs.version
+    - name: per_page
+      in: query
+      value: 25
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      firstSlug: $response.body#/stories/0/full_slug
+    onSuccess:
+    - name: hasMatches
+      type: goto
+      stepId: fetchFirstStory
+      criteria:
+      - context: $response.body
+        condition: $.stories.length > 0
+        type: jsonpath
+    - name: noMatches
+      type: end
+      criteria:
+      - context: $response.body
+        condition: $.stories.length == 0
+        type: jsonpath
+  - stepId: fetchFirstStory
+    description: Fetch the full content of the first matching story by its slug.
+    operationId: getStoryBySlug
+    parameters:
+    - name: slug
+      in: path
+      value: $steps.listStoriesByTag.outputs.firstSlug
+    - name: token
+      in: query
+      value: $inputs.deliveryToken
+    - name: version
+      in: query
+      value: $inputs.version
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      storyId: $response.body#/story/id
+      storyContent: $response.body#/story/content
+  outputs:
+    tags: $steps.listTags.outputs.tags
+    matchedSlug: $steps.listStoriesByTag.outputs.firstSlug
+    storyId: $steps.fetchFirstStory.outputs.storyId

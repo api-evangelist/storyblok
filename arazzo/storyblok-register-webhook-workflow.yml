@@ -1,0 +1,101 @@
+arazzo: 1.0.1
+info:
+  title: Storyblok Register Webhook
+  summary: Validate the space, register a webhook endpoint, then read it back to confirm it is active.
+  description: >-
+    Wires a space up to deliver event notifications. The space is validated,
+    a webhook endpoint is registered with its target URL and subscribed
+    actions, and the created endpoint is then retrieved by ID to confirm it is
+    activated and persisted. Every step spells out its request inline so the
+    flow can be read and executed without opening the underlying OpenAPI
+    description.
+  version: 1.0.0
+sourceDescriptions:
+- name: managementApi
+  url: ../openapi/storyblok-management-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: register-webhook
+  summary: Register a webhook endpoint and verify it was created and activated.
+  description: >-
+    Confirms the target space, creates a webhook endpoint subscribed to the
+    supplied actions, and reads it back to confirm activation.
+  inputs:
+    type: object
+    required:
+    - space_id
+    - webhookUrl
+    - actions
+    properties:
+      space_id:
+        type: integer
+        description: Numeric ID of the Storyblok space.
+      webhookUrl:
+        type: string
+        description: Target URL that receives POST requests when events fire.
+      webhookName:
+        type: string
+        description: Optional display name for the webhook endpoint.
+      actions:
+        type: array
+        description: Event action strings to subscribe to (e.g. story.published).
+        items:
+          type: string
+      secret:
+        type: string
+        description: Optional secret used to sign the webhook-signature header.
+  steps:
+  - stepId: validateSpace
+    description: Confirm the target space exists and is accessible before registering.
+    operationId: getSpace
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      spaceId: $response.body#/space/id
+  - stepId: createWebhook
+    description: Register the webhook endpoint with its URL and subscribed actions.
+    operationId: createWebhook
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    requestBody:
+      contentType: application/json
+      payload:
+        webhook_endpoint:
+          url: $inputs.webhookUrl
+          name: $inputs.webhookName
+          actions: $inputs.actions
+          secret: $inputs.secret
+          activated: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      webhookId: $response.body#/webhook_endpoint/id
+      webhookSecret: $response.body#/webhook_endpoint/secret
+  - stepId: verifyWebhook
+    description: >-
+      Retrieve the created webhook endpoint by ID to confirm it is persisted
+      and activated.
+    operationId: getWebhook
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    - name: webhook_id
+      in: path
+      value: $steps.createWebhook.outputs.webhookId
+    successCriteria:
+    - condition: $statusCode == 200
+    - condition: $response.body#/webhook_endpoint/activated == true
+    outputs:
+      activated: $response.body#/webhook_endpoint/activated
+      verifiedUrl: $response.body#/webhook_endpoint/url
+  outputs:
+    webhookId: $steps.createWebhook.outputs.webhookId
+    webhookSecret: $steps.createWebhook.outputs.webhookSecret
+    activated: $steps.verifyWebhook.outputs.activated

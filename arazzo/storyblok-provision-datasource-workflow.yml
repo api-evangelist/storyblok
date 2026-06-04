@@ -1,0 +1,98 @@
+arazzo: 1.0.1
+info:
+  title: Storyblok Provision Datasource
+  summary: Validate the space, create a datasource, then read its entries back through the Content Delivery API.
+  description: >-
+    Stands up a reusable datasource for options lists and translations. The
+    space is first validated, a datasource is then created through the
+    Management API, and finally its entries are read back through the public
+    Content Delivery API by slug to confirm the datasource is queryable.
+    Storyblok exposes no public endpoint for adding individual datasource
+    entries, so this flow provisions the datasource container and verifies it
+    is reachable rather than seeding entries; entries are added in the editor.
+    Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: managementApi
+  url: ../openapi/storyblok-management-api-openapi.yml
+  type: openapi
+- name: contentDeliveryApi
+  url: ../openapi/storyblok-content-delivery-api-v2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: provision-datasource
+  summary: Validate a space, create a datasource, and verify it via the delivery API.
+  description: >-
+    Confirms the target space, creates a named datasource, and reads back its
+    entries through the public delivery token to confirm reachability.
+  inputs:
+    type: object
+    required:
+    - space_id
+    - datasourceName
+    - datasourceSlug
+    - deliveryToken
+    properties:
+      space_id:
+        type: integer
+        description: Numeric ID of the Storyblok space.
+      datasourceName:
+        type: string
+        description: Display name for the new datasource.
+      datasourceSlug:
+        type: string
+        description: URL-safe slug used to query the datasource entries.
+      deliveryToken:
+        type: string
+        description: Public Content Delivery API token for the space.
+  steps:
+  - stepId: validateSpace
+    description: Confirm the target space exists and is accessible before provisioning.
+    operationId: getSpace
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      spaceId: $response.body#/space/id
+  - stepId: createDatasource
+    description: Create the datasource container in the space.
+    operationId: createDatasource
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    requestBody:
+      contentType: application/json
+      payload:
+        datasource:
+          name: $inputs.datasourceName
+          slug: $inputs.datasourceSlug
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      datasourceId: $response.body#/datasource/id
+      datasourceSlug: $response.body#/datasource/slug
+  - stepId: verifyEntries
+    description: >-
+      Read the datasource entries back through the public Content Delivery API
+      by slug to confirm the datasource is queryable.
+    operationId: listDatasourceEntries
+    parameters:
+    - name: token
+      in: query
+      value: $inputs.deliveryToken
+    - name: datasource
+      in: query
+      value: $steps.createDatasource.outputs.datasourceSlug
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      entries: $response.body#/datasource_entries
+  outputs:
+    datasourceId: $steps.createDatasource.outputs.datasourceId
+    datasourceSlug: $steps.createDatasource.outputs.datasourceSlug
+    entries: $steps.verifyEntries.outputs.entries

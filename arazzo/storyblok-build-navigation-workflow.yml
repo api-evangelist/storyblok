@@ -1,0 +1,82 @@
+arazzo: 1.0.1
+info:
+  title: Storyblok Build Navigation
+  summary: Pull the space link tree for a folder, then fetch the folder start page content for a navigation header.
+  description: >-
+    A read-side flow for generating site navigation. The full link map for a
+    folder is retrieved to build a menu tree, then the start page story for
+    that folder is fetched by slug so its content can drive the navigation
+    header. Both steps run against the public Content Delivery API. Every step
+    spells out its request inline so the flow can be read and executed without
+    opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: contentDeliveryApi
+  url: ../openapi/storyblok-content-delivery-api-v2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: build-navigation
+  summary: Fetch a folder's link tree and its start page content for navigation.
+  description: >-
+    Retrieves the link map for a folder prefix and the folder's start page
+    story so a navigation menu and header can be assembled.
+  inputs:
+    type: object
+    required:
+    - deliveryToken
+    - startsWith
+    - startPageSlug
+    properties:
+      deliveryToken:
+        type: string
+        description: Public Content Delivery API token for the space.
+      startsWith:
+        type: string
+        description: full_slug prefix identifying the folder to build navigation for.
+      startPageSlug:
+        type: string
+        description: The full_slug of the folder start page story.
+  steps:
+  - stepId: listLinks
+    description: >-
+      Retrieve the link map for the folder prefix to build the navigation tree,
+      including publication dates.
+    operationId: listLinks
+    parameters:
+    - name: token
+      in: query
+      value: $inputs.deliveryToken
+    - name: starts_with
+      in: query
+      value: $inputs.startsWith
+    - name: including_dates
+      in: query
+      value: 1
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      links: $response.body#/links
+  - stepId: fetchStartPage
+    description: >-
+      Fetch the folder start page story by slug so its content can drive the
+      navigation header.
+    operationId: getStoryBySlug
+    parameters:
+    - name: slug
+      in: path
+      value: $inputs.startPageSlug
+    - name: token
+      in: query
+      value: $inputs.deliveryToken
+    - name: resolve_links
+      in: query
+      value: url
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      startPageId: $response.body#/story/id
+      startPageContent: $response.body#/story/content
+  outputs:
+    links: $steps.listLinks.outputs.links
+    startPageId: $steps.fetchStartPage.outputs.startPageId
+    startPageContent: $steps.fetchStartPage.outputs.startPageContent

@@ -1,0 +1,94 @@
+arazzo: 1.0.1
+info:
+  title: Storyblok Publish and Verify Delivery
+  summary: Publish a draft story via the Management API and verify it is live through the Content Delivery API.
+  description: >-
+    Closes the loop between the Management API and the Content Delivery API.
+    A story is published through the Management API, then the same story is
+    fetched from the public Content Delivery endpoint by its numeric ID to
+    confirm the published version is actually being served. Every step spells
+    out its request inline so the flow can be read and executed without opening
+    the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: managementApi
+  url: ../openapi/storyblok-management-api-openapi.yml
+  type: openapi
+- name: contentDeliveryApi
+  url: ../openapi/storyblok-content-delivery-api-v2-openapi.yml
+  type: openapi
+workflows:
+- workflowId: publish-and-verify-delivery
+  summary: Publish a story and confirm it is served by the Content Delivery API.
+  description: >-
+    Reads the management copy of a story, publishes it, and then verifies the
+    published version is retrievable via the public delivery token.
+  inputs:
+    type: object
+    required:
+    - space_id
+    - story_id
+    - deliveryToken
+    properties:
+      space_id:
+        type: integer
+        description: Numeric ID of the Storyblok space.
+      story_id:
+        type: integer
+        description: Numeric ID of the story to publish and verify.
+      deliveryToken:
+        type: string
+        description: Public Content Delivery API token for the space.
+  steps:
+  - stepId: getStory
+    description: Read the management copy of the story to confirm it exists before publishing.
+    operationId: getManagementStory
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    - name: story_id
+      in: path
+      value: $inputs.story_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      storyId: $response.body#/story/id
+  - stepId: publishStory
+    description: Publish the current draft version of the story.
+    operationId: publishStory
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    - name: story_id
+      in: path
+      value: $inputs.story_id
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      publishedAt: $response.body#/story/published_at
+  - stepId: verifyDelivery
+    description: >-
+      Fetch the published story from the public Content Delivery API by its
+      numeric ID to confirm the published version is being served.
+    operationId: getStoryById
+    parameters:
+    - name: id
+      in: path
+      value: $inputs.story_id
+    - name: token
+      in: query
+      value: $inputs.deliveryToken
+    - name: version
+      in: query
+      value: published
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      deliveredStoryId: $response.body#/story/id
+      deliveredSlug: $response.body#/story/full_slug
+  outputs:
+    publishedAt: $steps.publishStory.outputs.publishedAt
+    deliveredStoryId: $steps.verifyDelivery.outputs.deliveredStoryId
+    deliveredSlug: $steps.verifyDelivery.outputs.deliveredSlug

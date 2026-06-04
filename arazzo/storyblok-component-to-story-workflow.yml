@@ -1,0 +1,114 @@
+arazzo: 1.0.1
+info:
+  title: Storyblok Component to Story
+  summary: Define a component schema, create a story that uses it, then publish the story.
+  description: >-
+    The foundational Storyblok authoring loop. A new component definition is
+    created in the space to establish the content schema, a story is then
+    created whose content references that component by name, and finally the
+    story is published so it becomes available through the Content Delivery
+    API. Every step spells out its request inline so the flow can be read and
+    executed without opening the underlying OpenAPI description.
+  version: 1.0.0
+sourceDescriptions:
+- name: managementApi
+  url: ../openapi/storyblok-management-api-openapi.yml
+  type: openapi
+workflows:
+- workflowId: component-to-story
+  summary: Create a component, create a story using it, and publish the story.
+  description: >-
+    Establishes a reusable component schema, authors a story bound to that
+    component, and publishes it in a single chained flow scoped to one space.
+  inputs:
+    type: object
+    required:
+    - space_id
+    - componentName
+    - componentSchema
+    - storyName
+    - storySlug
+    properties:
+      space_id:
+        type: integer
+        description: Numeric ID of the Storyblok space to operate in.
+      componentName:
+        type: string
+        description: Technical name identifier for the new component (e.g. "hero").
+      componentSchema:
+        type: object
+        description: Field definitions map for the component.
+      isRoot:
+        type: boolean
+        description: Set to true to allow the component to be used as a story root.
+      storyName:
+        type: string
+        description: Display name of the story to create.
+      storySlug:
+        type: string
+        description: URL-safe slug segment for the story.
+  steps:
+  - stepId: createComponent
+    description: >-
+      Create the component definition that establishes the content schema the
+      new story will use.
+    operationId: createComponent
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    requestBody:
+      contentType: application/json
+      payload:
+        component:
+          name: $inputs.componentName
+          schema: $inputs.componentSchema
+          is_root: $inputs.isRoot
+          is_nestable: true
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      componentId: $response.body#/component/id
+      componentName: $response.body#/component/name
+  - stepId: createStory
+    description: >-
+      Create a story whose content uses the component just defined, identifying
+      the component by name in the content object.
+    operationId: createStory
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    requestBody:
+      contentType: application/json
+      payload:
+        story:
+          name: $inputs.storyName
+          slug: $inputs.storySlug
+          content:
+            component: $steps.createComponent.outputs.componentName
+    successCriteria:
+    - condition: $statusCode == 201
+    outputs:
+      storyId: $response.body#/story/id
+  - stepId: publishStory
+    description: >-
+      Publish the newly created story so its content becomes available through
+      the Content Delivery API with the public token.
+    operationId: publishStory
+    parameters:
+    - name: space_id
+      in: path
+      value: $inputs.space_id
+    - name: story_id
+      in: path
+      value: $steps.createStory.outputs.storyId
+    successCriteria:
+    - condition: $statusCode == 200
+    outputs:
+      publishedStoryId: $response.body#/story/id
+      publishedAt: $response.body#/story/published_at
+  outputs:
+    componentId: $steps.createComponent.outputs.componentId
+    storyId: $steps.createStory.outputs.storyId
+    publishedStoryId: $steps.publishStory.outputs.publishedStoryId
