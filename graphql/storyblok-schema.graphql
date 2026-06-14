@@ -1,0 +1,199 @@
+"""
+Storyblok GraphQL Content Delivery API - Schema Definition Language
+
+The schema is dynamically generated per space based on user-defined content types (components).
+For each component named e.g. "blog-article", the engine generates:
+  - BlogArticleItem  (single item query)
+  - BlogArticleItems (collection query)
+
+The types below represent the fixed built-in types available in every Storyblok space,
+plus the structural envelope types used by those dynamic queries.
+
+Regional endpoints:
+  EU:        https://gapi.storyblok.com/v2/api
+  US:        https://gapi-us.storyblok.com/v2/api
+  Canada:    https://gapi-ca.storyblok.com/v2/api
+  Australia: https://gapi-ap.storyblok.com/v2/api
+  China:     https://gapi.storyblokchina.cn/v2/api
+
+Authentication: Token header (access token) + Version header (draft | published)
+"""
+
+schema {
+  query: Query
+}
+
+"""
+Root query type. In addition to the fixed built-in fields documented here,
+every space also exposes dynamically generated [ComponentName]Item and
+[ComponentName]Items fields for each content type defined in that space.
+"""
+type Query {
+  """
+  Retrieve datasource key/value entries. Optionally filter by datasource slug
+  or a specific dimension (e.g. locale variant).
+  """
+  DatasourceEntries(
+    datasource: String
+    dimension: String
+    page: Int
+    per_page: Int
+  ): DatasourceEntries
+
+  """
+  Retrieve all tags defined in the space, optionally filtered by slug prefix.
+  """
+  TagsItem(
+    starts_with: String
+  ): TagsItem
+
+  """
+  Retrieve story links (the link tree) for the space, optionally filtered by
+  folder, pagination, and content type.
+  """
+  Links(
+    starts_with: String
+    paginated: Boolean
+    per_page: Int
+    page: Int
+  ): Links
+
+  """
+  Returns rate-limit cost information for the current query.
+  """
+  RateLimit: RateLimit
+}
+
+# ---------------------------------------------------------------------------
+# Built-in fixed types
+# ---------------------------------------------------------------------------
+
+"""
+Paginated collection of datasource entries.
+"""
+type DatasourceEntries {
+  items: [DatasourceEntry]
+  total: Int
+}
+
+"""
+A single key/value entry from a Storyblok datasource.
+"""
+type DatasourceEntry {
+  id: Int
+  name: String
+  value: String
+  dimension_value: String
+}
+
+"""
+Container for the tags response.
+"""
+type TagsItem {
+  items: [Tag]
+}
+
+"""
+A single tag in the Storyblok space.
+"""
+type Tag {
+  name: String
+  taggings_count: Int
+}
+
+"""
+Paginated collection of links (story link tree entries).
+"""
+type Links {
+  items: [LinkItem]
+  total: Int
+}
+
+"""
+A single link entry representing a story's position in the tree.
+"""
+type LinkItem {
+  id: Int
+  slug: String
+  name: String
+  is_folder: Boolean
+  parent_id: Int
+  published: Boolean
+  position: Int
+  uuid: String
+  is_startpage: Boolean
+  real_path: String
+}
+
+"""
+Rate-limit cost information returned alongside a query response.
+"""
+type RateLimit {
+  maxcost: Int
+}
+
+# ---------------------------------------------------------------------------
+# Structural envelope types used by dynamic content-type queries
+# ---------------------------------------------------------------------------
+
+"""
+Generic single-item envelope. The content field holds the component-specific fields.
+Dynamic queries return [ComponentName]Item with this structure.
+"""
+type ContentItem {
+  id: Int
+  uuid: String
+  name: String
+  slug: String
+  full_slug: String
+  default_full_slug: String
+  created_at: String
+  published_at: String
+  first_published_at: String
+  sort_by_date: String
+  lang: String
+  position: Int
+  is_startpage: Boolean
+  parent_id: Int
+  group_id: String
+  tag_list: [String]
+  path: String
+  alternates: [Alternate]
+  translated_slugs: [TranslatedSlug]
+  content: JsonScalar
+}
+
+"""
+Generic collection envelope. Dynamic queries return [ComponentName]Items with this structure.
+"""
+type ContentItems {
+  items: [ContentItem]
+  total: Int
+}
+
+"""
+An alternate-language version of a story.
+"""
+type Alternate {
+  id: Int
+  name: String
+  slug: String
+  full_slug: String
+  is_folder: Boolean
+  parent_id: Int
+}
+
+"""
+A translated slug entry (requires the Translatable Slugs app to be installed).
+"""
+type TranslatedSlug {
+  path: String
+  name: String
+  lang: String
+  published: Boolean
+}
+
+"""
+Scalar representing a freeform JSON content body (the component content object).
+"""
+scalar JsonScalar

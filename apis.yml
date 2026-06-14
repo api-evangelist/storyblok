@@ -1,9 +1,11 @@
 aid: storyblok
 name: Storyblok
-description: Storyblok is a headless content management system (CMS) with a visual editor that enables developers and content
-  editors to collaboratively build and manage digital experiences. It provides APIs for content delivery, content management,
-  image optimization, and webhook-based event notifications. Storyblok supports composable content through reusable components,
-  multi-language content, and multi-site management with real-time collaboration features.
+description: Storyblok is a headless content management system (CMS) with a visual
+  editor that enables developers and content editors to collaboratively build and
+  manage digital experiences. It provides APIs for content delivery, content management,
+  image optimization, and webhook-based event notifications. Storyblok supports composable
+  content through reusable components, multi-language content, and multi-site management
+  with real-time collaboration features.
 type: Index
 position: Consumer
 access: 3rd-Party
@@ -24,10 +26,11 @@ specificationVersion: '0.19'
 apis:
 - aid: storyblok:storyblok-content-delivery-api
   name: Storyblok Content Delivery API
-  description: The Storyblok Content Delivery API v2 enables developers to fetch published content from a Storyblok space
-    for delivery to web, mobile, and other channels. Provides access to stories, datasources, links, tags, and asset metadata
-    with filtering, pagination, and relation resolution. Available across multiple regional endpoints for global low-latency
-    delivery.
+  description: The Storyblok Content Delivery API v2 enables developers to fetch published
+    content from a Storyblok space for delivery to web, mobile, and other channels.
+    Provides access to stories, datasources, links, tags, and asset metadata with
+    filtering, pagination, and relation resolution. Available across multiple regional
+    endpoints for global low-latency delivery.
   humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
   baseURL: https://api.storyblok.com/v2/cdn
   tags:
@@ -40,20 +43,15 @@ apis:
     url: https://www.storyblok.com/docs/api/content-delivery/v2
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-content-delivery-api-v2-openapi.yml
-  - type: NaftikoCapability
-    url: capabilities/content-delivery-api-v2-general.yaml
-  - type: NaftikoCapability
-    url: capabilities/content-delivery-api-v2-datasources.yaml
-  - type: NaftikoCapability
-    url: capabilities/content-delivery-api-v2-links.yaml
-  - type: NaftikoCapability
-    url: capabilities/content-delivery-api-v2-stories.yaml
+  - url: graphql/storyblok-graphql.md
+    type: GraphQL
 - aid: storyblok:storyblok-management-api
   name: Storyblok Management API
-  description: The Storyblok Management API is a REST API for programmatically creating, reading, updating, and deleting content
-    and configuration within a Storyblok space. Supports managing stories, components, assets, datasources, collaborators,
-    webhooks, and space settings. Used for editorial tooling, content migration, CI/CD pipelines, and automated publishing
-    workflows.
+  description: The Storyblok Management API is a REST API for programmatically creating,
+    reading, updating, and deleting content and configuration within a Storyblok space.
+    Supports managing stories, components, assets, datasources, collaborators, webhooks,
+    and space settings. Used for editorial tooling, content migration, CI/CD pipelines,
+    and automated publishing workflows.
   humanURL: https://www.storyblok.com/docs/api/management
   baseURL: https://mapi.storyblok.com/v1
   tags:
@@ -69,25 +67,12 @@ apis:
     url: https://www.storyblok.com/docs/api/management
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-management-api-openapi.yml
-  - type: NaftikoCapability
-    url: capabilities/management-assets.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-collaborators.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-components.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-datasources.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-spaces.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-stories.yaml
-  - type: NaftikoCapability
-    url: capabilities/management-webhooks.yaml
 - aid: storyblok:storyblok-image-service
   name: Storyblok Image Service
-  description: The Storyblok Image Service provides on-the-fly image resizing, cropping, filtering, and format conversion
-    for assets stored in Storyblok. Supports fit-in resizing, smart cropping, focus-point-based cropping, and custom filter
-    chains for quality adjustment, grayscale, and blur effects.
+  description: The Storyblok Image Service provides on-the-fly image resizing, cropping,
+    filtering, and format conversion for assets stored in Storyblok. Supports fit-in
+    resizing, smart cropping, focus-point-based cropping, and custom filter chains
+    for quality adjustment, grayscale, and blur effects.
   humanURL: https://www.storyblok.com/docs/image-service
   baseURL: https://a.storyblok.com
   tags:
@@ -99,12 +84,11 @@ apis:
     url: https://www.storyblok.com/docs/image-service
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-image-service-openapi.yml
-  - type: NaftikoCapability
-    url: capabilities/image-service-image-transformation.yaml
 - aid: storyblok:storyblok-webhooks
   name: Storyblok Webhooks
-  description: Storyblok emits webhook events when content actions occur in a space such as story publication, unpublication,
-    deletion, asset upload, and pipeline stage transitions. AsyncAPI specification for webhook event schemas.
+  description: Storyblok emits webhook events when content actions occur in a space
+    such as story publication, unpublication, deletion, asset upload, and pipeline
+    stage transitions. AsyncAPI specification for webhook event schemas.
   humanURL: https://www.storyblok.com/docs/guide/in-depth/webhooks
   tags:
   - AsyncAPI
@@ -122,37 +106,48 @@ common:
   workflows:
   - url: arazzo/storyblok-asset-to-story-workflow.yml
     name: Storyblok Asset to Story
-    summary: Sign an asset upload, create a story that references the asset, then publish it.
+    summary: Sign an asset upload, create a story that references the asset, then
+      publish it.
   - url: arazzo/storyblok-author-and-publish-story-workflow.yml
     name: Storyblok Author and Publish Story
-    summary: Create a draft story, read it back, update its content, then publish it.
+    summary: Create a draft story, read it back, update its content, then publish
+      it.
   - url: arazzo/storyblok-build-navigation-workflow.yml
     name: Storyblok Build Navigation
-    summary: Pull the space link tree for a folder, then fetch the folder start page content for a navigation header.
+    summary: Pull the space link tree for a folder, then fetch the folder start page
+      content for a navigation header.
   - url: arazzo/storyblok-clone-component-workflow.yml
     name: Storyblok Clone Component
-    summary: Read an existing component definition, recreate it under a new name, and confirm it via the component list.
+    summary: Read an existing component definition, recreate it under a new name,
+      and confirm it via the component list.
   - url: arazzo/storyblok-component-to-story-workflow.yml
     name: Storyblok Component to Story
-    summary: Define a component schema, create a story that uses it, then publish the story.
+    summary: Define a component schema, create a story that uses it, then publish
+      the story.
   - url: arazzo/storyblok-onboard-collaborator-workflow.yml
     name: Storyblok Onboard Collaborator
-    summary: Validate the space, invite a collaborator with a role, then list collaborators to confirm the invitation.
+    summary: Validate the space, invite a collaborator with a role, then list collaborators
+      to confirm the invitation.
   - url: arazzo/storyblok-provision-datasource-workflow.yml
     name: Storyblok Provision Datasource
-    summary: Validate the space, create a datasource, then read its entries back through the Content Delivery API.
+    summary: Validate the space, create a datasource, then read its entries back through
+      the Content Delivery API.
   - url: arazzo/storyblok-publish-and-verify-delivery-workflow.yml
     name: Storyblok Publish and Verify Delivery
-    summary: Publish a draft story via the Management API and verify it is live through the Content Delivery API.
+    summary: Publish a draft story via the Management API and verify it is live through
+      the Content Delivery API.
   - url: arazzo/storyblok-register-webhook-workflow.yml
     name: Storyblok Register Webhook
-    summary: Validate the space, register a webhook endpoint, then read it back to confirm it is active.
+    summary: Validate the space, register a webhook endpoint, then read it back to
+      confirm it is active.
   - url: arazzo/storyblok-retire-story-workflow.yml
     name: Storyblok Retire Story
-    summary: Read a story, unpublish it to pull it from delivery, then optionally delete it from the space.
+    summary: Read a story, unpublish it to pull it from delivery, then optionally
+      delete it from the space.
   - url: arazzo/storyblok-tag-driven-content-sync-workflow.yml
     name: Storyblok Tag-Driven Content Sync
-    summary: Discover tags, list the stories carrying a chosen tag, then fetch the full content of the first match.
+    summary: Discover tags, list the stories carrying a chosen tag, then fetch the
+      full content of the first match.
 - type: LinkedIn
   url: https://www.linkedin.com/company/storyblok
 - type: Portal
