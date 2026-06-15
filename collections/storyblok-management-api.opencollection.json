@@ -1,0 +1,837 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Storyblok Management API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Spaces",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ]
+          },
+          "docs": "Returns the details of a Storyblok space including its name, plan, regional endpoint, domain configuration, language settings, and statistics. This endpoint is useful for validating space access and retrieving configuration needed for other API calls."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Stories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List stories in a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/stories",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results, starting at 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Maximum 100."
+              },
+              {
+                "name": "with_tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter stories that have this tag applied."
+              },
+              {
+                "name": "folder_only",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to only return folder stories."
+              },
+              {
+                "name": "story_only",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to exclude folder stories from the results."
+              },
+              {
+                "name": "by_slugs",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of full_slug values to filter by."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Text search to filter stories by name."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to sort by, formatted as field:asc or field:desc."
+              },
+              {
+                "name": "starts_with",
+                "value": "",
+                "type": "query",
+                "description": "Filter stories whose full_slug starts with this prefix."
+              },
+              {
+                "name": "in_trash",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to return only stories in the trash."
+              },
+              {
+                "name": "in_release",
+                "value": "",
+                "type": "query",
+                "description": "Filter stories belonging to a specific release ID."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of stories in the space. The response includes both published and draft stories. Results can be filtered by folder, publication status, component type, and text search."
+        },
+        {
+          "info": {
+            "name": "Create a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/stories",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new story in the space. The request body must include the story name, slug, and content object. Optionally specify a parent_id to nest the story inside a folder. Stories are created in draft state unless publish is set to 1."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single story",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/stories/:story_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              }
+            ]
+          },
+          "docs": "Returns the full details of a single story by its numeric ID, including draft content, workflow state, locks, and publishing history."
+        },
+        {
+          "info": {
+            "name": "Update a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/stories/:story_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing story's content, metadata, or settings. Only the fields provided in the request body are updated. Set publish to 1 to publish the story as part of the update."
+        },
+        {
+          "info": {
+            "name": "Delete a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/stories/:story_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a story from the space. This action cannot be undone. Deleting a folder story also deletes all stories nested within it."
+        },
+        {
+          "info": {
+            "name": "Publish a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/stories/:story_id/publish",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              },
+              {
+                "name": "release_id",
+                "value": "",
+                "type": "query",
+                "description": "Publish the story as part of a specific release rather than immediately to production."
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Language code to publish a specific translation of the story."
+              }
+            ]
+          },
+          "docs": "Publishes the current draft version of a story, making it available via the Content Delivery API with the public token. If the story has a scheduled publication date, this endpoint publishes it immediately regardless of the schedule."
+        },
+        {
+          "info": {
+            "name": "Unpublish a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/stories/:story_id/unpublish",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              }
+            ]
+          },
+          "docs": "Unpublishes a story, removing it from public access via the Content Delivery API. The story's draft content is preserved and can be republished at any time."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Components",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List components in a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/components",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter components by name using a partial text match."
+              },
+              {
+                "name": "in_groups",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of component group UUIDs to filter components by their assigned group."
+              }
+            ]
+          },
+          "docs": "Returns all component definitions for the space. Components define the content schema used by stories, including field names, types, and validation rules."
+        },
+        {
+          "info": {
+            "name": "Create a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/components",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new component definition in the space. The component schema specifies the field definitions that will be available to stories using this component."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single component",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/components/:component_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "component_id",
+                "value": "11111",
+                "type": "path",
+                "description": "Numeric ID of the component."
+              }
+            ]
+          },
+          "docs": "Returns the full schema definition of a single component by its numeric ID, including all field definitions and their configuration."
+        },
+        {
+          "info": {
+            "name": "Update a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/components/:component_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "component_id",
+                "value": "11111",
+                "type": "path",
+                "description": "Numeric ID of the component."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing component definition. Changes to the schema affect all stories that use this component."
+        },
+        {
+          "info": {
+            "name": "Delete a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/components/:component_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "component_id",
+                "value": "11111",
+                "type": "path",
+                "description": "Numeric ID of the component."
+              }
+            ]
+          },
+          "docs": "Deletes a component definition from the space. Stories that reference this component will retain their existing content but the schema validation will no longer apply."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Assets",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List assets in a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/assets",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results, starting at 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Maximum 100."
+              },
+              {
+                "name": "in_folder",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets within a specific asset folder ID."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets by filename using a partial text match."
+              },
+              {
+                "name": "content_type",
+                "value": "",
+                "type": "query",
+                "description": "Filter assets by MIME type, such as image/jpeg or application/pdf."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of assets in the space. Assets can be filtered by content type, folder, and filename search. The response includes the asset URL and metadata."
+        },
+        {
+          "info": {
+            "name": "Sign an asset upload",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/assets",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Initiates the asset upload process by requesting a signed upload URL from Storyblok's asset CDN. After receiving the signed URL and form fields, upload the file directly to the CDN using a multipart POST request, then call the asset finalization endpoint."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/assets/:asset_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "asset_id",
+                "value": "22222",
+                "type": "path",
+                "description": "Numeric ID of the asset."
+              }
+            ]
+          },
+          "docs": "Returns the full metadata for a single asset by its numeric ID, including its CDN URL, dimensions, content type, and associated tags."
+        },
+        {
+          "info": {
+            "name": "Delete an asset",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/assets/:asset_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "asset_id",
+                "value": "22222",
+                "type": "path",
+                "description": "Numeric ID of the asset."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an asset from the space's asset library and removes it from the CDN. This action cannot be undone. Stories referencing this asset will display broken media after deletion."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Datasources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List datasources in a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/datasources",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results, starting at 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Maximum 100."
+              }
+            ]
+          },
+          "docs": "Returns all datasources defined in the space. Use this endpoint to enumerate available datasources before creating, updating, or deleting their entries."
+        },
+        {
+          "info": {
+            "name": "Create a datasource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/datasources",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new datasource in the space. Optionally define dimensions to support locale-specific or variant values alongside the default entries."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Collaborators",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List collaborators in a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/collaborators",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ]
+          },
+          "docs": "Returns a list of all collaborators who have access to the space, including their roles, permissions, and invitation status."
+        },
+        {
+          "info": {
+            "name": "Add a collaborator",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/collaborators",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invites a user to the space by email address and assigns them a role. If the user already has a Storyblok account they will be added immediately; otherwise an invitation email is sent."
+        },
+        {
+          "info": {
+            "name": "Remove a collaborator",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/collaborators/:collaborator_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "collaborator_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the collaborator to remove."
+              }
+            ]
+          },
+          "docs": "Removes a collaborator from the space, revoking their access. The user's Storyblok account is not deleted; they simply lose access to this space."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/webhook_endpoints",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ]
+          },
+          "docs": "Returns all webhook endpoints configured for the space, including their target URLs, event subscriptions, and optional secret configuration."
+        },
+        {
+          "info": {
+            "name": "Create a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/webhook_endpoints",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new webhook endpoint to receive event notifications from the space. Specify the target URL, the events to subscribe to, and an optional secret for signature validation."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/webhook_endpoints/:webhook_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "webhook_id",
+                "value": "33333",
+                "type": "path",
+                "description": "Numeric ID of the webhook endpoint."
+              }
+            ]
+          },
+          "docs": "Returns the configuration of a single webhook endpoint by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "Update a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/webhook_endpoints/:webhook_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "webhook_id",
+                "value": "33333",
+                "type": "path",
+                "description": "Numeric ID of the webhook endpoint."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing webhook endpoint's URL, subscribed events, or secret key."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://mapi.storyblok.com/v1/spaces/:space_id/webhook_endpoints/:webhook_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "webhook_id",
+                "value": "33333",
+                "type": "path",
+                "description": "Numeric ID of the webhook endpoint."
+              }
+            ]
+          },
+          "docs": "Permanently removes a webhook endpoint from the space. No further event notifications will be sent to the associated URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

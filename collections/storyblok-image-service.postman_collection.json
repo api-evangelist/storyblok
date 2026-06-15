@@ -1,0 +1,608 @@
+{
+  "item": [
+    {
+      "id": "01d8301f-0fb6-426c-a050-660e03fc9214",
+      "name": "Image Transformation",
+      "description": {
+        "content": "URL-based image transformation operations applied by constructing a specific path structure following the base asset URL. All operations require the /m/ path segment prefix.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "088e6b96-b8f8-4ea7-8739-3f8c8e1c8981",
+          "name": "Retrieve original image with transformation routing enabled",
+          "request": {
+            "name": "Retrieve original image with transformation routing enabled",
+            "description": {
+              "content": "Returns the original image without any transformation. The /m/ path segment activates the Image Service transformation routing for all subsequent operations. Any further path segments after /m/ apply transformations such as resizing, cropping, and filter effects.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":asset_path",
+                "m",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "asset_path",
+                  "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "9caa5d36-ce77-4a36-ac3a-0001dc1c9b8a",
+              "name": "The image was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":asset_path",
+                    "m",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_path",
+                      "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "image/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "82e049eb-84e5-46f3-8f56-868862d719cf",
+              "name": "The requested asset was not found at the given path.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":asset_path",
+                    "m",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_path",
+                      "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0ab5d461-74f8-4d21-9452-ce10270b69cf",
+          "name": "Resize an image to specified dimensions",
+          "request": {
+            "name": "Resize an image to specified dimensions",
+            "description": {
+              "content": "Returns the image resized to the specified width and height in pixels. If only width is provided (e.g., 500x0), the height is scaled proportionally. If only height is provided (e.g., 0x300), the width is scaled proportionally. Both dimensions set to 0 returns the original size.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":asset_path",
+                "m",
+                "{{width}}x{{height}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "asset_path",
+                  "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "823fc9a7-a189-49ff-83c0-0a4ae8f2e05c",
+              "name": "The resized image was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":asset_path",
+                    "m",
+                    "{{width}}x{{height}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_path",
+                      "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "image/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4ff477d7-3060-4f93-9a40-40cb42d5f51b",
+              "name": "The requested asset was not found at the given path.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":asset_path",
+                    "m",
+                    "{{width}}x{{height}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_path",
+                      "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "945606b8-8a1a-448c-8e6f-4f368d39f50b",
+          "name": "Transform image with resize and filter chain",
+          "request": {
+            "name": "Transform image with resize and filter chain",
+            "description": {
+              "content": "Returns the image after applying a resize operation and one or more filters. Filters are chained using colons in the filter_chain path segment. Supported filter functions include format(webp|jpeg|png|avif), quality(0-100), fill(color_hex), blur(amount), grayscale(), focal(x:y), rotate(degrees), brightness(amount), and crop(top_left_x, top_left_y, bottom_right_x, bottom_right_y). Multiple filters are separated by colons, for example filters:format(webp):quality(80).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":asset_path",
+                "m",
+                "{{width}}x{{height}}",
+                "filters:{{filter_chain}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "asset_path",
+                  "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fdf4f6d7-200f-4b99-b2e7-1b19faa987ad",
+              "name": "The transformed image was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":asset_path",
+                    "m",
+                    "{{width}}x{{height}}",
+                    "filters:{{filter_chain}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_path",
+                      "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "image/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "269688cb-f71e-4a06-b0fc-05e108e476f0",
+              "name": "The requested asset was not found at the given path.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":asset_path",
+                    "m",
+                    "{{width}}x{{height}}",
+                    "filters:{{filter_chain}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_path",
+                      "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d409581-f1ad-4aa7-9e39-d092b15ce95e",
+          "name": "Fit image within specified dimensions without cropping",
+          "request": {
+            "name": "Fit image within specified dimensions without cropping",
+            "description": {
+              "content": "Returns the image scaled to fit within the specified width and height while maintaining aspect ratio and without cropping. The resulting image will not exceed the specified dimensions but may be smaller if the aspect ratios differ. Combine with a fill filter to pad the background color.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                ":asset_path",
+                "m",
+                "fit-in",
+                "{{width}}x{{height}}"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "asset_path",
+                  "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "image/*"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f09a9d88-1fef-4a2d-a08f-560c8cbae4b1",
+              "name": "The fit-in image was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":asset_path",
+                    "m",
+                    "fit-in",
+                    "{{width}}x{{height}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_path",
+                      "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "image/*"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "image/*"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ab72fa26-0a92-4ee9-8031-3e2aec7e9d7e",
+              "name": "The requested asset was not found at the given path.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    ":asset_path",
+                    "m",
+                    "fit-in",
+                    "{{width}}x{{height}}"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "asset_path",
+                      "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://img2.storyblok.com",
+      "key": "baseUrl"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Target width in pixels. Set to 0 to scale proportionally based on height.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "width"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Target height in pixels. Set to 0 to scale proportionally based on width.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<integer>",
+      "key": "height"
+    },
+    {
+      "disabled": false,
+      "description": {
+        "content": "(Required) Colon-separated chain of filter function calls to apply to the image. Each filter is specified as name(value). For example: format(webp):quality(80):fill(transparent).",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "<string>",
+      "key": "filter_chain"
+    }
+  ],
+  "info": {
+    "_postman_id": "c4d61feb-8104-49b9-a531-13e3a546db94",
+    "name": "Storyblok Image Service",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Storyblok Image Service is a URL-based image transformation API that allows developers to resize, crop, convert, and optimize images hosted in Storyblok's asset CDN. Transformations are applied by constructing a specific URL with path segments and filter parameters that specify dimensions, format conversion, quality, focal point, and filter effects. The service eliminates the need for a separate image processing pipeline and is suitable for responsive images, thumbnails, and format-optimized delivery across web and mobile applications. Images are served via a global CDN for fast delivery.\n\nContact Support:\n Name: Storyblok Support",
+      "type": "text/plain"
+    }
+  }
+}

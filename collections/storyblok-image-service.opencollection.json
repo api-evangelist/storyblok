@@ -1,0 +1,136 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Storyblok Image Service",
+    "version": "2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Image Transformation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Retrieve original image with transformation routing enabled",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://img2.storyblok.com/:asset_path/m/",
+            "params": [
+              {
+                "name": "asset_path",
+                "value": "f/12345/1200x800/photo.jpg",
+                "type": "path",
+                "description": "The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+              }
+            ]
+          },
+          "docs": "Returns the original image without any transformation. The /m/ path segment activates the Image Service transformation routing for all subsequent operations. Any further path segments after /m/ apply transformations such as resizing, cropping, and filter effects."
+        },
+        {
+          "info": {
+            "name": "Resize an image to specified dimensions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://img2.storyblok.com/:asset_path/m/:widthx:height",
+            "params": [
+              {
+                "name": "asset_path",
+                "value": "f/12345/1200x800/photo.jpg",
+                "type": "path",
+                "description": "The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+              },
+              {
+                "name": "width",
+                "value": "500",
+                "type": "path",
+                "description": "Target width in pixels. Set to 0 to scale proportionally based on height."
+              },
+              {
+                "name": "height",
+                "value": "300",
+                "type": "path",
+                "description": "Target height in pixels. Set to 0 to scale proportionally based on width."
+              }
+            ]
+          },
+          "docs": "Returns the image resized to the specified width and height in pixels. If only width is provided (e.g., 500x0), the height is scaled proportionally. If only height is provided (e.g., 0x300), the width is scaled proportionally. Both dimensions set to 0 returns the original size."
+        },
+        {
+          "info": {
+            "name": "Transform image with resize and filter chain",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://img2.storyblok.com/:asset_path/m/:widthx:height/filters::filter_chain",
+            "params": [
+              {
+                "name": "asset_path",
+                "value": "f/12345/1200x800/photo.jpg",
+                "type": "path",
+                "description": "The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+              },
+              {
+                "name": "width",
+                "value": "800",
+                "type": "path",
+                "description": "Target width in pixels. Set to 0 for proportional scaling."
+              },
+              {
+                "name": "height",
+                "value": "600",
+                "type": "path",
+                "description": "Target height in pixels. Set to 0 for proportional scaling."
+              },
+              {
+                "name": "filter_chain",
+                "value": "format(webp):quality(80)",
+                "type": "path",
+                "description": "Colon-separated chain of filter function calls to apply to the image. Each filter is specified as name(value). For example: format(webp):quality(80):fill(transparent)."
+              }
+            ]
+          },
+          "docs": "Returns the image after applying a resize operation and one or more filters. Filters are chained using colons in the filter_chain path segment. Supported filter functions include format(webp|jpeg|png|avif), quality(0-100), fill(color_hex), blur(amount), grayscale(), focal(x:y), rotate(degrees), brightness(amount), and crop(top_left_x, top_left_y, bottom_right_x, bottom_right_y). Multiple filters are separated by colons, for example filters:format(webp):quality(80)."
+        },
+        {
+          "info": {
+            "name": "Fit image within specified dimensions without cropping",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://img2.storyblok.com/:asset_path/m/fit-in/:widthx:height",
+            "params": [
+              {
+                "name": "asset_path",
+                "value": "f/12345/1200x800/photo.jpg",
+                "type": "path",
+                "description": "The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+              },
+              {
+                "name": "width",
+                "value": "400",
+                "type": "path",
+                "description": "Maximum width in pixels for the fit-in operation."
+              },
+              {
+                "name": "height",
+                "value": "400",
+                "type": "path",
+                "description": "Maximum height in pixels for the fit-in operation."
+              }
+            ]
+          },
+          "docs": "Returns the image scaled to fit within the specified width and height while maintaining aspect ratio and without cropping. The resulting image will not exceed the specified dimensions but may be smaller if the aspect ratios differ. Combine with a fill filter to pad the background color."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,1977 @@
+{
+  "item": [
+    {
+      "id": "20a1d905-8083-47b2-a7a8-39a757108bb3",
+      "name": "Datasources",
+      "description": {
+        "content": "Datasources are reusable key-value collections used for options lists, translations, and configuration data within Storyblok spaces.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9820ff54-295d-4ba0-9257-4ead339d4f5e",
+          "name": "List all datasources",
+          "request": {
+            "name": "List all datasources",
+            "description": {
+              "content": "Returns a list of all datasources defined in the space. Datasources are reusable collections of key-value pairs used for options lists, translations, and configuration. Use this endpoint to discover available datasources before fetching their entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "datasources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter datasources by name using a partial text match."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "b93cffa0-ab0e-4754-8242-196310f62ab8",
+              "name": "A list of datasources was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"datasources\": [\n    {\n      \"id\": 9123,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"dimensions\": [\n        {\n          \"id\": 4200,\n          \"name\": \"string\",\n          \"entry_value\": \"string\",\n          \"datasource_id\": 5928,\n          \"created_at\": \"1974-04-23T17:56:29.420Z\",\n          \"updated_at\": \"2012-03-17T23:08:30.599Z\"\n        },\n        {\n          \"id\": 3064,\n          \"name\": \"string\",\n          \"entry_value\": \"string\",\n          \"datasource_id\": 9057,\n          \"created_at\": \"1954-01-22T04:32:25.341Z\",\n          \"updated_at\": \"2004-03-29T13:39:29.515Z\"\n        }\n      ]\n    },\n    {\n      \"id\": 6012,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"dimensions\": [\n        {\n          \"id\": 1378,\n          \"name\": \"string\",\n          \"entry_value\": \"string\",\n          \"datasource_id\": 9986,\n          \"created_at\": \"1991-03-12T20:21:57.805Z\",\n          \"updated_at\": \"1952-01-30T09:51:50.614Z\"\n        },\n        {\n          \"id\": 5197,\n          \"name\": \"string\",\n          \"entry_value\": \"string\",\n          \"datasource_id\": 301,\n          \"created_at\": \"2009-07-11T00:06:50.329Z\",\n          \"updated_at\": \"2023-07-22T15:30:21.161Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ac1c6b07-befc-475b-94a1-b79dc9052a9b",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "07c12cae-47b5-44e1-96de-6ed0b5f09c44",
+          "name": "List datasource entries",
+          "request": {
+            "name": "List datasource entries",
+            "description": {
+              "content": "Returns the key-value entries for a specific datasource. Optionally filter by dimension to retrieve locale-specific or variant values. Results are paginated and can be filtered by datasource slug or ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "datasource_entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "datasource",
+                  "value": "<string>",
+                  "description": "The slug of the datasource to retrieve entries from."
+                },
+                {
+                  "disabled": false,
+                  "key": "datasource_id",
+                  "value": "<integer>",
+                  "description": "The numeric ID of the datasource to retrieve entries from."
+                },
+                {
+                  "disabled": false,
+                  "key": "dimension",
+                  "value": "<string>",
+                  "description": "Dimension slug to retrieve dimension-specific values alongside the default values."
+                },
+                {
+                  "disabled": false,
+                  "key": "cv",
+                  "value": "<integer>",
+                  "description": "Cache version timestamp to bypass CDN caching."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d99fc10-6b1e-46c7-83a1-e0aa8f1192e3",
+              "name": "A list of datasource entries was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasource_entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "datasource",
+                      "value": "colors"
+                    },
+                    {
+                      "key": "datasource_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dimension",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total number of entries in the datasource.",
+                  "key": "Total",
+                  "value": "8625"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"datasource_entries\": [\n    {\n      \"id\": 488,\n      \"name\": \"string\",\n      \"value\": \"string\",\n      \"dimension_value\": \"string\"\n    },\n    {\n      \"id\": 5296,\n      \"name\": \"string\",\n      \"value\": \"string\",\n      \"dimension_value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "615a9a5d-3965-4d6b-8d6f-6a5334b3cbd7",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasource_entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "datasource",
+                      "value": "colors"
+                    },
+                    {
+                      "key": "datasource_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dimension",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "42e71606-bdf5-4885-858e-e59cd52d0c4d",
+      "name": "Links",
+      "description": {
+        "content": "The links endpoint returns a flat or tree-structured list of all story URLs in a space, suitable for navigation generation and sitemap building.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e43fd0d4-10c7-4d25-b341-b3fb8d43c69c",
+          "name": "List all links",
+          "request": {
+            "name": "List all links",
+            "description": {
+              "content": "Returns a flat or tree-structured map of all story URLs in the space. This endpoint is commonly used to generate navigation menus, breadcrumbs, and sitemaps. The response is keyed by story UUID and each entry contains the slug, name, and parent information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "published",
+                  "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token."
+                },
+                {
+                  "disabled": false,
+                  "key": "starts_with",
+                  "value": "<string>",
+                  "description": "Filter links by full_slug prefix to return only links in a specific folder."
+                },
+                {
+                  "disabled": false,
+                  "key": "paginated",
+                  "value": "<integer>",
+                  "description": "Set to 1 to enable pagination on the links response. When enabled, use page and per_page parameters to control the result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "including_dates",
+                  "value": "<integer>",
+                  "description": "Set to 1 to include published_at, created_at, and updated_at timestamps in each link entry."
+                },
+                {
+                  "disabled": false,
+                  "key": "cv",
+                  "value": "<integer>",
+                  "description": "Cache version timestamp to bypass CDN caching."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "839c4a1f-76eb-4b82-819b-1eff7cc4965f",
+              "name": "A map of links was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paginated",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "including_dates",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"key_0\": {\n      \"id\": 7027,\n      \"slug\": \"string\",\n      \"name\": \"string\",\n      \"is_folder\": false,\n      \"parent_id\": 4170,\n      \"published\": false,\n      \"position\": 6391,\n      \"uuid\": \"667b5782-e4a1-034a-f745-f7e6728836d4\",\n      \"is_startpage\": false,\n      \"real_path\": \"string\",\n      \"published_at\": \"1953-08-30T03:59:33.739Z\",\n      \"created_at\": \"2002-11-08T13:35:02.715Z\",\n      \"updated_at\": \"2024-02-03T05:36:34.665Z\"\n    },\n    \"key_1\": {\n      \"id\": 7431,\n      \"slug\": \"string\",\n      \"name\": \"string\",\n      \"is_folder\": false,\n      \"parent_id\": 8989,\n      \"published\": true,\n      \"position\": 9044,\n      \"uuid\": \"39bbaf3b-2d5d-f4c5-49b9-6dce4bc8f9d4\",\n      \"is_startpage\": false,\n      \"real_path\": \"string\",\n      \"published_at\": \"2016-10-19T13:21:18.733Z\",\n      \"created_at\": \"1968-11-13T16:25:53.769Z\",\n      \"updated_at\": \"1997-01-30T07:07:54.980Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d62fe868-e2ae-46e3-8f90-07bb41b4c6fe",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paginated",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "including_dates",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "77b80d09-7020-4974-9be8-56ca4b5f76cb",
+      "name": "Stories",
+      "description": {
+        "content": "Stories are the content entries in Storyblok. Each story is defined by a component schema and holds the content of a page, post, or any other structured content type.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "e6803ba9-289d-45b3-9830-19dcc0a7cb78",
+          "name": "List multiple stories",
+          "request": {
+            "name": "List multiple stories",
+            "description": {
+              "content": "Returns a paginated list of published stories from the space. Stories can be filtered by slug, tag, component type, and custom fields. The response includes the story content along with metadata such as publication dates and alternate language versions. Pagination is controlled via the page and per_page query parameters.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stories"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "published",
+                  "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "starts_with",
+                  "value": "<string>",
+                  "description": "Filter stories by full_slug prefix. Only stories whose full_slug starts with the given value are returned. Useful for fetching content within a specific folder."
+                },
+                {
+                  "disabled": false,
+                  "key": "by_slugs",
+                  "value": "<string>",
+                  "description": "Comma-separated list of full_slug values to retrieve specific stories by their slugs."
+                },
+                {
+                  "disabled": false,
+                  "key": "excluding_slugs",
+                  "value": "<string>",
+                  "description": "Comma-separated list of full_slug values to exclude from the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "with_tag",
+                  "value": "<string>",
+                  "description": "Comma-separated list of tag slugs to filter stories by. Multiple tags are treated as an OR condition."
+                },
+                {
+                  "disabled": false,
+                  "key": "is_startpage",
+                  "value": "<integer>",
+                  "description": "Set to 1 to only return folder start pages. Set to 0 to exclude them. Omit to return all stories."
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_by",
+                  "value": "<string>",
+                  "description": "Sort the response by a specific field and direction. Supports all default story fields and custom fields defined in the component schema. Format: field:asc or field:desc."
+                },
+                {
+                  "disabled": false,
+                  "key": "search_term",
+                  "value": "<string>",
+                  "description": "Full-text search term to filter stories whose content fields contain the given string."
+                },
+                {
+                  "disabled": false,
+                  "key": "resolve_relations",
+                  "value": "<string>",
+                  "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "resolve_links",
+                  "value": "<string>",
+                  "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string."
+                },
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "ISO language code to return the story content in the specified language. Falls back to the default language if the translation is unavailable."
+                },
+                {
+                  "disabled": false,
+                  "key": "fallback_lang",
+                  "value": "<string>",
+                  "description": "Fallback language code used when the requested language translation is not available."
+                },
+                {
+                  "disabled": false,
+                  "key": "key_0",
+                  "value": "string",
+                  "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object."
+                },
+                {
+                  "disabled": false,
+                  "key": "key_1",
+                  "value": "5344.86775960344",
+                  "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object."
+                },
+                {
+                  "disabled": false,
+                  "key": "key_2",
+                  "value": "6841.819993071938",
+                  "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object."
+                },
+                {
+                  "disabled": false,
+                  "key": "key_3",
+                  "value": "true",
+                  "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object."
+                },
+                {
+                  "disabled": false,
+                  "key": "by_uuids",
+                  "value": "<string>",
+                  "description": "Comma-separated list of story UUIDs to retrieve specific stories by their unique identifiers."
+                },
+                {
+                  "disabled": false,
+                  "key": "excluding_ids",
+                  "value": "<string>",
+                  "description": "Comma-separated list of story IDs to exclude from the results."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of stories to return per page. Maximum 100."
+                },
+                {
+                  "disabled": false,
+                  "key": "cv",
+                  "value": "<integer>",
+                  "description": "Cache version timestamp. Pass the current Unix timestamp to bypass CDN caching and retrieve the latest content."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5e8a79e5-eb5c-4679-8205-44e7c5e8ed22",
+              "name": "A paginated list of stories was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "starts_with",
+                      "value": "blog/"
+                    },
+                    {
+                      "key": "by_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excluding_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_startpage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "published_at:desc"
+                    },
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolve_links",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fallback_lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "true"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "true"
+                    },
+                    {
+                      "key": "key_2",
+                      "value": "3972"
+                    },
+                    {
+                      "key": "by_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excluding_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total number of stories matching the query.",
+                  "key": "Total",
+                  "value": "8625"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"stories\": [\n    {\n      \"id\": 3851,\n      \"uuid\": \"aa15f350-d26e-c8dd-6492-4bd3bef3852c\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": 8406.525121138064\n      },\n      \"is_startpage\": true,\n      \"parent_id\": 2840,\n      \"group_id\": \"1151bf4e-6e5c-9497-0266-df173d41acf9\",\n      \"first_published_at\": \"1961-02-02T09:33:44.142Z\",\n      \"published_at\": \"1978-11-22T21:25:32.088Z\",\n      \"created_at\": \"2009-01-29T22:01:30.101Z\",\n      \"updated_at\": \"1950-09-14T14:04:53.139Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": true,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 6837,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 4717\n        },\n        {\n          \"id\": 5937,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 9842\n        }\n      ]\n    },\n    {\n      \"id\": 7946,\n      \"uuid\": \"fd5f2cd0-cc2c-0a4e-c601-8d266bb92163\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": 4561.997236698513,\n        \"key_1\": 1907\n      },\n      \"is_startpage\": false,\n      \"parent_id\": 7589,\n      \"group_id\": \"7e9ca0e0-006a-9878-007d-c3a0127cc423\",\n      \"first_published_at\": \"1989-07-30T05:13:05.890Z\",\n      \"published_at\": \"2011-09-10T09:35:58.959Z\",\n      \"created_at\": \"1953-11-17T06:23:35.770Z\",\n      \"updated_at\": \"2020-09-09T03:20:40.060Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": true,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 7681,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 8995\n        },\n        {\n          \"id\": 1166,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 6686\n        }\n      ]\n    }\n  ],\n  \"cv\": 5465,\n  \"rels\": [\n    {\n      \"id\": 9640,\n      \"uuid\": \"077db9c7-1fb5-b2b3-c19e-fde70665a90e\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": \"string\",\n        \"key_1\": \"string\"\n      },\n      \"is_startpage\": true,\n      \"parent_id\": 195,\n      \"group_id\": \"db711130-cccf-4e17-642d-139106dce663\",\n      \"first_published_at\": \"1980-08-24T03:44:26.764Z\",\n      \"published_at\": \"1982-11-14T08:25:23.512Z\",\n      \"created_at\": \"1956-02-28T15:00:30.222Z\",\n      \"updated_at\": \"1966-01-13T17:58:10.328Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": true,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 7100,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 5324\n        },\n        {\n          \"id\": 2566,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 191\n        }\n      ]\n    },\n    {\n      \"id\": 3033,\n      \"uuid\": \"f46a3b0b-a23c-487d-5e14-8631ad5b0a3f\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": 2149,\n        \"key_1\": \"string\"\n      },\n      \"is_startpage\": false,\n      \"parent_id\": 542,\n      \"group_id\": \"708ab8ee-d8a2-a2ef-16b5-f6de646f5976\",\n      \"first_published_at\": \"2021-04-17T04:41:30.006Z\",\n      \"published_at\": \"1958-11-03T19:39:28.474Z\",\n      \"created_at\": \"2015-03-27T06:46:35.539Z\",\n      \"updated_at\": \"1996-09-18T01:21:10.702Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": false,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 9143,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 7958\n        },\n        {\n          \"id\": 5910,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 437\n        }\n      ]\n    }\n  ],\n  \"links\": [\n    {\n      \"id\": 7218,\n      \"uuid\": \"6262a81c-83fe-5286-385e-a04d2a6ee0f0\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": 5178.336961066403,\n        \"key_1\": \"string\"\n      },\n      \"is_startpage\": false,\n      \"parent_id\": 2493,\n      \"group_id\": \"aaee0b13-ad89-46b0-cfed-9c6931cd2121\",\n      \"first_published_at\": \"2006-08-11T23:38:00.670Z\",\n      \"published_at\": \"2008-03-09T21:13:57.503Z\",\n      \"created_at\": \"1963-10-24T09:51:44.455Z\",\n      \"updated_at\": \"1980-03-21T06:00:07.313Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": true,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 9719,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 6960\n        },\n        {\n          \"id\": 5035,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 4435\n        }\n      ]\n    },\n    {\n      \"id\": 6225,\n      \"uuid\": \"0a86b6c8-b2a0-faaf-4944-a654f9541ea7\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": 1816.8188107894034\n      },\n      \"is_startpage\": false,\n      \"parent_id\": 9809,\n      \"group_id\": \"15b00f32-4833-c418-9a86-618927db8e5c\",\n      \"first_published_at\": \"1997-04-23T16:19:25.196Z\",\n      \"published_at\": \"2008-04-25T17:25:45.800Z\",\n      \"created_at\": \"1949-08-24T13:56:18.547Z\",\n      \"updated_at\": \"2014-02-23T22:14:59.269Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": false,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 7589,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 5053\n        },\n        {\n          \"id\": 696,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 9314\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "907d3154-fd3c-4376-b70a-bf02979b1ee2",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "starts_with",
+                      "value": "blog/"
+                    },
+                    {
+                      "key": "by_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excluding_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_startpage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "published_at:desc"
+                    },
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolve_links",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fallback_lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "true"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "true"
+                    },
+                    {
+                      "key": "key_2",
+                      "value": "3972"
+                    },
+                    {
+                      "key": "by_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excluding_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d94ae293-9ef3-4ce5-ad7e-05649a0ae749",
+              "name": "The request parameters were invalid. Check the query parameter values for format errors.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stories"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "starts_with",
+                      "value": "blog/"
+                    },
+                    {
+                      "key": "by_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excluding_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "with_tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "is_startpage",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "sort_by",
+                      "value": "published_at:desc"
+                    },
+                    {
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolve_links",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "language",
+                      "value": "en"
+                    },
+                    {
+                      "key": "fallback_lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "key_0",
+                      "value": "true"
+                    },
+                    {
+                      "key": "key_1",
+                      "value": "true"
+                    },
+                    {
+                      "key": "key_2",
+                      "value": "3972"
+                    },
+                    {
+                      "key": "by_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "excluding_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3c9c013-cc4b-40fa-b8e5-3a5161ae6980",
+          "name": "Retrieve a single story by slug",
+          "request": {
+            "name": "Retrieve a single story by slug",
+            "description": {
+              "content": "Returns a single published story identified by its full_slug. The slug is the path of the story within the space, such as home or blog/my-post. The response includes the full story content, metadata, and optionally resolved relations and links.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stories",
+                ":slug"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "published",
+                  "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token."
+                },
+                {
+                  "disabled": false,
+                  "key": "resolve_relations",
+                  "value": "<string>",
+                  "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response."
+                },
+                {
+                  "disabled": false,
+                  "key": "resolve_links",
+                  "value": "<string>",
+                  "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string."
+                },
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "ISO language code to return the story content in the specified language."
+                },
+                {
+                  "disabled": false,
+                  "key": "cv",
+                  "value": "<integer>",
+                  "description": "Cache version timestamp to bypass CDN caching."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "slug",
+                  "description": "(Required) The full_slug of the story, which is the path within the space such as home or blog/my-post."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5661852b-9285-43a3-b1ac-3baca315ff49",
+              "name": "The story was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stories",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolve_links",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The full_slug of the story, which is the path within the space such as home or blog/my-post."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"story\": {\n    \"id\": 776,\n    \"uuid\": \"8c6dc4fc-fdec-3c6f-f440-a7a098285c15\",\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"full_slug\": \"string\",\n    \"content\": {\n      \"key_0\": \"string\",\n      \"key_1\": 5569\n    },\n    \"is_startpage\": false,\n    \"parent_id\": 1327,\n    \"group_id\": \"83b903b7-8440-dce5-a155-049bf1df13a8\",\n    \"first_published_at\": \"2023-11-20T15:10:05.725Z\",\n    \"published_at\": \"2009-06-21T15:52:12.209Z\",\n    \"created_at\": \"2012-07-08T19:09:53.858Z\",\n    \"updated_at\": \"2018-11-17T07:49:40.785Z\",\n    \"sort_by_date\": \"string\",\n    \"tag_list\": [\n      \"string\",\n      \"string\"\n    ],\n    \"is_folder\": true,\n    \"default_full_slug\": \"string\",\n    \"translated_slugs\": [\n      {\n        \"path\": \"string\",\n        \"name\": \"string\",\n        \"lang\": \"string\"\n      },\n      {\n        \"path\": \"string\",\n        \"name\": \"string\",\n        \"lang\": \"string\"\n      }\n    ],\n    \"alternates\": [\n      {\n        \"id\": 1961,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"full_slug\": \"string\",\n        \"is_folder\": false,\n        \"parent_id\": 2434\n      },\n      {\n        \"id\": 6561,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"full_slug\": \"string\",\n        \"is_folder\": false,\n        \"parent_id\": 441\n      }\n    ]\n  },\n  \"cv\": 6685,\n  \"rels\": [\n    {\n      \"id\": 5793,\n      \"uuid\": \"c86ec402-9e0b-0b63-5810-4d7406f677fa\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": false,\n        \"key_1\": true\n      },\n      \"is_startpage\": true,\n      \"parent_id\": 66,\n      \"group_id\": \"4d40e028-8b59-d7c6-cf17-397bc90b9066\",\n      \"first_published_at\": \"1969-12-17T17:12:23.047Z\",\n      \"published_at\": \"2023-11-30T13:59:21.311Z\",\n      \"created_at\": \"1964-03-03T02:37:05.178Z\",\n      \"updated_at\": \"1998-10-03T17:05:42.724Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": false,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 8316,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 128\n        },\n        {\n          \"id\": 256,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 2082\n        }\n      ]\n    },\n    {\n      \"id\": 3032,\n      \"uuid\": \"510f54fd-cc87-fa4d-ad3e-b5ef14b5391b\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": 841.4276052707414\n      },\n      \"is_startpage\": false,\n      \"parent_id\": 1052,\n      \"group_id\": \"a3c2d5d5-d49a-4df0-16d0-54743dc1555c\",\n      \"first_published_at\": \"2014-05-12T15:06:53.146Z\",\n      \"published_at\": \"1987-12-17T16:52:53.569Z\",\n      \"created_at\": \"1959-01-16T16:54:15.937Z\",\n      \"updated_at\": \"1957-07-15T01:22:35.572Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": true,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 4458,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 1795\n        },\n        {\n          \"id\": 6219,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 7006\n        }\n      ]\n    }\n  ],\n  \"links\": [\n    {\n      \"id\": 5323,\n      \"uuid\": \"e67a7891-19b6-cac4-3ff8-d90f17f8b0f4\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": true,\n        \"key_1\": 2976.988006050282,\n        \"key_2\": false\n      },\n      \"is_startpage\": false,\n      \"parent_id\": 1925,\n      \"group_id\": \"e9641d0f-2525-4f2b-f975-e757e825c83e\",\n      \"first_published_at\": \"1971-09-20T20:42:54.707Z\",\n      \"published_at\": \"2014-09-27T06:16:41.220Z\",\n      \"created_at\": \"1951-01-01T06:37:43.492Z\",\n      \"updated_at\": \"2009-11-22T11:21:23.527Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": true,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 9358,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 8183\n        },\n        {\n          \"id\": 9833,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 589\n        }\n      ]\n    },\n    {\n      \"id\": 3850,\n      \"uuid\": \"f3a75e49-1690-6c5f-1ad1-b84fc9c7f72b\",\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"full_slug\": \"string\",\n      \"content\": {\n        \"key_0\": false,\n        \"key_1\": \"string\"\n      },\n      \"is_startpage\": false,\n      \"parent_id\": 1586,\n      \"group_id\": \"825f8291-1463-76f5-e36b-8472b7c62797\",\n      \"first_published_at\": \"2004-05-17T08:37:01.753Z\",\n      \"published_at\": \"2003-12-25T14:02:56.902Z\",\n      \"created_at\": \"1976-08-14T11:51:26.088Z\",\n      \"updated_at\": \"2025-06-21T18:13:09.726Z\",\n      \"sort_by_date\": \"string\",\n      \"tag_list\": [\n        \"string\",\n        \"string\"\n      ],\n      \"is_folder\": false,\n      \"default_full_slug\": \"string\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        },\n        {\n          \"path\": \"string\",\n          \"name\": \"string\",\n          \"lang\": \"string\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": 6430,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": true,\n          \"parent_id\": 4306\n        },\n        {\n          \"id\": 159,\n          \"name\": \"string\",\n          \"slug\": \"string\",\n          \"full_slug\": \"string\",\n          \"is_folder\": false,\n          \"parent_id\": 3795\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "dcdb8874-8bac-455e-903e-cd7d8560e1e4",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stories",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolve_links",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The full_slug of the story, which is the path within the space such as home or blog/my-post."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "43b0acdf-5320-4d0b-8f78-cd5394d5d067",
+              "name": "The requested story was not found. Check that the slug or ID is correct and that the story is published when using the public token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stories",
+                    ":slug"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "resolve_links",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "slug",
+                      "description": "(Required) The full_slug of the story, which is the path within the space such as home or blog/my-post."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b9b4703-8728-48b1-9a8d-f2d9b787dfee",
+          "name": "Retrieve a single story by ID",
+          "request": {
+            "name": "Retrieve a single story by ID",
+            "description": {
+              "content": "Returns a single published story identified by its numeric ID. This endpoint is useful when you have a story ID from a relation field and need to retrieve the full story object.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "stories",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "published",
+                  "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token."
+                },
+                {
+                  "disabled": false,
+                  "key": "language",
+                  "value": "<string>",
+                  "description": "ISO language code to return the story content in."
+                },
+                {
+                  "disabled": false,
+                  "key": "cv",
+                  "value": "<integer>",
+                  "description": "Cache version timestamp to bypass CDN caching."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "id",
+                  "description": "(Required) The numeric ID of the story."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "f8175385-225d-465e-971d-e5f36032f800",
+              "name": "The story was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stories",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the story."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"story\": {\n    \"id\": 2674,\n    \"uuid\": \"50da0196-680b-eb72-3798-468fc5eabf48\",\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"full_slug\": \"string\",\n    \"content\": {\n      \"key_0\": \"string\",\n      \"key_1\": true\n    },\n    \"is_startpage\": false,\n    \"parent_id\": 6626,\n    \"group_id\": \"cd74ece6-c49a-3eab-b007-fe5a79eb6e15\",\n    \"first_published_at\": \"2009-12-28T00:23:02.222Z\",\n    \"published_at\": \"1976-12-21T12:06:38.961Z\",\n    \"created_at\": \"1948-05-17T04:50:05.210Z\",\n    \"updated_at\": \"1992-08-17T19:52:09.420Z\",\n    \"sort_by_date\": \"string\",\n    \"tag_list\": [\n      \"string\",\n      \"string\"\n    ],\n    \"is_folder\": true,\n    \"default_full_slug\": \"string\",\n    \"translated_slugs\": [\n      {\n        \"path\": \"string\",\n        \"name\": \"string\",\n        \"lang\": \"string\"\n      },\n      {\n        \"path\": \"string\",\n        \"name\": \"string\",\n        \"lang\": \"string\"\n      }\n    ],\n    \"alternates\": [\n      {\n        \"id\": 2752,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"full_slug\": \"string\",\n        \"is_folder\": false,\n        \"parent_id\": 9278\n      },\n      {\n        \"id\": 6259,\n        \"name\": \"string\",\n        \"slug\": \"string\",\n        \"full_slug\": \"string\",\n        \"is_folder\": true,\n        \"parent_id\": 4698\n      }\n    ]\n  },\n  \"cv\": 3532\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a6298017-648a-45ef-a5bb-ec29694ad7cd",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stories",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the story."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ca9e739a-19c3-4964-bc80-6a55fe4bc553",
+              "name": "The requested story was not found. Check that the slug or ID is correct and that the story is published when using the public token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "stories",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "id",
+                      "description": "(Required) The numeric ID of the story."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    },
+    {
+      "id": "727adb2f-c2cf-43f4-94d4-4b8c41e6f5e9",
+      "name": "List all tags",
+      "request": {
+        "name": "List all tags",
+        "description": {
+          "content": "Returns a list of all tags used in published stories within the space. Tags can be used to filter stories by calling the stories endpoint with the with_tag parameter.",
+          "type": "text/plain"
+        },
+        "url": {
+          "path": [
+            "tags"
+          ],
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "query": [
+            {
+              "disabled": false,
+              "key": "token",
+              "value": "<string>",
+              "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+            },
+            {
+              "disabled": false,
+              "key": "starts_with",
+              "value": "<string>",
+              "description": "Filter tags by prefix. Only tags whose name starts with the given value are returned."
+            },
+            {
+              "disabled": false,
+              "key": "cv",
+              "value": "<integer>",
+              "description": "Cache version timestamp to bypass CDN caching."
+            }
+          ],
+          "variable": []
+        },
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "method": "GET",
+        "auth": null
+      },
+      "response": [
+        {
+          "id": "b09e4f0b-8682-473b-8410-fa7badde4651",
+          "name": "A list of tags was returned successfully.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "your-public-token"
+                },
+                {
+                  "key": "starts_with",
+                  "value": "<string>"
+                },
+                {
+                  "key": "cv",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "token",
+                  "value": "<API Key>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "OK",
+          "code": 200,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"tags\": [\n    {\n      \"name\": \"string\",\n      \"taggings_count\": 3830\n    },\n    {\n      \"name\": \"string\",\n      \"taggings_count\": 8217\n    }\n  ]\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        },
+        {
+          "id": "3304d06d-5e61-40fe-a4d4-d16bd97ee3b1",
+          "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+          "originalRequest": {
+            "url": {
+              "path": [
+                "tags"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "key": "token",
+                  "value": "your-public-token"
+                },
+                {
+                  "key": "starts_with",
+                  "value": "<string>"
+                },
+                {
+                  "key": "cv",
+                  "value": "<integer>"
+                },
+                {
+                  "key": "token",
+                  "value": "<API Key>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "body": {}
+          },
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/json"
+            }
+          ],
+          "body": "{\n  \"error\": \"string\"\n}",
+          "cookie": [],
+          "_postman_previewlanguage": "json"
+        }
+      ],
+      "event": [],
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      }
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.storyblok.com/v2/cdn",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1d97ea72-4481-4358-b18c-dac247be4deb",
+    "name": "Storyblok Content Delivery API v2",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+      "type": "text/plain"
+    }
+  }
+}
