@@ -101,53 +101,39 @@ apis:
   - type: AsyncAPI
     url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/asyncapi/storyblok-webhooks-asyncapi.yml
 common:
-- type: ArazzoWorkflows
-  url: arazzo/
-  workflows:
-  - url: arazzo/storyblok-asset-to-story-workflow.yml
-    name: Storyblok Asset to Story
-    summary: Sign an asset upload, create a story that references the asset, then
-      publish it.
-  - url: arazzo/storyblok-author-and-publish-story-workflow.yml
-    name: Storyblok Author and Publish Story
-    summary: Create a draft story, read it back, update its content, then publish
-      it.
-  - url: arazzo/storyblok-build-navigation-workflow.yml
-    name: Storyblok Build Navigation
-    summary: Pull the space link tree for a folder, then fetch the folder start page
-      content for a navigation header.
-  - url: arazzo/storyblok-clone-component-workflow.yml
-    name: Storyblok Clone Component
-    summary: Read an existing component definition, recreate it under a new name,
-      and confirm it via the component list.
-  - url: arazzo/storyblok-component-to-story-workflow.yml
-    name: Storyblok Component to Story
-    summary: Define a component schema, create a story that uses it, then publish
-      the story.
-  - url: arazzo/storyblok-onboard-collaborator-workflow.yml
-    name: Storyblok Onboard Collaborator
-    summary: Validate the space, invite a collaborator with a role, then list collaborators
-      to confirm the invitation.
-  - url: arazzo/storyblok-provision-datasource-workflow.yml
-    name: Storyblok Provision Datasource
-    summary: Validate the space, create a datasource, then read its entries back through
-      the Content Delivery API.
-  - url: arazzo/storyblok-publish-and-verify-delivery-workflow.yml
-    name: Storyblok Publish and Verify Delivery
-    summary: Publish a draft story via the Management API and verify it is live through
-      the Content Delivery API.
-  - url: arazzo/storyblok-register-webhook-workflow.yml
-    name: Storyblok Register Webhook
-    summary: Validate the space, register a webhook endpoint, then read it back to
-      confirm it is active.
-  - url: arazzo/storyblok-retire-story-workflow.yml
-    name: Storyblok Retire Story
-    summary: Read a story, unpublish it to pull it from delivery, then optionally
-      delete it from the space.
-  - url: arazzo/storyblok-tag-driven-content-sync-workflow.yml
-    name: Storyblok Tag-Driven Content Sync
-    summary: Discover tags, list the stories carrying a chosen tag, then fetch the
-      full content of the first match.
+- type: Arazzo
+  url: arazzo/storyblok-asset-to-story-workflow.yml
+  name: Storyblok Asset to Story
+- type: Arazzo
+  url: arazzo/storyblok-author-and-publish-story-workflow.yml
+  name: Storyblok Author and Publish Story
+- type: Arazzo
+  url: arazzo/storyblok-build-navigation-workflow.yml
+  name: Storyblok Build Navigation
+- type: Arazzo
+  url: arazzo/storyblok-clone-component-workflow.yml
+  name: Storyblok Clone Component
+- type: Arazzo
+  url: arazzo/storyblok-component-to-story-workflow.yml
+  name: Storyblok Component to Story
+- type: Arazzo
+  url: arazzo/storyblok-onboard-collaborator-workflow.yml
+  name: Storyblok Onboard Collaborator
+- type: Arazzo
+  url: arazzo/storyblok-provision-datasource-workflow.yml
+  name: Storyblok Provision Datasource
+- type: Arazzo
+  url: arazzo/storyblok-publish-and-verify-delivery-workflow.yml
+  name: Storyblok Publish and Verify Delivery
+- type: Arazzo
+  url: arazzo/storyblok-register-webhook-workflow.yml
+  name: Storyblok Register Webhook
+- type: Arazzo
+  url: arazzo/storyblok-retire-story-workflow.yml
+  name: Storyblok Retire Story
+- type: Arazzo
+  url: arazzo/storyblok-tag-driven-content-sync-workflow.yml
+  name: Storyblok Tag-Driven Content Sync
 - type: LinkedIn
   url: https://www.linkedin.com/company/storyblok
 - type: Portal
@@ -174,13 +160,13 @@ common:
   url: https://www.storyblok.com/legal/privacy-policy
 - type: TermsOfService
   url: https://www.storyblok.com/legal/terms-of-service
-- type: SignUp
+- type: Signup
   url: https://app.storyblok.com/#!/signup
 - type: Login
   url: https://app.storyblok.com/
 - type: GitHubOrg
   url: https://github.com/storyblok
-- type: SDK
+- type: SDKs
   url: https://www.storyblok.com/technologies
 maintainers:
 - FN: Kin Lane
