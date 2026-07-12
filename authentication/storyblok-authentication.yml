@@ -1,0 +1,25 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/storyblok-content-delivery-api-v2-openapi.yml, openapi/storyblok-management-api-openapi.yml
+summary:
+  types:
+  - apiKey
+  - http
+  api_key_in:
+  - query
+schemes:
+- name: apiToken
+  type: apiKey
+  in: query
+  parameter: token
+  description: Public API token for accessing published content, or Preview API token for accessing
+    draft and published content. Tokens are scoped to a specific Storyblok space.
+  sources:
+  - openapi/storyblok-content-delivery-api-v2-openapi.yml
+- name: personalAccessToken
+  type: http
+  scheme: bearer
+  description: Personal access token generated in the Storyblok account settings. Provides access
+    to all spaces the account has permissions for.
+  sources:
+  - openapi/storyblok-management-api-openapi.yml

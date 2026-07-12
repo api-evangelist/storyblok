@@ -101,6 +101,10 @@ apis:
   - type: AsyncAPI
     url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/asyncapi/storyblok-webhooks-asyncapi.yml
 common:
+- type: DomainSecurity
+  url: security/storyblok-domain-security.yml
+- type: Authentication
+  url: authentication/storyblok-authentication.yml
 - type: Arazzo
   url: arazzo/storyblok-asset-to-story-workflow.yml
   name: Storyblok Asset to Story
