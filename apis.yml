@@ -101,6 +101,8 @@ apis:
   - type: AsyncAPI
     url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/asyncapi/storyblok-webhooks-asyncapi.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/storyblok-agentic-access.yml
 - type: DomainSecurity
   url: security/storyblok-domain-security.yml
 - type: Authentication
