@@ -1,0 +1,48 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/*.yml + docs (www.storyblok.com/trust-center)
+standards:
+  - id: oauth2
+    conforms: false
+    evidence: >-
+      No oauth2 securityScheme is declared. The Content Delivery API uses an
+      apiKey (query token); the Management API uses a bearer personal access
+      token. (The Management API docs mention OAuth apps, but the harvested spec
+      declares personalAccessToken/http-bearer only.)
+  - id: oidc
+    conforms: false
+  - id: rfc9457-problem-details
+    conforms: false
+    evidence: >-
+      Errors return a simple application/json envelope { "error": string }, not
+      application/problem+json.
+  - id: json:api
+    conforms: false
+  - id: rest
+    conforms: true
+    evidence: Resource-oriented HTTP+JSON APIs with standard verbs and status codes.
+  - id: pagination
+    conforms: true
+    evidence: >-
+      Offset pagination via page + per_page query parameters; Total response
+      header carries the total count (per_page max 100).
+  - id: rfc8594-sunset-deprecation
+    conforms: false
+    evidence: No Sunset/Deprecation header support documented.
+  - id: idempotency-key
+    conforms: false
+    evidence: No Idempotency-Key header documented; write safety relies on HTTP verbs.
+  - id: iso-27001
+    conforms: true
+    evidence: ISO 27001 certified (www.storyblok.com/trust-center).
+  - id: soc2-type-ii
+    conforms: true
+    evidence: SOC 2 Type II reported by Storyblok enterprise security materials.
+  - id: tisax
+    conforms: true
+    evidence: TISAX listed among ISMS certifications (www.storyblok.com/trust-center).
+  - id: gdpr
+    conforms: true
+    evidence: >-
+      Fully compliant with GDPR; self-certified under the EU-U.S. Data Privacy
+      Framework (www.storyblok.com/trust-center).

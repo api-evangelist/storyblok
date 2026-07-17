@@ -20,7 +20,7 @@ tags:
 - Visual Editor
 - Webhooks
 created: '2026-05-02'
-modified: '2026-05-19'
+modified: '2026-06-20'
 url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
@@ -45,6 +45,8 @@ apis:
     url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-content-delivery-api-v2-openapi.yml
   - url: graphql/storyblok-graphql.md
     type: GraphQL
+  - type: Overlay
+    url: overlays/storyblok-content-delivery-api-v2-overlay.yaml
 - aid: storyblok:storyblok-management-api
   name: Storyblok Management API
   description: The Storyblok Management API is a REST API for programmatically creating,
@@ -67,6 +69,10 @@ apis:
     url: https://www.storyblok.com/docs/api/management
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-management-api-openapi.yml
+  - type: Overlay
+    url: overlays/storyblok-management-api-overlay.yaml
+  - type: MCPServer
+    url: mcp/storyblok-mcp.yml
 - aid: storyblok:storyblok-image-service
   name: Storyblok Image Service
   description: The Storyblok Image Service provides on-the-fly image resizing, cropping,
@@ -84,6 +90,8 @@ apis:
     url: https://www.storyblok.com/docs/image-service
   - type: OpenAPI
     url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-image-service-openapi.yml
+  - type: Overlay
+    url: overlays/storyblok-image-service-overlay.yaml
 - aid: storyblok:storyblok-webhooks
   name: Storyblok Webhooks
   description: Storyblok emits webhook events when content actions occur in a space
@@ -103,6 +111,30 @@ apis:
 common:
 - type: AgenticAccess
   url: agentic-access/storyblok-agentic-access.yml
+- type: Packages
+  url: packages/storyblok-packages.yml
+- type: WellKnown
+  url: well-known/storyblok-well-known.yml
+- type: LLMsTxt
+  url: llms/storyblok-llms.txt
+- type: Conformance
+  url: conformance/storyblok-conformance.yml
+- type: ErrorCatalog
+  url: errors/storyblok-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/storyblok-lifecycle.yml
+- type: Conventions
+  url: conventions/storyblok-conventions.yml
+- type: ChangeLog
+  url: changelog/storyblok-changelog.yml
+- type: CLI
+  url: cli/storyblok-cli.yml
+- type: Components
+  url: components/storyblok-components.yml
+- type: DataModel
+  url: data-model/storyblok-data-model.yml
+- type: TrustCenter
+  url: security/storyblok-trust-center.yml
 - type: DomainSecurity
   url: security/storyblok-domain-security.yml
 - type: Authentication

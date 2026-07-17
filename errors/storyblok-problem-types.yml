@@ -1,0 +1,49 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/storyblok-content-delivery-api-v2-openapi.yml, openapi/storyblok-management-api-openapi.yml, openapi/storyblok-image-service-openapi.yml
+format: json
+envelope:
+  media_type: application/json
+  shape: '{ "error": "<human-readable message>" }'
+  note: >-
+    Storyblok does NOT use RFC 9457 application/problem+json. Both the Content
+    Delivery and Management APIs return a flat JSON object with a single "error"
+    string. Rate limiting is signaled with HTTP 429 (see rate-limits/).
+problems:
+  - status: 401
+    title: Unauthorized
+    description: >-
+      The request was not authenticated. Ensure the token query parameter (CDN)
+      or Authorization bearer token (Management) contains a valid token for the
+      space.
+    remediation: Provide a valid public/preview API token or personal access token.
+    source_operations:
+      - openapi/storyblok-content-delivery-api-v2-openapi.yml (all operations)
+      - openapi/storyblok-management-api-openapi.yml (all operations)
+  - status: 404
+    title: Not Found
+    description: >-
+      The requested resource was not found. For the CDN, verify the slug or ID
+      is correct and that the story is published when using the public token.
+    remediation: Check the resource identifier and publication state.
+    source_operations:
+      - openapi/storyblok-content-delivery-api-v2-openapi.yml#getStoryBySlug
+      - openapi/storyblok-content-delivery-api-v2-openapi.yml#getStoryById
+      - openapi/storyblok-image-service-openapi.yml (all operations)
+      - openapi/storyblok-management-api-openapi.yml (get/update/delete operations)
+  - status: 422
+    title: Unprocessable Entity
+    description: >-
+      The request parameters or body were invalid. Check query parameter values
+      and request body field formats.
+    remediation: Correct the invalid parameters or payload fields.
+    source_operations:
+      - openapi/storyblok-content-delivery-api-v2-openapi.yml (list/query operations)
+      - openapi/storyblok-management-api-openapi.yml (create/update operations)
+  - status: 429
+    title: Too Many Requests
+    description: >-
+      The rate limit for the space/token was exceeded. See rate-limits/ for the
+      per-plan request budgets and Retry-After handling.
+    remediation: Back off and retry after the indicated interval; cache with the cv parameter.
+    source: docs (rate limiting) — not enumerated per-operation in the spec.

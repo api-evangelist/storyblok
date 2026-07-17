@@ -1,0 +1,66 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/storyblok-content-delivery-api-v2-openapi.yml, openapi/storyblok-management-api-openapi.yml
+note: >-
+  Entity-relationship graph derived from OpenAPI schemas and id-reference fields.
+  Storyblok's core content unit is the Story (a page/entry) whose shape is defined
+  by a Component. Stories live in Spaces.
+entities:
+  - name: Space
+    id: id (integer)
+    description: Top-level container holding all content, components, assets and settings.
+    relationships:
+      - has_many: Story (via space)
+      - has_many: Component (via space)
+      - has_many: Asset (via space)
+      - has_many: Datasource (via space)
+      - has_many: Collaborator (via space)
+      - has_many: Webhook (via space)
+  - name: Story
+    id: id (integer); uuid (uuid); full_slug (string)
+    description: A content entry defined by a component schema.
+    relationships:
+      - belongs_to: Story (via parent_id, folder hierarchy)
+      - has_one: Component (via content.component — the root component type)
+      - groups_with: Story (via group_id — alternate language versions)
+      - references: Story (via resolve_relations / resolve_links — relation fields)
+      - has_many: tag (via tag_list)
+  - name: Component
+    id: name (string)
+    description: Schema/blueprint defining the field structure of story content.
+    relationships:
+      - defines: Story.content shape
+  - name: Asset
+    id: id (integer)
+    description: File (image/document/media) in the space asset library; served/transformed via the Image Service.
+    relationships:
+      - belongs_to: Space (via space)
+  - name: Datasource
+    id: id (integer)
+    description: Reusable key-value collection for option lists, translations, config.
+    relationships:
+      - has_many: DatasourceEntry (via datasource)
+  - name: DatasourceEntry
+    id: id (integer)
+    description: A single key-value pair within a datasource.
+    relationships:
+      - belongs_to: Datasource (via datasource_id)
+  - name: Collaborator
+    id: id (integer)
+    description: User invited to a space with a role and permissions.
+    relationships:
+      - belongs_to: Space (via space)
+  - name: Webhook
+    id: id (integer)
+    description: Endpoint subscription notified on content events (see asyncapi/).
+    relationships:
+      - belongs_to: Space (via space)
+  - name: Tag
+    id: name (string)
+    description: Label applied to stories for filtering and grouping.
+    relationships:
+      - tags: Story (via tag_list)
+id_reference_fields:
+  - parent_id -> Story
+  - group_id -> Story (language group)
+  - datasource_id -> Datasource

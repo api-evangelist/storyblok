@@ -1,0 +1,28 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.storyblok.com/changelog, https://status.storyblok.com/, openapi/*.yml
+versioning:
+  scheme: uri-path
+  note: >-
+    Version is carried in the URL path. The Content Delivery API is on v2
+    (/v2/cdn), the Management API is on v1 (/v1). The Image Service is served
+    from img2.storyblok.com. There is no dated/header versioning scheme.
+  current:
+    content_delivery_api: v2
+    management_api: v1
+    image_service: v2
+deprecation:
+  policy_url: null
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    No formal published deprecation policy or RFC 8594 Sunset/Deprecation header
+    support was found. Older major versions (e.g. Content Delivery API v1) remain
+    documented but v2 is the recommended path.
+sla:
+  url: null
+  uptime_target: null
+  note: Enterprise SLAs are offered under contract; no public uptime target page found.
+status_page: https://status.storyblok.com/
+changelog: https://www.storyblok.com/changelog
+deprecated_operations: []

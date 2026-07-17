@@ -1,0 +1,16 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Storyblok Image Service
+  version: 1.0.0
+extends: openapi/storyblok-image-service-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: storyblok
+      x-apievangelist-artifacts:
+        conventions: conventions/storyblok-conventions.yml
+        lifecycle: lifecycle/storyblok-lifecycle.yml
+      x-apievangelist-note: >-
+        The Image Service is a URL-based transformation CDN; images are addressed
+        by path segments after the /m/ marker rather than by authenticated API
+        calls.

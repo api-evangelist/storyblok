@@ -1,0 +1,64 @@
+generated: '2026-06-20'
+method: searched
+source: https://github.com/storyblok/storyblok-cli, https://www.npmjs.com/package/storyblok
+cli:
+  name: Storyblok CLI
+  binary: storyblok
+  package: storyblok
+  registry: npm
+  version: 4.19.1
+  official: true
+  install:
+    - npm install storyblok -g
+    - npx storyblok <command>
+  authentication:
+    - storyblok login (email/password or personal access token)
+    - storyblok logout
+  command_groups:
+    auth:
+      - command: login
+        description: Authenticate with Storyblok (email/password or access token).
+      - command: logout
+        description: End the current CLI session.
+      - command: user
+        description: Show information about the authenticated user.
+    scaffolding:
+      - command: select
+        description: Kickstart a boilerplate, fieldtype or theme.
+      - command: quickstart
+        description: Create a new space and select a boilerplate template.
+    components:
+      - command: pull-components
+        description: Download a space's components schema as JSON.
+      - command: push-components
+        description: Push component definitions to a space from a file or URL.
+      - command: delete-component
+        description: Remove a single component from a space.
+      - command: delete-components
+        description: Delete multiple components matching a local JSON file.
+      - command: generate-typescript-typedefs
+        description: Generate TypeScript type definitions from component schemas.
+    content:
+      - command: pull-languages
+        description: Download a space's languages schema as JSON.
+      - command: import
+        description: Import flat content from .csv, .xml and .json files.
+      - command: sync
+        description: Sync components, folders, roles, datasources or stories between spaces.
+      - command: delete-datasources
+        description: Remove datasources from a space (optionally filtered by slug/name).
+    migrations:
+      - command: generate-migration
+        description: Create a migration file for modifying component fields.
+      - command: run-migration
+        description: Execute a migration file against a space's content.
+      - command: rollback-migration
+        description: Undo changes from the last migration execution.
+    spaces:
+      - command: spaces
+        description: List all spaces associated with the account.
+key_flows:
+  - Scaffold a project/fieldtype (select / quickstart)
+  - Version-control component schemas (pull-components / push-components)
+  - Field migrations across content (generate/run/rollback-migration)
+  - Cross-space promotion (sync)

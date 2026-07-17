@@ -1,0 +1,33 @@
+generated: '2026-06-20'
+method: searched
+source: live probes of /.well-known/* on Storyblok website and API hosts
+note: >-
+  No /.well-known/ discovery documents are published on the website, Content
+  Delivery API, or Management API hosts. Empty result is expected — Storyblok
+  authenticates with API tokens / personal access tokens rather than OAuth/OIDC
+  discovery, and publishes no security.txt. An llms.txt IS published (see
+  llms/storyblok-llms.txt).
+hosts:
+  - host: https://www.storyblok.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /llms.txt
+        status: 200
+        file: ../llms/storyblok-llms.txt
+      - path: /llms-full.txt
+        status: 404
+  - host: https://api.storyblok.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+  - host: https://mapi.storyblok.com
+    documents:
+      - path: /.well-known/openid-configuration
+        status: 404

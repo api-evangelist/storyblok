@@ -1,0 +1,33 @@
+generated: '2026-06-20'
+method: searched
+probe: false
+url: https://www.storyblok.com/trust-center
+certifications:
+  - ISO 27001
+  - SOC 2 Type II
+  - TISAX
+  - GDPR
+  - EU-U.S. Data Privacy Framework
+compliance:
+  - Digital Services Act (Regulation (EU) 2022/2065)
+security_practices:
+  - TLS 1.3 in transit, AES-256 at rest
+  - Mandatory two-factor authentication (2FA)
+  - SSO via SAML (Auth0, Okta, Microsoft Entra ID)
+  - Penetration testing, vulnerability management, automated scanning
+  - ISMS policies, access control, centralized endpoint management, security awareness training
+pages:
+  trust_center: https://www.storyblok.com/trust-center
+  security: https://www.storyblok.com/trust-center/security
+  enterprise_security: https://www.storyblok.com/enterprise-security
+evidence:
+  - source: https://www.storyblok.com/trust-center
+    keywords: [iso 27001, tisax, gdpr, eu-u.s. data privacy framework, dsa]
+  - source: https://www.storyblok.com/enterprise-security
+    keywords: [iso 27001 certified, soc 2, encryption]
+note: >-
+  SOC 2 Type II and ISO 27001 are cited by Storyblok's enterprise security
+  materials; ISO 27001, TISAX, GDPR and the EU-U.S. Data Privacy Framework were
+  confirmed on the trust-center page. No public bug bounty / vulnerability
+  disclosure program or security.txt was found (see well-known/ — 404), so no
+  VulnerabilityDisclosure artifact was written.

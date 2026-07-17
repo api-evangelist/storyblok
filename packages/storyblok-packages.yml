@@ -1,0 +1,115 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.storyblok.com/technologies, npm registry, PyPI, Packagist
+packages:
+  - language: javascript
+    registry: npm
+    name: "@storyblok/js"
+    version: 6.2.0
+    url: https://www.npmjs.com/package/@storyblok/js
+    install: npm install @storyblok/js
+    description: Official framework-agnostic JavaScript SDK for Storyblok.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@storyblok/react"
+    version: 7.2.0
+    url: https://www.npmjs.com/package/@storyblok/react
+    install: npm install @storyblok/react
+    description: Official React SDK for Storyblok.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@storyblok/vue"
+    version: 11.2.0
+    url: https://www.npmjs.com/package/@storyblok/vue
+    install: npm install @storyblok/vue
+    description: Official Vue SDK for Storyblok.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@storyblok/nuxt"
+    version: 11.1.1
+    url: https://www.npmjs.com/package/@storyblok/nuxt
+    install: npm install @storyblok/nuxt
+    description: Official Nuxt module for Storyblok.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@storyblok/astro"
+    version: 10.2.0
+    url: https://www.npmjs.com/package/@storyblok/astro
+    install: npm install @storyblok/astro
+    description: Official Astro integration for the Storyblok Headless CMS.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@storyblok/svelte"
+    version: 7.2.0
+    url: https://www.npmjs.com/package/@storyblok/svelte
+    install: npm install @storyblok/svelte
+    description: Official Svelte SDK for Storyblok.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@storyblok/richtext"
+    version: 5.2.0
+    url: https://www.npmjs.com/package/@storyblok/richtext
+    install: npm install @storyblok/richtext
+    description: Official Storyblok RichText resolver.
+    official: true
+  - language: javascript
+    registry: npm
+    name: storyblok-js-client
+    version: 7.7.0
+    url: https://www.npmjs.com/package/storyblok-js-client
+    install: npm install storyblok-js-client
+    description: Universal JavaScript client for the Storyblok Content Delivery and Management APIs.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@storyblok/management-api-client"
+    version: 0.5.0
+    url: https://www.npmjs.com/package/@storyblok/management-api-client
+    install: npm install @storyblok/management-api-client
+    description: Typed client for the Storyblok Management API.
+    official: true
+  - language: javascript
+    registry: npm
+    name: "@storyblok/field-plugin"
+    version: 1.7.1
+    url: https://www.npmjs.com/package/@storyblok/field-plugin
+    install: npm install @storyblok/field-plugin
+    description: SDK for building custom Field Plugins for the Storyblok visual editor.
+    official: true
+  - language: javascript
+    registry: npm
+    name: storyblok
+    version: 4.19.1
+    url: https://www.npmjs.com/package/storyblok
+    install: npm install storyblok -g
+    description: Official Storyblok command-line interface (see cli/ for the command surface).
+    official: true
+    kind: cli
+  - language: python
+    registry: pypi
+    name: storyblok
+    url: https://pypi.org/project/storyblok/
+    install: pip install storyblok
+    description: Storyblok API library client for Python (storyblok/storyblok-python-sdk, by Dominik Angerer).
+    source_code: https://github.com/storyblok/storyblok-python-sdk
+    official: true
+  - language: php
+    registry: packagist
+    name: storyblok/php-content-api-client
+    url: https://packagist.org/packages/storyblok/php-content-api-client
+    install: composer require storyblok/php-content-api-client
+    description: Official PHP client for the Storyblok Content Delivery API.
+    official: true
+  - language: php
+    registry: packagist
+    name: storyblok/richtext-resolver
+    url: https://packagist.org/packages/storyblok/richtext-resolver
+    install: composer require storyblok/richtext-resolver
+    description: Official PHP resolver for Storyblok rich-text fields.
+    official: true

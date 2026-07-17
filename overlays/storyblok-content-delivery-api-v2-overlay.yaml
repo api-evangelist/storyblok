@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Storyblok Content Delivery API v2
+  version: 1.0.0
+extends: openapi/storyblok-content-delivery-api-v2-openapi.yml
+actions:
+  - target: $.info
+    update:
+      x-apievangelist-provider: storyblok
+      x-apievangelist-artifacts:
+        authentication: authentication/storyblok-authentication.yml
+        conventions: conventions/storyblok-conventions.yml
+        errors: errors/storyblok-problem-types.yml
+        data-model: data-model/storyblok-data-model.yml
+        lifecycle: lifecycle/storyblok-lifecycle.yml
+        mcp: mcp/storyblok-mcp.yml
+  - target: $.info
+    update:
+      x-agentic-access: agentic-access/storyblok-agentic-access.yml

@@ -1,0 +1,30 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.storyblok.com/docs, npm registry
+note: >-
+  Client-side / embeddable surfaces distinct from the server-side SDKs in
+  packages/. These render or extend the Storyblok Visual Editor experience.
+families:
+  - name: Storyblok Bridge
+    kind: embedded-editor-bridge
+    description: >-
+      JavaScript bridge that connects a live preview of your frontend to the
+      Storyblok Visual Editor, enabling real-time in-context editing, clickable
+      component selection, and instant content updates.
+    loader: https://app.storyblok.com/f/storyblok-v2-latest.js
+    docs: https://www.storyblok.com/docs/guide/essentials/visual-editor
+  - name: Field Plugins
+    kind: custom-field-ui
+    description: >-
+      Embeddable custom field types rendered inside the Storyblok editor (color
+      pickers, map selectors, external asset browsers, etc.), built with the
+      Field Plugin SDK and hosted in an iframe within the editor.
+    package: "@storyblok/field-plugin"
+    docs: https://www.storyblok.com/docs/plugins/field-plugins/introduction
+  - name: App Directory apps
+    kind: embedded-app
+    description: >-
+      Custom applications embedded in the Storyblok space UI (tool plugins and
+      space-level apps) distributed through the Storyblok App Directory.
+    directory: https://www.storyblok.com/app-store
+    docs: https://www.storyblok.com/docs/plugins

@@ -1,0 +1,72 @@
+generated: '2026-06-20'
+method: derived
+source: openapi/*.yml + https://www.storyblok.com/docs/api
+authentication:
+  content_delivery_api:
+    style: apiKey
+    in: query
+    parameter: token
+    modes:
+      - name: public token
+        access: published content only
+      - name: preview token
+        access: draft and published content (use with version=draft)
+  management_api:
+    style: bearer
+    header: Authorization
+    credential: personal access token
+  cross_ref: authentication/storyblok-authentication.yml
+pagination:
+  style: offset
+  params:
+    page:
+      description: 1-based page number.
+      default: 1
+    per_page:
+      description: Items per page.
+      default: 25
+      maximum: 100
+  response_signal:
+    header: Total
+    description: Total number of items matching the query (used to compute page count).
+idempotency:
+  supported: false
+  note: No Idempotency-Key header is documented; write safety relies on HTTP verbs.
+caching:
+  cache_version:
+    param: cv
+    description: >-
+      Cache version timestamp. Passing the current cv value lets Storyblok's CDN
+      serve a cached response; it is bumped on publish so clients can bust cache.
+  version_param:
+    param: version
+    values: [published, draft]
+    default: published
+relation_resolution:
+  resolve_relations:
+    description: Resolve referenced stories inline (comma-separated component.field paths).
+  resolve_links:
+    values: [url, story]
+    description: Resolve internal link fields to URL or full story objects.
+filtering:
+  starts_with:
+    description: Filter stories by full_slug prefix (e.g. blog/).
+  filter_query:
+    description: Field-level filter operators (filter_query[field][operator]=value).
+metadata:
+  note: >-
+    Stories carry rich metadata (uuid, group_id for language grouping, alternates,
+    translated_slugs, first_published_at/published_at timestamps).
+request_tracing:
+  request_id_header: null
+  note: No documented request-id/correlation header.
+versioning:
+  cross_ref: lifecycle/storyblok-lifecycle.yml
+  scheme: uri-path (v2 CDN, v1 Management)
+error_envelope:
+  media_type: application/json
+  shape: '{ "error": "<message>" }'
+  cross_ref: errors/storyblok-problem-types.yml
+rate_limiting:
+  signal: HTTP 429
+  cross_ref: rate-limits/storyblok-rate-limits.yml

@@ -1,0 +1,26 @@
+generated: '2026-06-20'
+method: searched
+source: https://www.storyblok.com/changelog
+url: https://www.storyblok.com/changelog
+rss: https://www.storyblok.com/changelog (RSS feed link published on page)
+scheme:
+  style: dated-entries
+  note: >-
+    Storyblok publishes a dated product changelog (not a semantic API version
+    log). Entries are categorized (new feature / improvement / fix) and filtered
+    by plan. Individual component libraries (e.g. RichText) carry their own
+    semver.
+entries:
+  - date: '2026-07-15'
+    title: RichText v5
+    type: feature
+    highlights: New major version of the RichText resolver.
+  - date: '2026-07-08'
+    title: Keyboard shortcuts for Visual Editor
+    type: feature
+    highlights: Adds keyboard shortcuts to speed up editing in the Visual Editor.
+note: >-
+  The live changelog loads additional entries dynamically; only the most recent
+  window is captured here. See url for the authoritative full history. The repo
+  blogs/ folder also mirrors related announcements (RichText v5, v4->v5
+  migration).
