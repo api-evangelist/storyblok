@@ -1,0 +1,284 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Content Delivery API v2 Assets API
+  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  version: '2'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+servers:
+- url: https://api.storyblok.com/v2/cdn
+  description: Global Production Server
+- url: https://api-us.storyblok.com/v2/cdn
+  description: US Production Server
+- url: https://api-ap.storyblok.com/v2/cdn
+  description: Asia-Pacific Production Server
+- url: https://api-ca.storyblok.com/v2/cdn
+  description: Canada Production Server
+- url: https://api-cn.storyblok.com/v2/cdn
+  description: China Production Server
+security:
+- apiToken: []
+tags:
+- name: Assets
+  description: Assets are files stored in Storyblok's asset library, including images, documents, and other media. The Management API allows uploading, tagging, and organizing assets.
+paths:
+  /spaces/{space_id}/assets:
+    get:
+      operationId: listAssets
+      summary: List assets in a space
+      description: Returns a paginated list of assets in the space. Assets can be filtered by content type, folder, and filename search. The response includes the asset URL and metadata.
+      tags:
+      - Assets
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - name: in_folder
+        in: query
+        description: Filter assets within a specific asset folder ID.
+        required: false
+        schema:
+          type: integer
+      - name: search
+        in: query
+        description: Filter assets by filename using a partial text match.
+        required: false
+        schema:
+          type: string
+      - name: content_type
+        in: query
+        description: Filter assets by MIME type, such as image/jpeg or application/pdf.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A paginated list of assets was returned successfully.
+          headers:
+            Total:
+              description: Total number of assets matching the query.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: signAssetUpload
+      summary: Sign an asset upload
+      description: Initiates the asset upload process by requesting a signed upload URL from Storyblok's asset CDN. After receiving the signed URL and form fields, upload the file directly to the CDN using a multipart POST request, then call the asset finalization endpoint.
+      tags:
+      - Assets
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - filename
+              properties:
+                filename:
+                  type: string
+                  description: The filename of the asset to be uploaded.
+                size:
+                  type: string
+                  description: The file size in bytes as a string.
+                content_type:
+                  type: string
+                  description: The MIME type of the file, such as image/jpeg.
+                asset_folder_id:
+                  type: integer
+                  description: Optional ID of the asset folder to place the uploaded asset in.
+      responses:
+        '200':
+          description: The signed upload URL was returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetUploadResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /spaces/{space_id}/assets/{asset_id}:
+    get:
+      operationId: getAsset
+      summary: Retrieve a single asset
+      description: Returns the full metadata for a single asset by its numeric ID, including its CDN URL, dimensions, content type, and associated tags.
+      tags:
+      - Assets
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/AssetId'
+      responses:
+        '200':
+          description: The asset was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  asset:
+                    $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteAsset
+      summary: Delete an asset
+      description: Permanently deletes an asset from the space's asset library and removes it from the CDN. This action cannot be undone. Stories referencing this asset will display broken media after deletion.
+      tags:
+      - Assets
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/AssetId'
+      responses:
+        '200':
+          description: The asset was deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Asset:
+      type: object
+      description: An asset stored in Storyblok's asset library, including its CDN URL, content type, dimensions, and editorial metadata.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the asset.
+        filename:
+          type: string
+          description: Full CDN URL of the asset, used to reference the asset in story content.
+        content_type:
+          type: string
+          description: MIME type of the asset file.
+        content_length:
+          type: integer
+          description: File size in bytes.
+        asset_folder_id:
+          type: integer
+          nullable: true
+          description: ID of the asset folder this asset belongs to.
+        created_at:
+          type: string
+          format: date-time
+          description: Upload timestamp.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last modification timestamp.
+        is_private:
+          type: boolean
+          description: True if access to this asset requires authentication.
+        alt:
+          type: string
+          nullable: true
+          description: Alt text for the asset, used for accessibility.
+        title:
+          type: string
+          nullable: true
+          description: Display title for the asset.
+        copyright:
+          type: string
+          nullable: true
+          description: Copyright or attribution text for the asset.
+        focus:
+          type: string
+          nullable: true
+          description: Focal point coordinates used by the image service for smart cropping, formatted as x:y.
+    AssetUploadResponse:
+      type: object
+      description: Response from the asset upload signing endpoint containing the CDN upload URL and required form fields.
+      properties:
+        id:
+          type: integer
+          description: Numeric ID of the new asset record created in Storyblok.
+        filename:
+          type: string
+          description: The final CDN URL the asset will be available at once uploaded.
+        post_url:
+          type: string
+          description: The CDN endpoint URL to POST the file upload to.
+        fields:
+          type: object
+          description: Form fields that must be included in the multipart upload POST to the CDN, including the signed authorization fields.
+          additionalProperties:
+            type: string
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
+  parameters:
+    AssetId:
+      name: asset_id
+      in: path
+      description: Numeric ID of the asset.
+      required: true
+      schema:
+        type: integer
+      example: 22222
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of results per page. Maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+    Page:
+      name: page
+      in: query
+      description: Page number for paginated results, starting at 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  responses:
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: query
+      name: token
+      description: Public API token for accessing published content, or Preview API token for accessing draft and published content. Tokens are scoped to a specific Storyblok space.
+externalDocs:
+  description: Storyblok Content Delivery API v2 Documentation
+  url: https://www.storyblok.com/docs/api/content-delivery/v2

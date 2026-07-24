@@ -1,0 +1,132 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Content Delivery API v2 Assets Spaces API
+  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  version: '2'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+servers:
+- url: https://api.storyblok.com/v2/cdn
+  description: Global Production Server
+- url: https://api-us.storyblok.com/v2/cdn
+  description: US Production Server
+- url: https://api-ap.storyblok.com/v2/cdn
+  description: Asia-Pacific Production Server
+- url: https://api-ca.storyblok.com/v2/cdn
+  description: Canada Production Server
+- url: https://api-cn.storyblok.com/v2/cdn
+  description: China Production Server
+security:
+- apiToken: []
+tags:
+- name: Spaces
+  description: Spaces are the top-level containers in Storyblok. Each space has its own content, components, assets, and settings. The spaces endpoint allows retrieval and management of space metadata and configuration.
+paths:
+  /spaces/{space_id}:
+    get:
+      operationId: getSpace
+      summary: Retrieve a space
+      description: Returns the details of a Storyblok space including its name, plan, regional endpoint, domain configuration, language settings, and statistics. This endpoint is useful for validating space access and retrieving configuration needed for other API calls.
+      tags:
+      - Spaces
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      responses:
+        '200':
+          description: The space details were returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  space:
+                    $ref: '#/components/schemas/Space'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Space:
+      type: object
+      description: A Storyblok space containing all content, components, assets, and settings for a project.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the space.
+        name:
+          type: string
+          description: Display name of the space.
+        domain:
+          type: string
+          description: Primary domain associated with the space for preview links.
+        version:
+          type: integer
+          description: Current cache version of the space content.
+        languages:
+          type: array
+          description: List of language codes supported by this space.
+          items:
+            type: string
+        default_lang:
+          type: string
+          description: Default language code for the space.
+        plan:
+          type: string
+          description: Current subscription plan name for the space.
+        plan_level:
+          type: integer
+          description: Numeric plan level indicating feature availability.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the space was created.
+        stories_count:
+          type: integer
+          description: Total number of stories in the space.
+        assets_count:
+          type: integer
+          description: Total number of assets in the space.
+        collaborators_count:
+          type: integer
+          description: Total number of collaborators with access to the space.
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
+  parameters:
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: query
+      name: token
+      description: Public API token for accessing published content, or Preview API token for accessing draft and published content. Tokens are scoped to a specific Storyblok space.
+externalDocs:
+  description: Storyblok Content Delivery API v2 Documentation
+  url: https://www.storyblok.com/docs/api/content-delivery/v2

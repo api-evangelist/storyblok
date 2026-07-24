@@ -1,0 +1,276 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Content Delivery API v2 Assets Webhooks API
+  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  version: '2'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+servers:
+- url: https://api.storyblok.com/v2/cdn
+  description: Global Production Server
+- url: https://api-us.storyblok.com/v2/cdn
+  description: US Production Server
+- url: https://api-ap.storyblok.com/v2/cdn
+  description: Asia-Pacific Production Server
+- url: https://api-ca.storyblok.com/v2/cdn
+  description: Canada Production Server
+- url: https://api-cn.storyblok.com/v2/cdn
+  description: China Production Server
+security:
+- apiToken: []
+tags:
+- name: Webhooks
+  description: Webhooks allow external services to be notified when events occur in a Storyblok space, such as story publication or asset upload. The Management API provides full CRUD operations for webhook configuration.
+paths:
+  /spaces/{space_id}/webhook_endpoints:
+    get:
+      operationId: listWebhooks
+      summary: List webhook endpoints
+      description: Returns all webhook endpoints configured for the space, including their target URLs, event subscriptions, and optional secret configuration.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      responses:
+        '200':
+          description: A list of webhook endpoints was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhook_endpoints:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createWebhook
+      summary: Create a webhook endpoint
+      description: Registers a new webhook endpoint to receive event notifications from the space. Specify the target URL, the events to subscribe to, and an optional secret for signature validation.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - webhook_endpoint
+              properties:
+                webhook_endpoint:
+                  $ref: '#/components/schemas/WebhookEndpointInput'
+      responses:
+        '201':
+          description: The webhook endpoint was created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhook_endpoint:
+                    $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /spaces/{space_id}/webhook_endpoints/{webhook_id}:
+    get:
+      operationId: getWebhook
+      summary: Retrieve a single webhook endpoint
+      description: Returns the configuration of a single webhook endpoint by its numeric ID.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '200':
+          description: The webhook endpoint was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhook_endpoint:
+                    $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateWebhook
+      summary: Update a webhook endpoint
+      description: Updates an existing webhook endpoint's URL, subscribed events, or secret key.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/WebhookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - webhook_endpoint
+              properties:
+                webhook_endpoint:
+                  $ref: '#/components/schemas/WebhookEndpointInput'
+      responses:
+        '200':
+          description: The webhook endpoint was updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhook_endpoint:
+                    $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteWebhook
+      summary: Delete a webhook endpoint
+      description: Permanently removes a webhook endpoint from the space. No further event notifications will be sent to the associated URL.
+      tags:
+      - Webhooks
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '200':
+          description: The webhook endpoint was deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    WebhookId:
+      name: webhook_id
+      in: path
+      description: Numeric ID of the webhook endpoint.
+      required: true
+      schema:
+        type: integer
+      example: 33333
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+  schemas:
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
+    WebhookEndpointInput:
+      type: object
+      description: Input for creating or updating a webhook endpoint.
+      required:
+      - url
+      - actions
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Target URL that will receive POST requests on events.
+        name:
+          type: string
+          description: Optional display name for the webhook endpoint.
+        actions:
+          type: array
+          description: Event action strings to subscribe to. Valid actions include story.published, story.unpublished, story.deleted, story.moved, asset.created, asset.deleted, datasource.entries_updated.
+          items:
+            type: string
+        description:
+          type: string
+          description: Optional description of the webhook's purpose.
+        secret:
+          type: string
+          description: Optional secret key used to sign the webhook-signature header for payload integrity verification.
+        activated:
+          type: boolean
+          description: Set to false to disable the webhook without deleting it.
+    WebhookEndpoint:
+      type: object
+      description: A webhook endpoint that receives event notifications from the space when configured actions occur.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the webhook endpoint.
+        url:
+          type: string
+          format: uri
+          description: Target URL that receives the POST request when an event fires.
+        name:
+          type: string
+          description: Optional display name for the webhook endpoint.
+        actions:
+          type: array
+          description: List of event action strings this webhook is subscribed to, such as story.published or asset.created.
+          items:
+            type: string
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the webhook's purpose.
+        secret:
+          type: string
+          nullable: true
+          description: Webhook secret key used to generate the webhook-signature HMAC-SHA1 header for payload verification. Only visible on creation.
+        activated:
+          type: boolean
+          description: True if the webhook endpoint is active and will receive events.
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp.
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: query
+      name: token
+      description: Public API token for accessing published content, or Preview API token for accessing draft and published content. Tokens are scoped to a specific Storyblok space.
+externalDocs:
+  description: Storyblok Content Delivery API v2 Documentation
+  url: https://www.storyblok.com/docs/api/content-delivery/v2

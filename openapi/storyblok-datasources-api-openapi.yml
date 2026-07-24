@@ -1,0 +1,374 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Content Delivery API v2 Assets Datasources API
+  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  version: '2'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+servers:
+- url: https://api.storyblok.com/v2/cdn
+  description: Global Production Server
+- url: https://api-us.storyblok.com/v2/cdn
+  description: US Production Server
+- url: https://api-ap.storyblok.com/v2/cdn
+  description: Asia-Pacific Production Server
+- url: https://api-ca.storyblok.com/v2/cdn
+  description: Canada Production Server
+- url: https://api-cn.storyblok.com/v2/cdn
+  description: China Production Server
+security:
+- apiToken: []
+tags:
+- name: Datasources
+  description: Datasources are reusable key-value collections used for options lists, translations, and configuration data within Storyblok spaces.
+paths:
+  /datasources:
+    get:
+      operationId: listDatasources
+      summary: List all datasources
+      description: Returns a list of all datasources defined in the space. Datasources are reusable collections of key-value pairs used for options lists, translations, and configuration. Use this endpoint to discover available datasources before fetching their entries.
+      tags:
+      - Datasources
+      parameters:
+      - $ref: '#/components/parameters/Token'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - name: search
+        in: query
+        description: Filter datasources by name using a partial text match.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of datasources was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Datasource'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /datasource_entries:
+    get:
+      operationId: listDatasourceEntries
+      summary: List datasource entries
+      description: Returns the key-value entries for a specific datasource. Optionally filter by dimension to retrieve locale-specific or variant values. Results are paginated and can be filtered by datasource slug or ID.
+      tags:
+      - Datasources
+      parameters:
+      - $ref: '#/components/parameters/Token'
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - name: datasource
+        in: query
+        description: The slug of the datasource to retrieve entries from.
+        required: false
+        schema:
+          type: string
+        example: colors
+      - name: datasource_id
+        in: query
+        description: The numeric ID of the datasource to retrieve entries from.
+        required: false
+        schema:
+          type: integer
+      - name: dimension
+        in: query
+        description: Dimension slug to retrieve dimension-specific values alongside the default values.
+        required: false
+        schema:
+          type: string
+      - name: cv
+        in: query
+        description: Cache version timestamp to bypass CDN caching.
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A list of datasource entries was returned successfully.
+          headers:
+            Total:
+              description: Total number of entries in the datasource.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasource_entries:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/DatasourceEntry'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /spaces/{space_id}/datasources:
+    get:
+      operationId: listManagementDatasources
+      summary: List datasources in a space
+      description: Returns all datasources defined in the space. Use this endpoint to enumerate available datasources before creating, updating, or deleting their entries.
+      tags:
+      - Datasources
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/Page_2'
+      - $ref: '#/components/parameters/PerPage_2'
+      responses:
+        '200':
+          description: A list of datasources was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ManagementDatasource'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+    post:
+      operationId: createDatasource
+      summary: Create a datasource
+      description: Creates a new datasource in the space. Optionally define dimensions to support locale-specific or variant values alongside the default entries.
+      tags:
+      - Datasources
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - datasource
+              properties:
+                datasource:
+                  $ref: '#/components/schemas/DatasourceInput'
+      responses:
+        '201':
+          description: The datasource was created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasource:
+                    $ref: '#/components/schemas/ManagementDatasource'
+        '401':
+          $ref: '#/components/responses/Unauthorized_2'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+components:
+  schemas:
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable error message describing what went wrong.
+    DatasourceEntry:
+      type: object
+      description: A single key-value entry within a datasource. Optionally includes a dimension-specific value when a dimension filter is applied.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the datasource entry.
+        name:
+          type: string
+          description: Human-readable label for this entry, often used as display text.
+        value:
+          type: string
+          description: The value associated with this entry's key.
+        dimension_value:
+          type: string
+          nullable: true
+          description: Dimension-specific value returned when a dimension query parameter is provided.
+    Datasource:
+      type: object
+      description: A datasource is a named collection of key-value entries used for options lists, translations, and other reusable configuration values.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the datasource.
+        name:
+          type: string
+          description: Human-readable name of the datasource.
+        slug:
+          type: string
+          description: URL-safe slug used to query the datasource entries.
+        dimensions:
+          type: array
+          description: List of dimensions defined for this datasource, enabling locale-specific or variant values alongside default values.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Unique ID of the dimension.
+              name:
+                type: string
+                description: Display name of the dimension.
+              entry_value:
+                type: string
+                description: Dimension slug used in API queries.
+              datasource_id:
+                type: integer
+                description: ID of the parent datasource.
+              created_at:
+                type: string
+                format: date-time
+                description: Creation timestamp.
+              updated_at:
+                type: string
+                format: date-time
+                description: Last update timestamp.
+    DatasourceInput:
+      type: object
+      description: Input for creating or updating a datasource.
+      required:
+      - name
+      - slug
+      properties:
+        name:
+          type: string
+          description: Display name for the datasource.
+        slug:
+          type: string
+          description: URL-safe identifier slug.
+    ManagementDatasource:
+      type: object
+      description: Datasource as returned by the Management API.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier.
+        name:
+          type: string
+          description: Human-readable name.
+        slug:
+          type: string
+          description: URL-safe identifier used to query entries.
+        dimensions:
+          type: array
+          description: Dimensions enabling locale-specific or variant entry values.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Dimension ID.
+              name:
+                type: string
+                description: Dimension display name.
+              entry_value:
+                type: string
+                description: Dimension slug.
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last modification timestamp.
+    Error_2:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
+  responses:
+    Unauthorized:
+      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of items to return per page. Maximum is 100 for most endpoints.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Token:
+      name: token
+      in: query
+      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
+      required: true
+      schema:
+        type: string
+      example: your-public-token
+    Page_2:
+      name: page
+      in: query
+      description: Page number for paginated results, starting at 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+    PerPage_2:
+      name: per_page
+      in: query
+      description: Number of results per page. Maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Page:
+      name: page
+      in: query
+      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: query
+      name: token
+      description: Public API token for accessing published content, or Preview API token for accessing draft and published content. Tokens are scoped to a specific Storyblok space.
+externalDocs:
+  description: Storyblok Content Delivery API v2 Documentation
+  url: https://www.storyblok.com/docs/api/content-delivery/v2

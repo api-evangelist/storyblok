@@ -1,0 +1,199 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Content Delivery API v2 Assets Links API
+  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  version: '2'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+servers:
+- url: https://api.storyblok.com/v2/cdn
+  description: Global Production Server
+- url: https://api-us.storyblok.com/v2/cdn
+  description: US Production Server
+- url: https://api-ap.storyblok.com/v2/cdn
+  description: Asia-Pacific Production Server
+- url: https://api-ca.storyblok.com/v2/cdn
+  description: Canada Production Server
+- url: https://api-cn.storyblok.com/v2/cdn
+  description: China Production Server
+security:
+- apiToken: []
+tags:
+- name: Links
+  description: The links endpoint returns a flat or tree-structured list of all story URLs in a space, suitable for navigation generation and sitemap building.
+paths:
+  /links:
+    get:
+      operationId: listLinks
+      summary: List all links
+      description: Returns a flat or tree-structured map of all story URLs in the space. This endpoint is commonly used to generate navigation menus, breadcrumbs, and sitemaps. The response is keyed by story UUID and each entry contains the slug, name, and parent information.
+      tags:
+      - Links
+      parameters:
+      - $ref: '#/components/parameters/Token'
+      - $ref: '#/components/parameters/Version'
+      - name: starts_with
+        in: query
+        description: Filter links by full_slug prefix to return only links in a specific folder.
+        required: false
+        schema:
+          type: string
+      - name: paginated
+        in: query
+        description: Set to 1 to enable pagination on the links response. When enabled, use page and per_page parameters to control the result set.
+        required: false
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PerPage'
+      - name: including_dates
+        in: query
+        description: Set to 1 to include published_at, created_at, and updated_at timestamps in each link entry.
+        required: false
+        schema:
+          type: integer
+          enum:
+          - 0
+          - 1
+      - name: cv
+        in: query
+        description: Cache version timestamp to bypass CDN caching.
+        required: false
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: A map of links was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  links:
+                    type: object
+                    description: Map of story UUID to link object representing all stories in the space.
+                    additionalProperties:
+                      $ref: '#/components/schemas/Link'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    Link:
+      type: object
+      description: A link entry representing a story's position in the space hierarchy, including its URL slug, parent, and folder status.
+      properties:
+        id:
+          type: integer
+          description: Numeric ID of the story.
+        slug:
+          type: string
+          description: Slug segment of the story within its parent folder.
+        name:
+          type: string
+          description: Display name of the story.
+        is_folder:
+          type: boolean
+          description: True if this link represents a folder.
+        parent_id:
+          type: integer
+          nullable: true
+          description: Numeric ID of the parent folder, or null if at root.
+        published:
+          type: boolean
+          description: True if the story is currently published.
+        position:
+          type: integer
+          description: Sort position of the story within its parent folder.
+        uuid:
+          type: string
+          format: uuid
+          description: UUID of the story.
+        is_startpage:
+          type: boolean
+          description: True if this story is the start page of its parent folder.
+        real_path:
+          type: string
+          nullable: true
+          description: Custom URL path override if set on the story.
+        published_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of last publication. Only returned when including_dates=1.
+        created_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Creation timestamp. Only returned when including_dates=1.
+        updated_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Last update timestamp. Only returned when including_dates=1.
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable error message describing what went wrong.
+  responses:
+    Unauthorized:
+      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of items to return per page. Maximum is 100 for most endpoints.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Token:
+      name: token
+      in: query
+      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
+      required: true
+      schema:
+        type: string
+      example: your-public-token
+    Version:
+      name: version
+      in: query
+      description: Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.
+      required: false
+      schema:
+        type: string
+        enum:
+        - published
+        - draft
+        default: published
+    Page:
+      name: page
+      in: query
+      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: query
+      name: token
+      description: Public API token for accessing published content, or Preview API token for accessing draft and published content. Tokens are scoped to a specific Storyblok space.
+externalDocs:
+  description: Storyblok Content Delivery API v2 Documentation
+  url: https://www.storyblok.com/docs/api/content-delivery/v2

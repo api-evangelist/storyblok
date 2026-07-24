@@ -1,0 +1,290 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Content Delivery API v2 Assets Components API
+  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  version: '2'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+servers:
+- url: https://api.storyblok.com/v2/cdn
+  description: Global Production Server
+- url: https://api-us.storyblok.com/v2/cdn
+  description: US Production Server
+- url: https://api-ap.storyblok.com/v2/cdn
+  description: Asia-Pacific Production Server
+- url: https://api-ca.storyblok.com/v2/cdn
+  description: Canada Production Server
+- url: https://api-cn.storyblok.com/v2/cdn
+  description: China Production Server
+security:
+- apiToken: []
+tags:
+- name: Components
+  description: Components define the schema and field structure for story content. This includes managing component definitions, field types, and component groups.
+paths:
+  /spaces/{space_id}/components:
+    get:
+      operationId: listComponents
+      summary: List components in a space
+      description: Returns all component definitions for the space. Components define the content schema used by stories, including field names, types, and validation rules.
+      tags:
+      - Components
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - name: search
+        in: query
+        description: Filter components by name using a partial text match.
+        required: false
+        schema:
+          type: string
+      - name: in_groups
+        in: query
+        description: Comma-separated list of component group UUIDs to filter components by their assigned group.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of component definitions was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  components:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Component'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createComponent
+      summary: Create a component
+      description: Creates a new component definition in the space. The component schema specifies the field definitions that will be available to stories using this component.
+      tags:
+      - Components
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - component
+              properties:
+                component:
+                  $ref: '#/components/schemas/ComponentInput'
+      responses:
+        '201':
+          description: The component was created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  component:
+                    $ref: '#/components/schemas/Component'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /spaces/{space_id}/components/{component_id}:
+    get:
+      operationId: getComponent
+      summary: Retrieve a single component
+      description: Returns the full schema definition of a single component by its numeric ID, including all field definitions and their configuration.
+      tags:
+      - Components
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/ComponentId'
+      responses:
+        '200':
+          description: The component was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  component:
+                    $ref: '#/components/schemas/Component'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateComponent
+      summary: Update a component
+      description: Updates an existing component definition. Changes to the schema affect all stories that use this component.
+      tags:
+      - Components
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/ComponentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - component
+              properties:
+                component:
+                  $ref: '#/components/schemas/ComponentInput'
+      responses:
+        '200':
+          description: The component was updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  component:
+                    $ref: '#/components/schemas/Component'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteComponent
+      summary: Delete a component
+      description: Deletes a component definition from the space. Stories that reference this component will retain their existing content but the schema validation will no longer apply.
+      tags:
+      - Components
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - $ref: '#/components/parameters/ComponentId'
+      responses:
+        '200':
+          description: The component was deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ComponentInput:
+      type: object
+      description: Input object for creating or updating a component definition.
+      required:
+      - name
+      - schema
+      properties:
+        name:
+          type: string
+          description: Technical name identifier for the component.
+        display_name:
+          type: string
+          description: Optional human-readable display name.
+        schema:
+          type: object
+          description: Field definitions map.
+          additionalProperties:
+            type: object
+            additionalProperties: true
+        is_root:
+          type: boolean
+          description: Set to true to allow this component as a story root.
+        is_nestable:
+          type: boolean
+          description: Set to true to allow nesting inside other components.
+        component_group_uuid:
+          type: string
+          format: uuid
+          description: UUID of the component group to assign this component to.
+    Component:
+      type: object
+      description: A component definition specifying the content schema for a story type, including all field definitions and their validation rules.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the component.
+        name:
+          type: string
+          description: Display name and technical identifier of the component.
+        display_name:
+          type: string
+          nullable: true
+          description: Optional human-readable display name overriding the technical name.
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last modification timestamp.
+        schema:
+          type: object
+          description: Map of field names to field definition objects. Each field definition includes a type and optional validation configuration.
+          additionalProperties:
+            type: object
+            additionalProperties: true
+        is_root:
+          type: boolean
+          description: True if this component can be used as the root of a story.
+        is_nestable:
+          type: boolean
+          description: True if this component can be nested inside other components.
+        component_group_uuid:
+          type: string
+          format: uuid
+          nullable: true
+          description: UUID of the component group this component belongs to.
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
+  parameters:
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+    ComponentId:
+      name: component_id
+      in: path
+      description: Numeric ID of the component.
+      required: true
+      schema:
+        type: integer
+      example: 11111
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: query
+      name: token
+      description: Public API token for accessing published content, or Preview API token for accessing draft and published content. Tokens are scoped to a specific Storyblok space.
+externalDocs:
+  description: Storyblok Content Delivery API v2 Documentation
+  url: https://www.storyblok.com/docs/api/content-delivery/v2

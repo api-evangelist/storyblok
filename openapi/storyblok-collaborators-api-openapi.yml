@@ -1,0 +1,218 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Content Delivery API v2 Assets Collaborators API
+  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  version: '2'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+servers:
+- url: https://api.storyblok.com/v2/cdn
+  description: Global Production Server
+- url: https://api-us.storyblok.com/v2/cdn
+  description: US Production Server
+- url: https://api-ap.storyblok.com/v2/cdn
+  description: Asia-Pacific Production Server
+- url: https://api-ca.storyblok.com/v2/cdn
+  description: Canada Production Server
+- url: https://api-cn.storyblok.com/v2/cdn
+  description: China Production Server
+security:
+- apiToken: []
+tags:
+- name: Collaborators
+  description: Collaborators are users invited to a Storyblok space with specific roles and permissions. The Management API allows adding, updating, and removing collaborators.
+paths:
+  /spaces/{space_id}/collaborators:
+    get:
+      operationId: listCollaborators
+      summary: List collaborators in a space
+      description: Returns a list of all collaborators who have access to the space, including their roles, permissions, and invitation status.
+      tags:
+      - Collaborators
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      responses:
+        '200':
+          description: A list of collaborators was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  collaborators:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Collaborator'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: addCollaborator
+      summary: Add a collaborator
+      description: Invites a user to the space by email address and assigns them a role. If the user already has a Storyblok account they will be added immediately; otherwise an invitation email is sent.
+      tags:
+      - Collaborators
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - collaborator
+              properties:
+                collaborator:
+                  $ref: '#/components/schemas/CollaboratorInput'
+      responses:
+        '201':
+          description: The collaborator was added successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  collaborator:
+                    $ref: '#/components/schemas/Collaborator'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+  /spaces/{space_id}/collaborators/{collaborator_id}:
+    delete:
+      operationId: deleteCollaborator
+      summary: Remove a collaborator
+      description: Removes a collaborator from the space, revoking their access. The user's Storyblok account is not deleted; they simply lose access to this space.
+      tags:
+      - Collaborators
+      parameters:
+      - $ref: '#/components/parameters/SpaceId'
+      - name: collaborator_id
+        in: path
+        description: Numeric ID of the collaborator to remove.
+        required: true
+        schema:
+          type: integer
+      responses:
+        '200':
+          description: The collaborator was removed successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+  schemas:
+    Collaborator:
+      type: object
+      description: A collaborator with access to the space, including their role assignment and invitation status.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the collaborator record.
+        user_id:
+          type: integer
+          description: Numeric ID of the associated Storyblok user account.
+        role:
+          type: string
+          description: Role assigned to the collaborator. Built-in roles are admin, editor, and viewer.
+          enum:
+          - admin
+          - editor
+          - viewer
+        invited:
+          type: boolean
+          description: True if an invitation email was sent and not yet accepted.
+        space_role_id:
+          type: integer
+          nullable: true
+          description: ID of a custom space role if a custom role is assigned.
+        space_role_ids:
+          type: array
+          description: List of custom space role IDs assigned to this collaborator.
+          items:
+            type: integer
+        user:
+          type: object
+          description: Basic user profile information.
+          properties:
+            userid:
+              type: string
+              description: Storyblok username.
+            email:
+              type: string
+              format: email
+              description: Email address of the collaborator.
+            avatar:
+              type: string
+              nullable: true
+              description: URL of the user's avatar image.
+            friendly_name:
+              type: string
+              description: Display name of the user.
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
+    CollaboratorInput:
+      type: object
+      description: Input for inviting a collaborator to a space.
+      required:
+      - email
+      - role
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address of the user to invite.
+        role:
+          type: string
+          description: Role to assign to the collaborator.
+          enum:
+          - admin
+          - editor
+          - viewer
+        space_role_id:
+          type: integer
+          description: ID of a custom space role to assign instead of a built-in role.
+  securitySchemes:
+    apiToken:
+      type: apiKey
+      in: query
+      name: token
+      description: Public API token for accessing published content, or Preview API token for accessing draft and published content. Tokens are scoped to a specific Storyblok space.
+externalDocs:
+  description: Storyblok Content Delivery API v2 Documentation
+  url: https://www.storyblok.com/docs/api/content-delivery/v2
