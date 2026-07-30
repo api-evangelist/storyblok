@@ -7,9 +7,22 @@ description: Storyblok is a headless content management system (CMS) with a visu
   content through reusable components, multi-language content, and multi-site management
   with real-time collaboration features.
 type: Index
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Paid · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 position: Consumer
 access: 3rd-Party
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/storyblok.png
 tags:
 - CMS
 - Content Delivery
@@ -24,79 +37,11 @@ modified: '2026-06-20'
 url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/apis.yml
 specificationVersion: '0.19'
 apis:
-- aid: storyblok:storyblok-content-delivery-api
-  name: Storyblok Content Delivery API
-  description: The Storyblok Content Delivery API v2 enables developers to fetch published
-    content from a Storyblok space for delivery to web, mobile, and other channels.
-    Provides access to stories, datasources, links, tags, and asset metadata with
-    filtering, pagination, and relation resolution. Available across multiple regional
-    endpoints for global low-latency delivery.
-  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
-  baseURL: https://api.storyblok.com/v2/cdn
-  tags:
-  - Content Delivery
-  - Headless CMS
-  - REST API
-  - Stories
-  properties:
-  - type: Documentation
-    url: https://www.storyblok.com/docs/api/content-delivery/v2
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-content-delivery-api-v2-openapi.yml
-  - url: graphql/storyblok-graphql.md
-    type: GraphQL
-  - type: Overlay
-    url: overlays/storyblok-content-delivery-api-v2-overlay.yaml
-- aid: storyblok:storyblok-management-api
-  name: Storyblok Management API
-  description: The Storyblok Management API is a REST API for programmatically creating,
-    reading, updating, and deleting content and configuration within a Storyblok space.
-    Supports managing stories, components, assets, datasources, collaborators, webhooks,
-    and space settings. Used for editorial tooling, content migration, CI/CD pipelines,
-    and automated publishing workflows.
-  humanURL: https://www.storyblok.com/docs/api/management
-  baseURL: https://mapi.storyblok.com/v1
-  tags:
-  - Assets
-  - CMS
-  - Components
-  - Content Management
-  - REST API
-  - Stories
-  - Webhooks
-  properties:
-  - type: Documentation
-    url: https://www.storyblok.com/docs/api/management
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-management-api-openapi.yml
-  - type: Overlay
-    url: overlays/storyblok-management-api-overlay.yaml
-  - type: MCPServer
-    url: mcp/storyblok-mcp.yml
-- aid: storyblok:storyblok-image-service
-  name: Storyblok Image Service
-  description: The Storyblok Image Service provides on-the-fly image resizing, cropping,
-    filtering, and format conversion for assets stored in Storyblok. Supports fit-in
-    resizing, smart cropping, focus-point-based cropping, and custom filter chains
-    for quality adjustment, grayscale, and blur effects.
-  humanURL: https://www.storyblok.com/docs/image-service
-  baseURL: https://a.storyblok.com
-  tags:
-  - Image Optimization
-  - Image Processing
-  - Media
-  properties:
-  - type: Documentation
-    url: https://www.storyblok.com/docs/image-service
-  - type: OpenAPI
-    url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/openapi/storyblok-image-service-openapi.yml
-  - type: Overlay
-    url: overlays/storyblok-image-service-overlay.yaml
 - aid: storyblok:storyblok-webhooks
   name: Storyblok Webhooks
-  description: Storyblok emits webhook events when content actions occur in a space
-    such as story publication, unpublication, deletion, asset upload, and pipeline
-    stage transitions. AsyncAPI specification for webhook event schemas.
+  description: >-
+    Storyblok emits webhook events when content actions occur in a space such as story publication, unpublication,
+    deletion, asset upload, and pipeline stage transitions. AsyncAPI specification for webhook event schemas.
   humanURL: https://www.storyblok.com/docs/guide/in-depth/webhooks
   tags:
   - AsyncAPI
@@ -107,8 +52,209 @@ apis:
   - type: Documentation
     url: https://www.storyblok.com/docs/guide/in-depth/webhooks
   - type: AsyncAPI
-    url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/asyncapi/storyblok-webhooks-asyncapi.yml
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/asyncapi/storyblok-webhooks-asyncapi.yml
+- aid: storyblok:storyblok-assets-api
+  name: Storyblok Assets API
+  description: >-
+    Assets are files stored in Storyblok's asset library, including images, documents, and other media.
+    The Management API allows uploading, tagging, and organizing assets.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Assets
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-assets-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-collaborators-api
+  name: Storyblok Collaborators API
+  description: >-
+    Collaborators are users invited to a Storyblok space with specific roles and permissions. The Management
+    API allows adding, updating, and removing collaborators.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Collaborators
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-collaborators-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-components-api
+  name: Storyblok Components API
+  description: >-
+    Components define the schema and field structure for story content. This includes managing component
+    definitions, field types, and component groups.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Components
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-components-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-datasources-api
+  name: Storyblok Datasources API
+  description: >-
+    Datasources are reusable key-value collections used for options lists, translations, and configuration
+    data within Storyblok spaces.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Datasources
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-datasources-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-image-transformation-api
+  name: Storyblok Image Transformation API
+  description: >-
+    URL-based image transformation operations applied by constructing a specific path structure following
+    the base asset URL. All operations require the /m/ path segment prefix.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Image Transformation
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-image-transformation-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-links-api
+  name: Storyblok Links API
+  description: >-
+    The links endpoint returns a flat or tree-structured list of all story URLs in a space, suitable for
+    navigation generation and sitemap building.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Links
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-links-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-spaces-api
+  name: Storyblok Spaces API
+  description: >-
+    Spaces are the top-level containers in Storyblok. Each space has its own content, components, assets,
+    and settings. The spaces endpoint allows retrieval and management of space metadata and configuration.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Spaces
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-spaces-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-stories-api
+  name: Storyblok Stories API
+  description: >-
+    Stories are the content entries in Storyblok. Each story is defined by a component schema and holds
+    the content of a page, post, or any other structured content type.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Stories
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-stories-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-tags-api
+  name: Storyblok Tags API
+  description: The Tags API from Storyblok — 1 operation(s) for tags.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Tags
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-tags-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-webhooks-api
+  name: Storyblok Webhooks API
+  description: >-
+    Webhooks allow external services to be notified when events occur in a Storyblok space, such as story
+    publication or asset upload. The Management API provides full CRUD operations for webhook configuration.
+  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
 common:
+- type: PostmanWorkspace
+  url: https://www.postman.com/kinlaneapi/storyblok/overview
 - type: AgenticAccess
   url: agentic-access/storyblok-agentic-access.yml
 - type: Packages
