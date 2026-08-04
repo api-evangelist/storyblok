@@ -1,0 +1,672 @@
+{
+  "info": {
+    "_postman_id": "f45d0bbe-a30f-478b-8799-e21c664043fd",
+    "name": "Storyblok Content Delivery API v2 Assets Collaborators API",
+    "description": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:45.000Z",
+    "updatedAt": "2026-07-28T03:05:45.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-f45d0bbe-a30f-478b-8799-e21c664043fd"
+  },
+  "item": [
+    {
+      "name": "spaces",
+      "item": [
+        {
+          "name": "{space_id}",
+          "item": [
+            {
+              "name": "collaborators",
+              "item": [
+                {
+                  "name": "{collaborator_id}",
+                  "item": [
+                    {
+                      "name": "Remove a collaborator",
+                      "id": "2ba98755-0862-4724-9fcc-87c39c48708d",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/collaborators/:collaborator_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "collaborators",
+                            ":collaborator_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f2a8a47e-c5c6-4b3b-b1e1-854ea6c986bb",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "ca39068d-242a-4ef7-946d-19540de497ce",
+                              "key": "collaborator_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the collaborator to remove."
+                            }
+                          ]
+                        },
+                        "description": "Removes a collaborator from the space, revoking their access. The user's Storyblok account is not deleted; they simply lose access to this space."
+                      },
+                      "response": [
+                        {
+                          "id": "c90011c6-1b5f-496e-a179-dfef7a25c6b1",
+                          "name": "The collaborator was removed successfully.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/collaborators/:collaborator_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "collaborators",
+                                ":collaborator_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "collaborator_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:05:46.000Z",
+                          "updatedAt": "2026-07-28T03:05:46.000Z",
+                          "uid": "35240-c90011c6-1b5f-496e-a179-dfef7a25c6b1"
+                        },
+                        {
+                          "id": "37000b6a-7986-4f2b-8506-7d3b6e5d8ca4",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/collaborators/:collaborator_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "collaborators",
+                                ":collaborator_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "collaborator_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:46.000Z",
+                          "updatedAt": "2026-07-28T03:05:46.000Z",
+                          "uid": "35240-37000b6a-7986-4f2b-8506-7d3b6e5d8ca4"
+                        },
+                        {
+                          "id": "e7b896cc-7efb-4fcc-9154-f047a316828e",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/collaborators/:collaborator_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "collaborators",
+                                ":collaborator_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "collaborator_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:46.000Z",
+                          "updatedAt": "2026-07-28T03:05:46.000Z",
+                          "uid": "35240-e7b896cc-7efb-4fcc-9154-f047a316828e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:46.000Z",
+                      "updatedAt": "2026-07-28T03:05:46.000Z",
+                      "uid": "35240-2ba98755-0862-4724-9fcc-87c39c48708d"
+                    }
+                  ],
+                  "id": "2ea704a3-3eb9-4782-bbb3-6ac689681f26",
+                  "createdAt": "2026-07-28T03:05:46.000Z",
+                  "updatedAt": "2026-07-28T03:05:46.000Z",
+                  "uid": "35240-2ea704a3-3eb9-4782-bbb3-6ac689681f26"
+                },
+                {
+                  "name": "List collaborators in a space",
+                  "id": "2b6f70d3-7bd5-49a0-bfbb-c453b68284ba",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/collaborators",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "collaborators"
+                      ],
+                      "variable": [
+                        {
+                          "id": "bda5e4bc-727d-4587-96c9-b0874d47d9ff",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Returns a list of all collaborators who have access to the space, including their roles, permissions, and invitation status."
+                  },
+                  "response": [
+                    {
+                      "id": "ceae89f3-725a-430d-9139-930f7018d01f",
+                      "name": "A list of collaborators was returned successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/collaborators?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "collaborators"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"collaborators\": [\n    {\n      \"id\": \"<integer>\",\n      \"user_id\": \"<integer>\",\n      \"role\": \"admin\",\n      \"invited\": \"<boolean>\",\n      \"space_role_id\": \"<integer>\",\n      \"space_role_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"user\": {\n        \"userid\": \"<string>\",\n        \"email\": \"<email>\",\n        \"avatar\": \"<string>\",\n        \"friendly_name\": \"<string>\"\n      }\n    },\n    {\n      \"id\": \"<integer>\",\n      \"user_id\": \"<integer>\",\n      \"role\": \"editor\",\n      \"invited\": \"<boolean>\",\n      \"space_role_id\": \"<integer>\",\n      \"space_role_ids\": [\n        \"<integer>\",\n        \"<integer>\"\n      ],\n      \"user\": {\n        \"userid\": \"<string>\",\n        \"email\": \"<email>\",\n        \"avatar\": \"<string>\",\n        \"friendly_name\": \"<string>\"\n      }\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:46.000Z",
+                      "updatedAt": "2026-07-28T03:05:46.000Z",
+                      "uid": "35240-ceae89f3-725a-430d-9139-930f7018d01f"
+                    },
+                    {
+                      "id": "a8209ed0-23d0-4679-98c0-485951de512f",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/collaborators?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "collaborators"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:46.000Z",
+                      "updatedAt": "2026-07-28T03:05:46.000Z",
+                      "uid": "35240-a8209ed0-23d0-4679-98c0-485951de512f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:46.000Z",
+                  "updatedAt": "2026-07-28T03:05:46.000Z",
+                  "uid": "35240-2b6f70d3-7bd5-49a0-bfbb-c453b68284ba"
+                },
+                {
+                  "name": "Add a collaborator",
+                  "id": "a2285f88-5ea4-4c62-b43b-db58a23f973d",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"collaborator\": {\n    \"email\": \"<email>\",\n    \"role\": \"admin\",\n    \"space_role_id\": \"<integer>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/collaborators",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "collaborators"
+                      ],
+                      "variable": [
+                        {
+                          "id": "a597cdbe-ac7e-49ec-bf4e-2a1fe5382785",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Invites a user to the space by email address and assigns them a role. If the user already has a Storyblok account they will be added immediately; otherwise an invitation email is sent."
+                  },
+                  "response": [
+                    {
+                      "id": "1b5995a5-e517-46e1-8611-536015e7c667",
+                      "name": "The collaborator was added successfully.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"collaborator\": {\n    \"email\": \"<email>\",\n    \"role\": \"admin\",\n    \"space_role_id\": \"<integer>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/collaborators?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "collaborators"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"collaborator\": {\n    \"id\": \"<integer>\",\n    \"user_id\": \"<integer>\",\n    \"role\": \"editor\",\n    \"invited\": \"<boolean>\",\n    \"space_role_id\": \"<integer>\",\n    \"space_role_ids\": [\n      \"<integer>\",\n      \"<integer>\"\n    ],\n    \"user\": {\n      \"userid\": \"<string>\",\n      \"email\": \"<email>\",\n      \"avatar\": \"<string>\",\n      \"friendly_name\": \"<string>\"\n    }\n  }\n}",
+                      "createdAt": "2026-07-28T03:05:46.000Z",
+                      "updatedAt": "2026-07-28T03:05:46.000Z",
+                      "uid": "35240-1b5995a5-e517-46e1-8611-536015e7c667"
+                    },
+                    {
+                      "id": "263d0cce-6a83-4f21-8dab-feb494fd05dc",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"collaborator\": {\n    \"email\": \"<email>\",\n    \"role\": \"admin\",\n    \"space_role_id\": \"<integer>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/collaborators?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "collaborators"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:46.000Z",
+                      "updatedAt": "2026-07-28T03:05:46.000Z",
+                      "uid": "35240-263d0cce-6a83-4f21-8dab-feb494fd05dc"
+                    },
+                    {
+                      "id": "3d997c13-e650-4aca-b843-662569876ffa",
+                      "name": "The request body contained validation errors. Check the error message for details on which fields failed validation.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"collaborator\": {\n    \"email\": \"<email>\",\n    \"role\": \"admin\",\n    \"space_role_id\": \"<integer>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/collaborators?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "collaborators"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:46.000Z",
+                      "updatedAt": "2026-07-28T03:05:46.000Z",
+                      "uid": "35240-3d997c13-e650-4aca-b843-662569876ffa"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:46.000Z",
+                  "updatedAt": "2026-07-28T03:05:46.000Z",
+                  "uid": "35240-a2285f88-5ea4-4c62-b43b-db58a23f973d"
+                }
+              ],
+              "id": "7a0c215f-b3d4-44d4-9ac6-c4e24497cff3",
+              "createdAt": "2026-07-28T03:05:46.000Z",
+              "updatedAt": "2026-07-28T03:05:46.000Z",
+              "uid": "35240-7a0c215f-b3d4-44d4-9ac6-c4e24497cff3"
+            }
+          ],
+          "id": "3b72baa7-66e1-4bb4-94a5-fcc482699dfe",
+          "createdAt": "2026-07-28T03:05:46.000Z",
+          "updatedAt": "2026-07-28T03:05:46.000Z",
+          "uid": "35240-3b72baa7-66e1-4bb4-94a5-fcc482699dfe"
+        }
+      ],
+      "id": "55e5a944-f029-4611-b0cb-e80fd87a54eb",
+      "createdAt": "2026-07-28T03:05:46.000Z",
+      "updatedAt": "2026-07-28T03:05:46.000Z",
+      "uid": "35240-55e5a944-f029-4611-b0cb-e80fd87a54eb"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.storyblok.com/v2/cdn"
+    }
+  ]
+}

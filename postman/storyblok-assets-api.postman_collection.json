@@ -1,0 +1,906 @@
+{
+  "info": {
+    "_postman_id": "8ad2d6c7-fb92-43f6-ab06-988b92ff928b",
+    "name": "Storyblok Content Delivery API v2 Assets API",
+    "description": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:44.000Z",
+    "updatedAt": "2026-07-28T03:05:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8ad2d6c7-fb92-43f6-ab06-988b92ff928b"
+  },
+  "item": [
+    {
+      "name": "spaces",
+      "item": [
+        {
+          "name": "{space_id}",
+          "item": [
+            {
+              "name": "assets",
+              "item": [
+                {
+                  "name": "{asset_id}",
+                  "item": [
+                    {
+                      "name": "Retrieve a single asset",
+                      "id": "f40e4007-041c-434b-9a50-213f97bdbe86",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/assets/:asset_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "assets",
+                            ":asset_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "1741143f-0b8c-4c35-a3e1-554ebf0b13ab",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "020e4824-89e7-45a1-9151-5caf3446bae6",
+                              "key": "asset_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the asset."
+                            }
+                          ]
+                        },
+                        "description": "Returns the full metadata for a single asset by its numeric ID, including its CDN URL, dimensions, content type, and associated tags."
+                      },
+                      "response": [
+                        {
+                          "id": "41d11e06-0c8a-4295-80c8-10b52f574413",
+                          "name": "The asset was returned successfully.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/assets/:asset_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "assets",
+                                ":asset_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "asset_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"asset\": {\n    \"id\": \"<integer>\",\n    \"filename\": \"<string>\",\n    \"content_type\": \"<string>\",\n    \"content_length\": \"<integer>\",\n    \"asset_folder_id\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"is_private\": \"<boolean>\",\n    \"alt\": \"<string>\",\n    \"title\": \"<string>\",\n    \"copyright\": \"<string>\",\n    \"focus\": \"<string>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:05:45.000Z",
+                          "updatedAt": "2026-07-28T03:05:45.000Z",
+                          "uid": "35240-41d11e06-0c8a-4295-80c8-10b52f574413"
+                        },
+                        {
+                          "id": "2d2e6192-867f-442f-9f8c-3afe19f7aa21",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/assets/:asset_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "assets",
+                                ":asset_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "asset_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:45.000Z",
+                          "updatedAt": "2026-07-28T03:05:45.000Z",
+                          "uid": "35240-2d2e6192-867f-442f-9f8c-3afe19f7aa21"
+                        },
+                        {
+                          "id": "2c74172a-b878-45fc-b2ba-0f2d47274700",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/assets/:asset_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "assets",
+                                ":asset_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "asset_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:45.000Z",
+                          "updatedAt": "2026-07-28T03:05:45.000Z",
+                          "uid": "35240-2c74172a-b878-45fc-b2ba-0f2d47274700"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:45.000Z",
+                      "updatedAt": "2026-07-28T03:05:45.000Z",
+                      "uid": "35240-f40e4007-041c-434b-9a50-213f97bdbe86"
+                    },
+                    {
+                      "name": "Delete an asset",
+                      "id": "0804379c-5f52-4164-83cd-681f4ab9b4c9",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/assets/:asset_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "assets",
+                            ":asset_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "f0e15acd-fe0e-4394-a727-3c560d9c51c1",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "04cc246c-4b92-4bde-a098-4e05074d3a91",
+                              "key": "asset_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the asset."
+                            }
+                          ]
+                        },
+                        "description": "Permanently deletes an asset from the space's asset library and removes it from the CDN. This action cannot be undone. Stories referencing this asset will display broken media after deletion."
+                      },
+                      "response": [
+                        {
+                          "id": "c8af87c7-d10f-4f35-adae-c12e0384cdbb",
+                          "name": "The asset was deleted successfully.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/assets/:asset_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "assets",
+                                ":asset_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "asset_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:05:45.000Z",
+                          "updatedAt": "2026-07-28T03:05:45.000Z",
+                          "uid": "35240-c8af87c7-d10f-4f35-adae-c12e0384cdbb"
+                        },
+                        {
+                          "id": "3f5bc535-f764-4266-9797-ee184a3d950d",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/assets/:asset_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "assets",
+                                ":asset_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "asset_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:45.000Z",
+                          "updatedAt": "2026-07-28T03:05:45.000Z",
+                          "uid": "35240-3f5bc535-f764-4266-9797-ee184a3d950d"
+                        },
+                        {
+                          "id": "3ffc4742-e96e-4118-b49d-d64d579e5614",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/assets/:asset_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "assets",
+                                ":asset_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "asset_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:45.000Z",
+                          "updatedAt": "2026-07-28T03:05:45.000Z",
+                          "uid": "35240-3ffc4742-e96e-4118-b49d-d64d579e5614"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:45.000Z",
+                      "updatedAt": "2026-07-28T03:05:45.000Z",
+                      "uid": "35240-0804379c-5f52-4164-83cd-681f4ab9b4c9"
+                    }
+                  ],
+                  "id": "447f7968-0647-47cf-93df-0e28283f266d",
+                  "createdAt": "2026-07-28T03:05:45.000Z",
+                  "updatedAt": "2026-07-28T03:05:45.000Z",
+                  "uid": "35240-447f7968-0647-47cf-93df-0e28283f266d"
+                },
+                {
+                  "name": "List assets in a space",
+                  "id": "e689fa55-35a1-4074-bf9a-61090e609f31",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/assets?page=1&per_page=25&in_folder=<integer>&search=<string>&content_type=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "assets"
+                      ],
+                      "query": [
+                        {
+                          "description": "Page number for paginated results, starting at 1.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of results per page. Maximum 100.",
+                          "key": "per_page",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Filter assets within a specific asset folder ID.",
+                          "key": "in_folder",
+                          "value": "<integer>"
+                        },
+                        {
+                          "description": "Filter assets by filename using a partial text match.",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter assets by MIME type, such as image/jpeg or application/pdf.",
+                          "key": "content_type",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "1622420b-a674-416f-ba42-ce30c8b5f430",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of assets in the space. Assets can be filtered by content type, folder, and filename search. The response includes the asset URL and metadata."
+                  },
+                  "response": [
+                    {
+                      "id": "7347af96-a55c-46f5-b284-d4e92d2b0793",
+                      "name": "A paginated list of assets was returned successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/assets?page=1&per_page=25&in_folder=<integer>&search=<string>&content_type=<string>&token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "assets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for paginated results, starting at 1.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Number of results per page. Maximum 100.",
+                              "key": "per_page",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Filter assets within a specific asset folder ID.",
+                              "key": "in_folder",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Filter assets by filename using a partial text match.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter assets by MIME type, such as image/jpeg or application/pdf.",
+                              "key": "content_type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Total number of assets matching the query.",
+                            "type": "text/plain"
+                          },
+                          "key": "Total",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"assets\": [\n    {\n      \"id\": \"<integer>\",\n      \"filename\": \"<string>\",\n      \"content_type\": \"<string>\",\n      \"content_length\": \"<integer>\",\n      \"asset_folder_id\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"is_private\": \"<boolean>\",\n      \"alt\": \"<string>\",\n      \"title\": \"<string>\",\n      \"copyright\": \"<string>\",\n      \"focus\": \"<string>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"filename\": \"<string>\",\n      \"content_type\": \"<string>\",\n      \"content_length\": \"<integer>\",\n      \"asset_folder_id\": \"<integer>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"is_private\": \"<boolean>\",\n      \"alt\": \"<string>\",\n      \"title\": \"<string>\",\n      \"copyright\": \"<string>\",\n      \"focus\": \"<string>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:45.000Z",
+                      "updatedAt": "2026-07-28T03:05:45.000Z",
+                      "uid": "35240-7347af96-a55c-46f5-b284-d4e92d2b0793"
+                    },
+                    {
+                      "id": "3cf38d3f-9516-444a-9617-f1c3e024089b",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/assets?page=1&per_page=25&in_folder=<integer>&search=<string>&content_type=<string>&token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "assets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for paginated results, starting at 1.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Number of results per page. Maximum 100.",
+                              "key": "per_page",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Filter assets within a specific asset folder ID.",
+                              "key": "in_folder",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Filter assets by filename using a partial text match.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter assets by MIME type, such as image/jpeg or application/pdf.",
+                              "key": "content_type",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:45.000Z",
+                      "updatedAt": "2026-07-28T03:05:45.000Z",
+                      "uid": "35240-3cf38d3f-9516-444a-9617-f1c3e024089b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:45.000Z",
+                  "updatedAt": "2026-07-28T03:05:45.000Z",
+                  "uid": "35240-e689fa55-35a1-4074-bf9a-61090e609f31"
+                },
+                {
+                  "name": "Sign an asset upload",
+                  "id": "bac2cf73-c28c-4c60-8aaa-dc28ed67dc89",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"filename\": \"<string>\",\n  \"size\": \"<string>\",\n  \"content_type\": \"<string>\",\n  \"asset_folder_id\": \"<integer>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/assets",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "assets"
+                      ],
+                      "variable": [
+                        {
+                          "id": "36a7f983-42c1-46c7-9334-d77008683cdc",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Initiates the asset upload process by requesting a signed upload URL from Storyblok's asset CDN. After receiving the signed URL and form fields, upload the file directly to the CDN using a multipart POST request, then call the asset finalization endpoint."
+                  },
+                  "response": [
+                    {
+                      "id": "8bd4007e-1ec6-4067-a589-5a21b5d2673d",
+                      "name": "The signed upload URL was returned successfully.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"filename\": \"<string>\",\n  \"size\": \"<string>\",\n  \"content_type\": \"<string>\",\n  \"asset_folder_id\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/assets?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "assets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<integer>\",\n  \"filename\": \"<string>\",\n  \"post_url\": \"<string>\",\n  \"fields\": {\n    \"esse1d\": \"<string>\",\n    \"in_7cd\": \"<string>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:05:45.000Z",
+                      "updatedAt": "2026-07-28T03:05:45.000Z",
+                      "uid": "35240-8bd4007e-1ec6-4067-a589-5a21b5d2673d"
+                    },
+                    {
+                      "id": "d9c92998-5cd6-4e6e-a5d6-c45802672828",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"filename\": \"<string>\",\n  \"size\": \"<string>\",\n  \"content_type\": \"<string>\",\n  \"asset_folder_id\": \"<integer>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/assets?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "assets"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:45.000Z",
+                      "updatedAt": "2026-07-28T03:05:45.000Z",
+                      "uid": "35240-d9c92998-5cd6-4e6e-a5d6-c45802672828"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:45.000Z",
+                  "updatedAt": "2026-07-28T03:05:45.000Z",
+                  "uid": "35240-bac2cf73-c28c-4c60-8aaa-dc28ed67dc89"
+                }
+              ],
+              "id": "10f5a1a2-d2e8-4dec-9f5e-7b2097735274",
+              "createdAt": "2026-07-28T03:05:45.000Z",
+              "updatedAt": "2026-07-28T03:05:45.000Z",
+              "uid": "35240-10f5a1a2-d2e8-4dec-9f5e-7b2097735274"
+            }
+          ],
+          "id": "58d40233-9ae3-4148-9fe1-ae9826dec826",
+          "createdAt": "2026-07-28T03:05:45.000Z",
+          "updatedAt": "2026-07-28T03:05:45.000Z",
+          "uid": "35240-58d40233-9ae3-4148-9fe1-ae9826dec826"
+        }
+      ],
+      "id": "22815190-64e4-4450-afad-5056e2601edc",
+      "createdAt": "2026-07-28T03:05:45.000Z",
+      "updatedAt": "2026-07-28T03:05:45.000Z",
+      "uid": "35240-22815190-64e4-4450-afad-5056e2601edc"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.storyblok.com/v2/cdn"
+    }
+  ]
+}

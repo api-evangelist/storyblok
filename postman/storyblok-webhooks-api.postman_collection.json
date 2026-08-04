@@ -1,0 +1,1154 @@
+{
+  "info": {
+    "_postman_id": "cedaa359-90d6-4392-b708-3a6676b7228f",
+    "name": "Storyblok Content Delivery API v2 Assets Webhooks API",
+    "description": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:53.000Z",
+    "updatedAt": "2026-07-28T03:05:54.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cedaa359-90d6-4392-b708-3a6676b7228f"
+  },
+  "item": [
+    {
+      "name": "spaces",
+      "item": [
+        {
+          "name": "{space_id}",
+          "item": [
+            {
+              "name": "webhook_endpoints",
+              "item": [
+                {
+                  "name": "{webhook_id}",
+                  "item": [
+                    {
+                      "name": "Retrieve a single webhook endpoint",
+                      "id": "70aa7dc2-acd6-40ad-b512-af6ebdb39db2",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "webhook_endpoints",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "90539d5f-2bd0-421d-af4d-bf99fec2047b",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "f5483a50-3706-4287-a7cf-abadb6ba20a7",
+                              "key": "webhook_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the webhook endpoint."
+                            }
+                          ]
+                        },
+                        "description": "Returns the configuration of a single webhook endpoint by its numeric ID."
+                      },
+                      "response": [
+                        {
+                          "id": "8636b3f0-6749-44ba-b62c-7cc040da4c5d",
+                          "name": "The webhook endpoint was returned successfully.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "webhook_endpoints",
+                                ":webhook_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"webhook_endpoint\": {\n    \"id\": \"<integer>\",\n    \"url\": \"<uri>\",\n    \"name\": \"<string>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:05:54.000Z",
+                          "updatedAt": "2026-07-28T03:05:54.000Z",
+                          "uid": "35240-8636b3f0-6749-44ba-b62c-7cc040da4c5d"
+                        },
+                        {
+                          "id": "77f757ff-bc7b-4267-b951-323feb5c8e51",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "webhook_endpoints",
+                                ":webhook_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:54.000Z",
+                          "updatedAt": "2026-07-28T03:05:54.000Z",
+                          "uid": "35240-77f757ff-bc7b-4267-b951-323feb5c8e51"
+                        },
+                        {
+                          "id": "4bf4192f-0082-48e3-aa49-c45a4d4fa1ea",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "webhook_endpoints",
+                                ":webhook_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:54.000Z",
+                          "updatedAt": "2026-07-28T03:05:54.000Z",
+                          "uid": "35240-4bf4192f-0082-48e3-aa49-c45a4d4fa1ea"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:54.000Z",
+                      "updatedAt": "2026-07-28T03:05:54.000Z",
+                      "uid": "35240-70aa7dc2-acd6-40ad-b512-af6ebdb39db2"
+                    },
+                    {
+                      "name": "Update a webhook endpoint",
+                      "id": "010804e0-58cf-470c-b144-09b3372833f4",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "webhook_endpoints",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "bc9419de-3dd3-4898-b6ab-17384291dc0f",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "956955ce-78fb-4342-af18-e5945615eb75",
+                              "key": "webhook_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the webhook endpoint."
+                            }
+                          ]
+                        },
+                        "description": "Updates an existing webhook endpoint's URL, subscribed events, or secret key."
+                      },
+                      "response": [
+                        {
+                          "id": "3c8c7a97-9fbe-4083-a5bf-f619aaad5c8d",
+                          "name": "The webhook endpoint was updated successfully.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "webhook_endpoints",
+                                ":webhook_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"webhook_endpoint\": {\n    \"id\": \"<integer>\",\n    \"url\": \"<uri>\",\n    \"name\": \"<string>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:05:54.000Z",
+                          "updatedAt": "2026-07-28T03:05:54.000Z",
+                          "uid": "35240-3c8c7a97-9fbe-4083-a5bf-f619aaad5c8d"
+                        },
+                        {
+                          "id": "e1adf529-d8f5-4f15-a425-687067a5a6de",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "webhook_endpoints",
+                                ":webhook_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:54.000Z",
+                          "updatedAt": "2026-07-28T03:05:54.000Z",
+                          "uid": "35240-e1adf529-d8f5-4f15-a425-687067a5a6de"
+                        },
+                        {
+                          "id": "b4e91931-08be-49e9-b956-a73cb2ef86e6",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "webhook_endpoints",
+                                ":webhook_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:54.000Z",
+                          "updatedAt": "2026-07-28T03:05:54.000Z",
+                          "uid": "35240-b4e91931-08be-49e9-b956-a73cb2ef86e6"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:54.000Z",
+                      "updatedAt": "2026-07-28T03:05:54.000Z",
+                      "uid": "35240-010804e0-58cf-470c-b144-09b3372833f4"
+                    },
+                    {
+                      "name": "Delete a webhook endpoint",
+                      "id": "21e768c2-0bfe-43e6-87a3-70a60fc08bad",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "webhook_endpoints",
+                            ":webhook_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "5920e377-d84f-48a3-9eaf-ccd35f5a22b8",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "69e0ec9d-65ad-4751-be49-2ef4c1d4ecc2",
+                              "key": "webhook_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the webhook endpoint."
+                            }
+                          ]
+                        },
+                        "description": "Permanently removes a webhook endpoint from the space. No further event notifications will be sent to the associated URL."
+                      },
+                      "response": [
+                        {
+                          "id": "21f69410-a387-4bf1-8e17-5422f7b8a15e",
+                          "name": "The webhook endpoint was deleted successfully.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "webhook_endpoints",
+                                ":webhook_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:05:54.000Z",
+                          "updatedAt": "2026-07-28T03:05:54.000Z",
+                          "uid": "35240-21f69410-a387-4bf1-8e17-5422f7b8a15e"
+                        },
+                        {
+                          "id": "8b0d6b93-e969-4941-ad22-916b8b8cb125",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "webhook_endpoints",
+                                ":webhook_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:54.000Z",
+                          "updatedAt": "2026-07-28T03:05:54.000Z",
+                          "uid": "35240-8b0d6b93-e969-4941-ad22-916b8b8cb125"
+                        },
+                        {
+                          "id": "19018ff5-deee-4937-9bb8-41c2cd176cc5",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints/:webhook_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "webhook_endpoints",
+                                ":webhook_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "webhook_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:54.000Z",
+                          "updatedAt": "2026-07-28T03:05:54.000Z",
+                          "uid": "35240-19018ff5-deee-4937-9bb8-41c2cd176cc5"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:54.000Z",
+                      "updatedAt": "2026-07-28T03:05:54.000Z",
+                      "uid": "35240-21e768c2-0bfe-43e6-87a3-70a60fc08bad"
+                    }
+                  ],
+                  "id": "dddd9b57-0c86-4ddb-9769-22cc2fa21ca9",
+                  "createdAt": "2026-07-28T03:05:54.000Z",
+                  "updatedAt": "2026-07-28T03:05:54.000Z",
+                  "uid": "35240-dddd9b57-0c86-4ddb-9769-22cc2fa21ca9"
+                },
+                {
+                  "name": "List webhook endpoints",
+                  "id": "1cdade6f-7181-414a-bb09-8bdc8120e623",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "webhook_endpoints"
+                      ],
+                      "variable": [
+                        {
+                          "id": "cb02bdf1-a48d-45f2-ab00-9eda48072344",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Returns all webhook endpoints configured for the space, including their target URLs, event subscriptions, and optional secret configuration."
+                  },
+                  "response": [
+                    {
+                      "id": "10feb681-aa2d-4c15-86cc-b547fb944c89",
+                      "name": "A list of webhook endpoints was returned successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "webhook_endpoints"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"webhook_endpoints\": [\n    {\n      \"id\": \"<integer>\",\n      \"url\": \"<uri>\",\n      \"name\": \"<string>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"secret\": \"<string>\",\n      \"activated\": \"<boolean>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"url\": \"<uri>\",\n      \"name\": \"<string>\",\n      \"actions\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"description\": \"<string>\",\n      \"secret\": \"<string>\",\n      \"activated\": \"<boolean>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:54.000Z",
+                      "updatedAt": "2026-07-28T03:05:54.000Z",
+                      "uid": "35240-10feb681-aa2d-4c15-86cc-b547fb944c89"
+                    },
+                    {
+                      "id": "8ab98b54-ae25-45ac-943a-de4432e83f2a",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "webhook_endpoints"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:54.000Z",
+                      "updatedAt": "2026-07-28T03:05:54.000Z",
+                      "uid": "35240-8ab98b54-ae25-45ac-943a-de4432e83f2a"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:54.000Z",
+                  "updatedAt": "2026-07-28T03:05:54.000Z",
+                  "uid": "35240-1cdade6f-7181-414a-bb09-8bdc8120e623"
+                },
+                {
+                  "name": "Create a webhook endpoint",
+                  "id": "fa759899-0212-4d61-8608-0af6b60aff1f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "webhook_endpoints"
+                      ],
+                      "variable": [
+                        {
+                          "id": "edae4ee7-02fd-4a17-8fbf-e49fde55b3da",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Registers a new webhook endpoint to receive event notifications from the space. Specify the target URL, the events to subscribe to, and an optional secret for signature validation."
+                  },
+                  "response": [
+                    {
+                      "id": "20500018-5b7a-4e05-9dcf-f705daaba845",
+                      "name": "The webhook endpoint was created successfully.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "webhook_endpoints"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"webhook_endpoint\": {\n    \"id\": \"<integer>\",\n    \"url\": \"<uri>\",\n    \"name\": \"<string>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:05:54.000Z",
+                      "updatedAt": "2026-07-28T03:05:54.000Z",
+                      "uid": "35240-20500018-5b7a-4e05-9dcf-f705daaba845"
+                    },
+                    {
+                      "id": "0ff3889d-4c9d-4319-b280-59e8e7d93a32",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "webhook_endpoints"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:54.000Z",
+                      "updatedAt": "2026-07-28T03:05:54.000Z",
+                      "uid": "35240-0ff3889d-4c9d-4319-b280-59e8e7d93a32"
+                    },
+                    {
+                      "id": "47ff5a53-62b7-4d03-b33e-c746b9478266",
+                      "name": "The request body contained validation errors. Check the error message for details on which fields failed validation.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/webhook_endpoints?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "webhook_endpoints"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:54.000Z",
+                      "updatedAt": "2026-07-28T03:05:54.000Z",
+                      "uid": "35240-47ff5a53-62b7-4d03-b33e-c746b9478266"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:54.000Z",
+                  "updatedAt": "2026-07-28T03:05:54.000Z",
+                  "uid": "35240-fa759899-0212-4d61-8608-0af6b60aff1f"
+                }
+              ],
+              "id": "c4304288-ed13-49ac-a8e0-6e2e54fc9734",
+              "createdAt": "2026-07-28T03:05:54.000Z",
+              "updatedAt": "2026-07-28T03:05:54.000Z",
+              "uid": "35240-c4304288-ed13-49ac-a8e0-6e2e54fc9734"
+            }
+          ],
+          "id": "88ba6fad-2a6b-4ea2-bf4b-16b0f29ddbe3",
+          "createdAt": "2026-07-28T03:05:54.000Z",
+          "updatedAt": "2026-07-28T03:05:54.000Z",
+          "uid": "35240-88ba6fad-2a6b-4ea2-bf4b-16b0f29ddbe3"
+        }
+      ],
+      "id": "7af5c504-3b24-4c5b-9021-8b8be9d7a972",
+      "createdAt": "2026-07-28T03:05:54.000Z",
+      "updatedAt": "2026-07-28T03:05:54.000Z",
+      "uid": "35240-7af5c504-3b24-4c5b-9021-8b8be9d7a972"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.storyblok.com/v2/cdn"
+    }
+  ]
+}

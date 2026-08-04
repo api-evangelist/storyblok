@@ -1,0 +1,205 @@
+{
+  "info": {
+    "_postman_id": "4fa6852f-d101-4f4d-bd14-46ca7f666c31",
+    "name": "Storyblok Content Delivery API v2 Assets Tags API",
+    "description": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:53.000Z",
+    "updatedAt": "2026-07-28T03:05:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-4fa6852f-d101-4f4d-bd14-46ca7f666c31"
+  },
+  "item": [
+    {
+      "name": "tags",
+      "item": [
+        {
+          "name": "List all tags",
+          "id": "2e35c2ab-b1af-4348-add4-5ec2a05631b2",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/tags?token=<string>&starts_with=<string>&cv=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "tags"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Filter tags by prefix. Only tags whose name starts with the given value are returned.",
+                  "key": "starts_with",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Cache version timestamp to bypass CDN caching.",
+                  "key": "cv",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "Returns a list of all tags used in published stories within the space. Tags can be used to filter stories by calling the stories endpoint with the with_tag parameter."
+          },
+          "response": [
+            {
+              "id": "b06a03ae-c189-4640-af6a-fbf76eabf01f",
+              "name": "A list of tags was returned successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tags?token=<API Key>&starts_with=<string>&cv=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                      "key": "token",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Filter tags by prefix. Only tags whose name starts with the given value are returned.",
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cache version timestamp to bypass CDN caching.",
+                      "key": "cv",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"tags\": [\n    {\n      \"name\": \"<string>\",\n      \"taggings_count\": \"<integer>\"\n    },\n    {\n      \"name\": \"<string>\",\n      \"taggings_count\": \"<integer>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:05:53.000Z",
+              "updatedAt": "2026-07-28T03:05:53.000Z",
+              "uid": "35240-b06a03ae-c189-4640-af6a-fbf76eabf01f"
+            },
+            {
+              "id": "6273d9d3-793f-43f0-a42b-ec57c1777b70",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/tags?token=<API Key>&starts_with=<string>&cv=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "tags"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                      "key": "token",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Filter tags by prefix. Only tags whose name starts with the given value are returned.",
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cache version timestamp to bypass CDN caching.",
+                      "key": "cv",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:05:53.000Z",
+              "updatedAt": "2026-07-28T03:05:53.000Z",
+              "uid": "35240-6273d9d3-793f-43f0-a42b-ec57c1777b70"
+            }
+          ],
+          "createdAt": "2026-07-28T03:05:53.000Z",
+          "updatedAt": "2026-07-28T03:05:53.000Z",
+          "uid": "35240-2e35c2ab-b1af-4348-add4-5ec2a05631b2"
+        }
+      ],
+      "id": "af3672f3-4849-4a1f-8bb7-67b10f8426a0",
+      "createdAt": "2026-07-28T03:05:53.000Z",
+      "updatedAt": "2026-07-28T03:05:53.000Z",
+      "uid": "35240-af3672f3-4849-4a1f-8bb7-67b10f8426a0"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.storyblok.com/v2/cdn"
+    }
+  ]
+}

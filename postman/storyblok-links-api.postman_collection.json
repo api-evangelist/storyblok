@@ -1,0 +1,280 @@
+{
+  "info": {
+    "_postman_id": "3ef18123-5f38-4870-9a33-be853895e143",
+    "name": "Storyblok Content Delivery API v2 Assets Links API",
+    "description": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:49.000Z",
+    "updatedAt": "2026-07-28T03:05:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-3ef18123-5f38-4870-9a33-be853895e143"
+  },
+  "item": [
+    {
+      "name": "links",
+      "item": [
+        {
+          "name": "List all links",
+          "id": "27fc3503-939a-494a-a07e-e842c0fea6a7",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/links?token=<string>&version=published&starts_with=<string>&paginated=1&page=1&per_page=25&including_dates=1&cv=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "links"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                  "key": "version",
+                  "value": "published"
+                },
+                {
+                  "description": "Filter links by full_slug prefix to return only links in a specific folder.",
+                  "key": "starts_with",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to 1 to enable pagination on the links response. When enabled, use page and per_page parameters to control the result set.",
+                  "key": "paginated",
+                  "value": "1"
+                },
+                {
+                  "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Number of items to return per page. Maximum is 100 for most endpoints.",
+                  "key": "per_page",
+                  "value": "25"
+                },
+                {
+                  "description": "Set to 1 to include published_at, created_at, and updated_at timestamps in each link entry.",
+                  "key": "including_dates",
+                  "value": "1"
+                },
+                {
+                  "description": "Cache version timestamp to bypass CDN caching.",
+                  "key": "cv",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "Returns a flat or tree-structured map of all story URLs in the space. This endpoint is commonly used to generate navigation menus, breadcrumbs, and sitemaps. The response is keyed by story UUID and each entry contains the slug, name, and parent information."
+          },
+          "response": [
+            {
+              "id": "cd5e57ce-1613-44ab-acaf-96e92c484d54",
+              "name": "A map of links was returned successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/links?token=<API Key>&version=published&starts_with=<string>&paginated=1&page=1&per_page=25&including_dates=1&cv=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "links"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                      "key": "token",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "description": "Filter links by full_slug prefix to return only links in a specific folder.",
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to 1 to enable pagination on the links response. When enabled, use page and per_page parameters to control the result set.",
+                      "key": "paginated",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of items to return per page. Maximum is 100 for most endpoints.",
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Set to 1 to include published_at, created_at, and updated_at timestamps in each link entry.",
+                      "key": "including_dates",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Cache version timestamp to bypass CDN caching.",
+                      "key": "cv",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"links\": {\n    \"culpac\": {\n      \"id\": \"<integer>\",\n      \"slug\": \"<string>\",\n      \"name\": \"<string>\",\n      \"is_folder\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"published\": \"<boolean>\",\n      \"position\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"is_startpage\": \"<boolean>\",\n      \"real_path\": \"<string>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    \"magna1\": {\n      \"id\": \"<integer>\",\n      \"slug\": \"<string>\",\n      \"name\": \"<string>\",\n      \"is_folder\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"published\": \"<boolean>\",\n      \"position\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"is_startpage\": \"<boolean>\",\n      \"real_path\": \"<string>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  }\n}",
+              "createdAt": "2026-07-28T03:05:50.000Z",
+              "updatedAt": "2026-07-28T03:05:50.000Z",
+              "uid": "35240-cd5e57ce-1613-44ab-acaf-96e92c484d54"
+            },
+            {
+              "id": "0512e8e9-beda-45b5-8f06-7992e4a9419f",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/links?token=<API Key>&version=published&starts_with=<string>&paginated=1&page=1&per_page=25&including_dates=1&cv=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "links"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                      "key": "token",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "description": "Filter links by full_slug prefix to return only links in a specific folder.",
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to 1 to enable pagination on the links response. When enabled, use page and per_page parameters to control the result set.",
+                      "key": "paginated",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of items to return per page. Maximum is 100 for most endpoints.",
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Set to 1 to include published_at, created_at, and updated_at timestamps in each link entry.",
+                      "key": "including_dates",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Cache version timestamp to bypass CDN caching.",
+                      "key": "cv",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:05:50.000Z",
+              "updatedAt": "2026-07-28T03:05:50.000Z",
+              "uid": "35240-0512e8e9-beda-45b5-8f06-7992e4a9419f"
+            }
+          ],
+          "createdAt": "2026-07-28T03:05:50.000Z",
+          "updatedAt": "2026-07-28T03:05:50.000Z",
+          "uid": "35240-27fc3503-939a-494a-a07e-e842c0fea6a7"
+        }
+      ],
+      "id": "8e04893b-fc4a-4423-aa07-705ac3282879",
+      "createdAt": "2026-07-28T03:05:50.000Z",
+      "updatedAt": "2026-07-28T03:05:50.000Z",
+      "uid": "35240-8e04893b-fc4a-4423-aa07-705ac3282879"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.storyblok.com/v2/cdn"
+    }
+  ]
+}

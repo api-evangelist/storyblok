@@ -1,0 +1,248 @@
+{
+  "info": {
+    "_postman_id": "5fe7277f-f6d4-4cdc-89df-d7e10670caed",
+    "name": "Storyblok Content Delivery API v2 Assets Spaces API",
+    "description": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:50.000Z",
+    "updatedAt": "2026-07-28T03:05:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-5fe7277f-f6d4-4cdc-89df-d7e10670caed"
+  },
+  "item": [
+    {
+      "name": "spaces",
+      "item": [
+        {
+          "name": "{space_id}",
+          "item": [
+            {
+              "name": "Retrieve a space",
+              "id": "0e280826-fe38-4d51-a5ec-b136c8f33252",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/spaces/:space_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "spaces",
+                    ":space_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "04f21a88-d81e-4386-9f0e-f47b85601139",
+                      "key": "space_id",
+                      "value": "<integer>",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "description": "Returns the details of a Storyblok space including its name, plan, regional endpoint, domain configuration, language settings, and statistics. This endpoint is useful for validating space access and retrieving configuration needed for other API calls."
+              },
+              "response": [
+                {
+                  "id": "2561095e-17a4-47ad-9144-91e535fb9a24",
+                  "name": "The space details were returned successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id?token=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "token",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "space_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"space\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"domain\": \"<string>\",\n    \"version\": \"<integer>\",\n    \"languages\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"default_lang\": \"<string>\",\n    \"plan\": \"<string>\",\n    \"plan_level\": \"<integer>\",\n    \"created_at\": \"<dateTime>\",\n    \"stories_count\": \"<integer>\",\n    \"assets_count\": \"<integer>\",\n    \"collaborators_count\": \"<integer>\"\n  }\n}",
+                  "createdAt": "2026-07-28T03:05:51.000Z",
+                  "updatedAt": "2026-07-28T03:05:51.000Z",
+                  "uid": "35240-2561095e-17a4-47ad-9144-91e535fb9a24"
+                },
+                {
+                  "id": "45af30fb-2881-4a9f-b282-69f6f1237748",
+                  "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id?token=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "token",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "space_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:05:51.000Z",
+                  "updatedAt": "2026-07-28T03:05:51.000Z",
+                  "uid": "35240-45af30fb-2881-4a9f-b282-69f6f1237748"
+                },
+                {
+                  "id": "7dffc65a-43aa-4ada-a0c8-4f6e3ed75747",
+                  "name": "The requested resource was not found.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id?token=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id"
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "token",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "space_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:05:51.000Z",
+                  "updatedAt": "2026-07-28T03:05:51.000Z",
+                  "uid": "35240-7dffc65a-43aa-4ada-a0c8-4f6e3ed75747"
+                }
+              ],
+              "createdAt": "2026-07-28T03:05:51.000Z",
+              "updatedAt": "2026-07-28T03:05:51.000Z",
+              "uid": "35240-0e280826-fe38-4d51-a5ec-b136c8f33252"
+            }
+          ],
+          "id": "174e7f07-c138-46a6-ab47-a35e11c28e4a",
+          "createdAt": "2026-07-28T03:05:51.000Z",
+          "updatedAt": "2026-07-28T03:05:51.000Z",
+          "uid": "35240-174e7f07-c138-46a6-ab47-a35e11c28e4a"
+        }
+      ],
+      "id": "23b5966a-ae47-41c8-84f8-0f140f644160",
+      "createdAt": "2026-07-28T03:05:51.000Z",
+      "updatedAt": "2026-07-28T03:05:51.000Z",
+      "uid": "35240-23b5966a-ae47-41c8-84f8-0f140f644160"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.storyblok.com/v2/cdn"
+    }
+  ]
+}

@@ -1,0 +1,3038 @@
+{
+  "info": {
+    "_postman_id": "cd19fb8c-a808-4145-accc-7257d47ae211",
+    "name": "Storyblok Content Delivery API v2 Assets Stories API",
+    "description": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:51.000Z",
+    "updatedAt": "2026-07-28T03:05:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-cd19fb8c-a808-4145-accc-7257d47ae211"
+  },
+  "item": [
+    {
+      "name": "stories",
+      "item": [
+        {
+          "name": "{slug}",
+          "item": [
+            {
+              "name": "Retrieve a single story by slug",
+              "id": "bf81b491-6aba-465e-866a-61bac7dad2fc",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/stories/:slug?token=<string>&version=published&resolve_relations=<string>&resolve_links=story&language=<string>&cv=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stories",
+                    ":slug"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response.",
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string.",
+                      "key": "resolve_links",
+                      "value": "story"
+                    },
+                    {
+                      "description": "ISO language code to return the story content in the specified language.",
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cache version timestamp to bypass CDN caching.",
+                      "key": "cv",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "9f4f56d1-eb62-4939-87d4-273448db3b19",
+                      "key": "slug",
+                      "value": "<string>",
+                      "description": "(Required) The full_slug of the story, which is the path within the space such as home or blog/my-post."
+                    }
+                  ]
+                },
+                "description": "Returns a single published story identified by its full_slug. The slug is the path of the story within the space, such as home or blog/my-post. The response includes the full story content, metadata, and optionally resolved relations and links."
+              },
+              "response": [
+                {
+                  "id": "6a0d2a37-5529-40b3-9a46-e8a79a0ce55a",
+                  "name": "The story was returned successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/stories/:slug?token=<API Key>&version=published&resolve_relations=<string>&resolve_links=story&language=<string>&cv=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "stories",
+                        ":slug"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                          "key": "token",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                          "key": "version",
+                          "value": "published"
+                        },
+                        {
+                          "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response.",
+                          "key": "resolve_relations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string.",
+                          "key": "resolve_links",
+                          "value": "story"
+                        },
+                        {
+                          "description": "ISO language code to return the story content in the specified language.",
+                          "key": "language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Cache version timestamp to bypass CDN caching.",
+                          "key": "cv",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "slug"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"story\": {\n    \"id\": \"<integer>\",\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"full_slug\": \"<string>\",\n    \"content\": {\n      \"aliquipe\": \"id eiusmod esse Duis fugiat\"\n    },\n    \"is_startpage\": \"<boolean>\",\n    \"parent_id\": \"<integer>\",\n    \"group_id\": \"<uuid>\",\n    \"first_published_at\": \"<dateTime>\",\n    \"published_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"sort_by_date\": \"<string>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"is_folder\": \"<boolean>\",\n    \"default_full_slug\": \"<string>\",\n    \"translated_slugs\": [\n      {\n        \"path\": \"<string>\",\n        \"name\": \"<string>\",\n        \"lang\": \"<string>\"\n      },\n      {\n        \"path\": \"<string>\",\n        \"name\": \"<string>\",\n        \"lang\": \"<string>\"\n      }\n    ],\n    \"alternates\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"full_slug\": \"<string>\",\n        \"is_folder\": \"<boolean>\",\n        \"parent_id\": \"<integer>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"full_slug\": \"<string>\",\n        \"is_folder\": \"<boolean>\",\n        \"parent_id\": \"<integer>\"\n      }\n    ]\n  },\n  \"cv\": \"<integer>\",\n  \"rels\": [\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"ad_9e\": 18127152.94826348\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"aliqua1ad\": 75006800,\n        \"sed_dd7\": true,\n        \"exf96\": true\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    }\n  ],\n  \"links\": [\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"laborum_99\": -13725565.748904645,\n        \"in_\": 98427892.7008203\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"sunte33\": true\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "createdAt": "2026-07-28T03:05:52.000Z",
+                  "updatedAt": "2026-07-28T03:05:52.000Z",
+                  "uid": "35240-6a0d2a37-5529-40b3-9a46-e8a79a0ce55a"
+                },
+                {
+                  "id": "0f153b90-40b8-450f-9b17-e7b26dcab279",
+                  "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/stories/:slug?token=<API Key>&version=published&resolve_relations=<string>&resolve_links=story&language=<string>&cv=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "stories",
+                        ":slug"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                          "key": "token",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                          "key": "version",
+                          "value": "published"
+                        },
+                        {
+                          "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response.",
+                          "key": "resolve_relations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string.",
+                          "key": "resolve_links",
+                          "value": "story"
+                        },
+                        {
+                          "description": "ISO language code to return the story content in the specified language.",
+                          "key": "language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Cache version timestamp to bypass CDN caching.",
+                          "key": "cv",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "slug"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:05:52.000Z",
+                  "updatedAt": "2026-07-28T03:05:52.000Z",
+                  "uid": "35240-0f153b90-40b8-450f-9b17-e7b26dcab279"
+                },
+                {
+                  "id": "4cf455be-7427-48c4-84ed-85a91f3a18f2",
+                  "name": "The requested story was not found. Check that the slug or ID is correct and that the story is published when using the public token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/stories/:slug?token=<API Key>&version=published&resolve_relations=<string>&resolve_links=story&language=<string>&cv=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "stories",
+                        ":slug"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                          "key": "token",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                          "key": "version",
+                          "value": "published"
+                        },
+                        {
+                          "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response.",
+                          "key": "resolve_relations",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string.",
+                          "key": "resolve_links",
+                          "value": "story"
+                        },
+                        {
+                          "description": "ISO language code to return the story content in the specified language.",
+                          "key": "language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Cache version timestamp to bypass CDN caching.",
+                          "key": "cv",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "slug"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:05:52.000Z",
+                  "updatedAt": "2026-07-28T03:05:52.000Z",
+                  "uid": "35240-4cf455be-7427-48c4-84ed-85a91f3a18f2"
+                }
+              ],
+              "createdAt": "2026-07-28T03:05:52.000Z",
+              "updatedAt": "2026-07-28T03:05:52.000Z",
+              "uid": "35240-bf81b491-6aba-465e-866a-61bac7dad2fc"
+            }
+          ],
+          "id": "bce769d2-b7a2-41f7-856c-04c7de60e403",
+          "createdAt": "2026-07-28T03:05:52.000Z",
+          "updatedAt": "2026-07-28T03:05:52.000Z",
+          "uid": "35240-bce769d2-b7a2-41f7-856c-04c7de60e403"
+        },
+        {
+          "name": "{id}",
+          "item": [
+            {
+              "name": "Retrieve a single story by ID",
+              "id": "91c1a594-bd92-47c5-bd0e-f9721e99f40b",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/stories/:id?token=<string>&version=published&language=<string>&cv=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stories",
+                    ":id"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                      "key": "token",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "description": "ISO language code to return the story content in.",
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cache version timestamp to bypass CDN caching.",
+                      "key": "cv",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "id": "8e91083d-4830-4084-b74c-2345cedbeb0f",
+                      "key": "id",
+                      "value": "<integer>",
+                      "description": "(Required) The numeric ID of the story."
+                    }
+                  ]
+                },
+                "description": "Returns a single published story identified by its numeric ID. This endpoint is useful when you have a story ID from a relation field and need to retrieve the full story object."
+              },
+              "response": [
+                {
+                  "id": "bfcf9855-19e0-499c-a0f2-ff1e6e2eda18",
+                  "name": "The story was returned successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/stories/:id?token=<API Key>&version=published&language=<string>&cv=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "stories",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                          "key": "token",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                          "key": "version",
+                          "value": "published"
+                        },
+                        {
+                          "description": "ISO language code to return the story content in.",
+                          "key": "language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Cache version timestamp to bypass CDN caching.",
+                          "key": "cv",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"story\": {\n    \"id\": \"<integer>\",\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"full_slug\": \"<string>\",\n    \"content\": {\n      \"velit45b\": \"velit\",\n      \"deseruntef\": true\n    },\n    \"is_startpage\": \"<boolean>\",\n    \"parent_id\": \"<integer>\",\n    \"group_id\": \"<uuid>\",\n    \"first_published_at\": \"<dateTime>\",\n    \"published_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"sort_by_date\": \"<string>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"is_folder\": \"<boolean>\",\n    \"default_full_slug\": \"<string>\",\n    \"translated_slugs\": [\n      {\n        \"path\": \"<string>\",\n        \"name\": \"<string>\",\n        \"lang\": \"<string>\"\n      },\n      {\n        \"path\": \"<string>\",\n        \"name\": \"<string>\",\n        \"lang\": \"<string>\"\n      }\n    ],\n    \"alternates\": [\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"full_slug\": \"<string>\",\n        \"is_folder\": \"<boolean>\",\n        \"parent_id\": \"<integer>\"\n      },\n      {\n        \"id\": \"<integer>\",\n        \"name\": \"<string>\",\n        \"slug\": \"<string>\",\n        \"full_slug\": \"<string>\",\n        \"is_folder\": \"<boolean>\",\n        \"parent_id\": \"<integer>\"\n      }\n    ]\n  },\n  \"cv\": \"<integer>\"\n}",
+                  "createdAt": "2026-07-28T03:05:52.000Z",
+                  "updatedAt": "2026-07-28T03:05:52.000Z",
+                  "uid": "35240-bfcf9855-19e0-499c-a0f2-ff1e6e2eda18"
+                },
+                {
+                  "id": "a9d3c724-d214-4a91-8d95-19d5a35d940a",
+                  "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/stories/:id?token=<API Key>&version=published&language=<string>&cv=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "stories",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                          "key": "token",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                          "key": "version",
+                          "value": "published"
+                        },
+                        {
+                          "description": "ISO language code to return the story content in.",
+                          "key": "language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Cache version timestamp to bypass CDN caching.",
+                          "key": "cv",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:05:52.000Z",
+                  "updatedAt": "2026-07-28T03:05:52.000Z",
+                  "uid": "35240-a9d3c724-d214-4a91-8d95-19d5a35d940a"
+                },
+                {
+                  "id": "bf542fd4-81e7-45d3-99c8-ff004cfe6f65",
+                  "name": "The requested story was not found. Check that the slug or ID is correct and that the story is published when using the public token.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/stories/:id?token=<API Key>&version=published&language=<string>&cv=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "stories",
+                        ":id"
+                      ],
+                      "query": [
+                        {
+                          "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                          "key": "token",
+                          "value": "<API Key>"
+                        },
+                        {
+                          "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                          "key": "version",
+                          "value": "published"
+                        },
+                        {
+                          "description": "ISO language code to return the story content in.",
+                          "key": "language",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Cache version timestamp to bypass CDN caching.",
+                          "key": "cv",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:05:52.000Z",
+                  "updatedAt": "2026-07-28T03:05:52.000Z",
+                  "uid": "35240-bf542fd4-81e7-45d3-99c8-ff004cfe6f65"
+                }
+              ],
+              "createdAt": "2026-07-28T03:05:52.000Z",
+              "updatedAt": "2026-07-28T03:05:52.000Z",
+              "uid": "35240-91c1a594-bd92-47c5-bd0e-f9721e99f40b"
+            }
+          ],
+          "id": "e96c528e-5c19-43d8-8f64-2fca9816402d",
+          "createdAt": "2026-07-28T03:05:52.000Z",
+          "updatedAt": "2026-07-28T03:05:52.000Z",
+          "uid": "35240-e96c528e-5c19-43d8-8f64-2fca9816402d"
+        },
+        {
+          "name": "List multiple stories",
+          "id": "70853a1c-1f6d-455b-b193-38c07024f592",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/stories?token=<string>&version=published&page=1&per_page=25&starts_with=<string>&by_slugs=<string>&excluding_slugs=<string>&with_tag=<string>&is_startpage=1&sort_by=<string>&search_term=<string>&resolve_relations=<string>&resolve_links=story&language=<string>&fallback_lang=<string>&mollit_86=minim Excepteur consequat&consequat_6=velit ex incididunt aliquip&by_uuids=<string>&excluding_ids=<string>&per_page=25&cv=<integer>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "stories"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                  "key": "token",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                  "key": "version",
+                  "value": "published"
+                },
+                {
+                  "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.",
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "description": "Number of items to return per page. Maximum is 100 for most endpoints.",
+                  "key": "per_page",
+                  "value": "25"
+                },
+                {
+                  "description": "Filter stories by full_slug prefix. Only stories whose full_slug starts with the given value are returned. Useful for fetching content within a specific folder.",
+                  "key": "starts_with",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of full_slug values to retrieve specific stories by their slugs.",
+                  "key": "by_slugs",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of full_slug values to exclude from the results.",
+                  "key": "excluding_slugs",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of tag slugs to filter stories by. Multiple tags are treated as an OR condition.",
+                  "key": "with_tag",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to 1 to only return folder start pages. Set to 0 to exclude them. Omit to return all stories.",
+                  "key": "is_startpage",
+                  "value": "1"
+                },
+                {
+                  "description": "Sort the response by a specific field and direction. Supports all default story fields and custom fields defined in the component schema. Format: field:asc or field:desc.",
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Full-text search term to filter stories whose content fields contain the given string.",
+                  "key": "search_term",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response.",
+                  "key": "resolve_relations",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string.",
+                  "key": "resolve_links",
+                  "value": "story"
+                },
+                {
+                  "description": "ISO language code to return the story content in the specified language. Falls back to the default language if the translation is unavailable.",
+                  "key": "language",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Fallback language code used when the requested language translation is not available.",
+                  "key": "fallback_lang",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object.",
+                  "key": "mollit_86",
+                  "value": "minim Excepteur consequat"
+                },
+                {
+                  "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object.",
+                  "key": "consequat_6",
+                  "value": "velit ex incididunt aliquip"
+                },
+                {
+                  "description": "Comma-separated list of story UUIDs to retrieve specific stories by their unique identifiers.",
+                  "key": "by_uuids",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Comma-separated list of story IDs to exclude from the results.",
+                  "key": "excluding_ids",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Number of stories to return per page. Maximum 100.",
+                  "key": "per_page",
+                  "value": "25"
+                },
+                {
+                  "description": "Cache version timestamp. Pass the current Unix timestamp to bypass CDN caching and retrieve the latest content.",
+                  "key": "cv",
+                  "value": "<integer>"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of published stories from the space. Stories can be filtered by slug, tag, component type, and custom fields. The response includes the story content along with metadata such as publication dates and alternate language versions. Pagination is controlled via the page and per_page query parameters."
+          },
+          "response": [
+            {
+              "id": "3886460d-8361-4c29-ae4d-0ddf4038305f",
+              "name": "A paginated list of stories was returned successfully.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/stories?token=<API Key>&version=published&page=1&per_page=25&starts_with=<string>&by_slugs=<string>&excluding_slugs=<string>&with_tag=<string>&is_startpage=1&sort_by=<string>&search_term=<string>&resolve_relations=<string>&resolve_links=story&language=<string>&fallback_lang=<string>&mollit_86=minim Excepteur consequat&consequat_6=velit ex incididunt aliquip&by_uuids=<string>&excluding_ids=<string>&cv=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stories"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                      "key": "token",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of items to return per page. Maximum is 100 for most endpoints.",
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Filter stories by full_slug prefix. Only stories whose full_slug starts with the given value are returned. Useful for fetching content within a specific folder.",
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of full_slug values to retrieve specific stories by their slugs.",
+                      "key": "by_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of full_slug values to exclude from the results.",
+                      "key": "excluding_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of tag slugs to filter stories by. Multiple tags are treated as an OR condition.",
+                      "key": "with_tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to 1 to only return folder start pages. Set to 0 to exclude them. Omit to return all stories.",
+                      "key": "is_startpage",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Sort the response by a specific field and direction. Supports all default story fields and custom fields defined in the component schema. Format: field:asc or field:desc.",
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Full-text search term to filter stories whose content fields contain the given string.",
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response.",
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string.",
+                      "key": "resolve_links",
+                      "value": "story"
+                    },
+                    {
+                      "description": "ISO language code to return the story content in the specified language. Falls back to the default language if the translation is unavailable.",
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Fallback language code used when the requested language translation is not available.",
+                      "key": "fallback_lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object.",
+                      "key": "mollit_86",
+                      "value": "minim Excepteur consequat"
+                    },
+                    {
+                      "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object.",
+                      "key": "consequat_6",
+                      "value": "velit ex incididunt aliquip"
+                    },
+                    {
+                      "description": "Comma-separated list of story UUIDs to retrieve specific stories by their unique identifiers.",
+                      "key": "by_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of story IDs to exclude from the results.",
+                      "key": "excluding_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cache version timestamp. Pass the current Unix timestamp to bypass CDN caching and retrieve the latest content.",
+                      "key": "cv",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                },
+                {
+                  "disabled": false,
+                  "description": {
+                    "content": "Total number of stories matching the query.",
+                    "type": "text/plain"
+                  },
+                  "key": "Total",
+                  "value": "<integer>"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"stories\": [\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"proident38\": -61877485,\n        \"inc\": -77707307.45676398\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"Excepteur_86\": -28367247.425227717,\n        \"commodoc3\": \"enim cillum id sed\"\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    }\n  ],\n  \"cv\": \"<integer>\",\n  \"rels\": [\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"commodoa\": 23479569.04248382,\n        \"sunt58\": \"do Excepteur\"\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"sit36\": false,\n        \"sed_55a\": 97211585\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    }\n  ],\n  \"links\": [\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"reprehenderit_0a\": -45507352.63501298\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"in7\": false\n      },\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"sort_by_date\": \"<string>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"is_folder\": \"<boolean>\",\n      \"default_full_slug\": \"<string>\",\n      \"translated_slugs\": [\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        },\n        {\n          \"path\": \"<string>\",\n          \"name\": \"<string>\",\n          \"lang\": \"<string>\"\n        }\n      ],\n      \"alternates\": [\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        },\n        {\n          \"id\": \"<integer>\",\n          \"name\": \"<string>\",\n          \"slug\": \"<string>\",\n          \"full_slug\": \"<string>\",\n          \"is_folder\": \"<boolean>\",\n          \"parent_id\": \"<integer>\"\n        }\n      ]\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T03:05:52.000Z",
+              "updatedAt": "2026-07-28T03:05:52.000Z",
+              "uid": "35240-3886460d-8361-4c29-ae4d-0ddf4038305f"
+            },
+            {
+              "id": "fa7bf841-6a0c-4c36-9e29-14a32d181205",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/stories?token=<API Key>&version=published&page=1&per_page=25&starts_with=<string>&by_slugs=<string>&excluding_slugs=<string>&with_tag=<string>&is_startpage=1&sort_by=<string>&search_term=<string>&resolve_relations=<string>&resolve_links=story&language=<string>&fallback_lang=<string>&mollit_86=minim Excepteur consequat&consequat_6=velit ex incididunt aliquip&by_uuids=<string>&excluding_ids=<string>&cv=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stories"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                      "key": "token",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of items to return per page. Maximum is 100 for most endpoints.",
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Filter stories by full_slug prefix. Only stories whose full_slug starts with the given value are returned. Useful for fetching content within a specific folder.",
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of full_slug values to retrieve specific stories by their slugs.",
+                      "key": "by_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of full_slug values to exclude from the results.",
+                      "key": "excluding_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of tag slugs to filter stories by. Multiple tags are treated as an OR condition.",
+                      "key": "with_tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to 1 to only return folder start pages. Set to 0 to exclude them. Omit to return all stories.",
+                      "key": "is_startpage",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Sort the response by a specific field and direction. Supports all default story fields and custom fields defined in the component schema. Format: field:asc or field:desc.",
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Full-text search term to filter stories whose content fields contain the given string.",
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response.",
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string.",
+                      "key": "resolve_links",
+                      "value": "story"
+                    },
+                    {
+                      "description": "ISO language code to return the story content in the specified language. Falls back to the default language if the translation is unavailable.",
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Fallback language code used when the requested language translation is not available.",
+                      "key": "fallback_lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object.",
+                      "key": "mollit_86",
+                      "value": "minim Excepteur consequat"
+                    },
+                    {
+                      "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object.",
+                      "key": "consequat_6",
+                      "value": "velit ex incididunt aliquip"
+                    },
+                    {
+                      "description": "Comma-separated list of story UUIDs to retrieve specific stories by their unique identifiers.",
+                      "key": "by_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of story IDs to exclude from the results.",
+                      "key": "excluding_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cache version timestamp. Pass the current Unix timestamp to bypass CDN caching and retrieve the latest content.",
+                      "key": "cv",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:05:52.000Z",
+              "updatedAt": "2026-07-28T03:05:52.000Z",
+              "uid": "35240-fa7bf841-6a0c-4c36-9e29-14a32d181205"
+            },
+            {
+              "id": "84f910b2-13c5-4bba-9af6-d2b8f0962cd4",
+              "name": "The request parameters were invalid. Check the query parameter values for format errors.",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/stories?token=<API Key>&version=published&page=1&per_page=25&starts_with=<string>&by_slugs=<string>&excluding_slugs=<string>&with_tag=<string>&is_startpage=1&sort_by=<string>&search_term=<string>&resolve_relations=<string>&resolve_links=story&language=<string>&fallback_lang=<string>&mollit_86=minim Excepteur consequat&consequat_6=velit ex incididunt aliquip&by_uuids=<string>&excluding_ids=<string>&cv=<integer>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "stories"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content.",
+                      "key": "token",
+                      "value": "<API Key>"
+                    },
+                    {
+                      "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token.",
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.",
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Number of items to return per page. Maximum is 100 for most endpoints.",
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "description": "Filter stories by full_slug prefix. Only stories whose full_slug starts with the given value are returned. Useful for fetching content within a specific folder.",
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of full_slug values to retrieve specific stories by their slugs.",
+                      "key": "by_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of full_slug values to exclude from the results.",
+                      "key": "excluding_slugs",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of tag slugs to filter stories by. Multiple tags are treated as an OR condition.",
+                      "key": "with_tag",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to 1 to only return folder start pages. Set to 0 to exclude them. Omit to return all stories.",
+                      "key": "is_startpage",
+                      "value": "1"
+                    },
+                    {
+                      "description": "Sort the response by a specific field and direction. Supports all default story fields and custom fields defined in the component schema. Format: field:asc or field:desc.",
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Full-text search term to filter stories whose content fields contain the given string.",
+                      "key": "search_term",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response.",
+                      "key": "resolve_relations",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string.",
+                      "key": "resolve_links",
+                      "value": "story"
+                    },
+                    {
+                      "description": "ISO language code to return the story content in the specified language. Falls back to the default language if the translation is unavailable.",
+                      "key": "language",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Fallback language code used when the requested language translation is not available.",
+                      "key": "fallback_lang",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object.",
+                      "key": "mollit_86",
+                      "value": "minim Excepteur consequat"
+                    },
+                    {
+                      "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object.",
+                      "key": "consequat_6",
+                      "value": "velit ex incididunt aliquip"
+                    },
+                    {
+                      "description": "Comma-separated list of story UUIDs to retrieve specific stories by their unique identifiers.",
+                      "key": "by_uuids",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Comma-separated list of story IDs to exclude from the results.",
+                      "key": "excluding_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cache version timestamp. Pass the current Unix timestamp to bypass CDN caching and retrieve the latest content.",
+                      "key": "cv",
+                      "value": "<integer>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T03:05:52.000Z",
+              "updatedAt": "2026-07-28T03:05:52.000Z",
+              "uid": "35240-84f910b2-13c5-4bba-9af6-d2b8f0962cd4"
+            }
+          ],
+          "createdAt": "2026-07-28T03:05:52.000Z",
+          "updatedAt": "2026-07-28T03:05:52.000Z",
+          "uid": "35240-70853a1c-1f6d-455b-b193-38c07024f592"
+        }
+      ],
+      "id": "87127d6c-f0c3-4e3c-b78e-aa4077f60b60",
+      "createdAt": "2026-07-28T03:05:52.000Z",
+      "updatedAt": "2026-07-28T03:05:52.000Z",
+      "uid": "35240-87127d6c-f0c3-4e3c-b78e-aa4077f60b60"
+    },
+    {
+      "name": "spaces",
+      "item": [
+        {
+          "name": "{space_id}",
+          "item": [
+            {
+              "name": "stories",
+              "item": [
+                {
+                  "name": "{story_id}",
+                  "item": [
+                    {
+                      "name": "publish",
+                      "item": [
+                        {
+                          "name": "Publish a story",
+                          "id": "12fb0100-2f15-47ed-a772-23b6c32fa4cf",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id/publish?release_id=<integer>&lang=<string>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id",
+                                "publish"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Publish the story as part of a specific release rather than immediately to production.",
+                                  "key": "release_id",
+                                  "value": "<integer>"
+                                },
+                                {
+                                  "description": "Language code to publish a specific translation of the story.",
+                                  "key": "lang",
+                                  "value": "<string>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "id": "5ea38b70-428d-486b-a5eb-9652e287caa7",
+                                  "key": "space_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Numeric ID of the Storyblok space."
+                                },
+                                {
+                                  "id": "5290f269-d6f8-46e3-a2a1-85fa162fabd1",
+                                  "key": "story_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Numeric ID of the story."
+                                }
+                              ]
+                            },
+                            "description": "Publishes the current draft version of a story, making it available via the Content Delivery API with the public token. If the story has a scheduled publication date, this endpoint publishes it immediately regardless of the schedule."
+                          },
+                          "response": [
+                            {
+                              "id": "78b5cbfc-fc22-4c3b-b199-522c0c3a29b3",
+                              "name": "The story was published successfully.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id/publish?release_id=<integer>&lang=<string>&token=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "spaces",
+                                    ":space_id",
+                                    "stories",
+                                    ":story_id",
+                                    "publish"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Publish the story as part of a specific release rather than immediately to production.",
+                                      "key": "release_id",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "Language code to publish a specific translation of the story.",
+                                      "key": "lang",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "token",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "space_id"
+                                    },
+                                    {
+                                      "key": "story_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"story\": {\n    \"id\": \"<integer>\",\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"full_slug\": \"<string>\",\n    \"content\": {\n      \"exercitation_d9\": \"minim adipisicing voluptate\",\n      \"Loremce\": -37609728\n    },\n    \"is_folder\": \"<boolean>\",\n    \"is_startpage\": \"<boolean>\",\n    \"parent_id\": \"<integer>\",\n    \"group_id\": \"<uuid>\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"<dateTime>\",\n    \"first_published_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"position\": \"<integer>\",\n    \"meta_data\": {\n      \"exercitation_152\": 32088953.876485646\n    },\n    \"default_root\": \"<string>\",\n    \"is_demo\": \"<boolean>\"\n  }\n}",
+                              "createdAt": "2026-07-28T03:05:52.000Z",
+                              "updatedAt": "2026-07-28T03:05:52.000Z",
+                              "uid": "35240-78b5cbfc-fc22-4c3b-b199-522c0c3a29b3"
+                            },
+                            {
+                              "id": "a218976a-5ca6-41b2-9ddd-b0d782013577",
+                              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id/publish?release_id=<integer>&lang=<string>&token=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "spaces",
+                                    ":space_id",
+                                    "stories",
+                                    ":story_id",
+                                    "publish"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Publish the story as part of a specific release rather than immediately to production.",
+                                      "key": "release_id",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "Language code to publish a specific translation of the story.",
+                                      "key": "lang",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "token",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "space_id"
+                                    },
+                                    {
+                                      "key": "story_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:05:52.000Z",
+                              "updatedAt": "2026-07-28T03:05:52.000Z",
+                              "uid": "35240-a218976a-5ca6-41b2-9ddd-b0d782013577"
+                            },
+                            {
+                              "id": "a2c98e7d-6353-4f9d-9fe7-6e73b3fc7815",
+                              "name": "The requested resource was not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id/publish?release_id=<integer>&lang=<string>&token=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "spaces",
+                                    ":space_id",
+                                    "stories",
+                                    ":story_id",
+                                    "publish"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Publish the story as part of a specific release rather than immediately to production.",
+                                      "key": "release_id",
+                                      "value": "<integer>"
+                                    },
+                                    {
+                                      "description": "Language code to publish a specific translation of the story.",
+                                      "key": "lang",
+                                      "value": "<string>"
+                                    },
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "token",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "space_id"
+                                    },
+                                    {
+                                      "key": "story_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:05:52.000Z",
+                              "updatedAt": "2026-07-28T03:05:52.000Z",
+                              "uid": "35240-a2c98e7d-6353-4f9d-9fe7-6e73b3fc7815"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-12fb0100-2f15-47ed-a772-23b6c32fa4cf"
+                        }
+                      ],
+                      "id": "6401950d-cf5c-408d-b10e-c8bde49d1b32",
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-6401950d-cf5c-408d-b10e-c8bde49d1b32"
+                    },
+                    {
+                      "name": "unpublish",
+                      "item": [
+                        {
+                          "name": "Unpublish a story",
+                          "id": "12768301-bd92-46e4-b81d-8d68020b5868",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id/unpublish",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id",
+                                "unpublish"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "99acc63d-7941-41a6-baa2-cabb73f49b61",
+                                  "key": "space_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Numeric ID of the Storyblok space."
+                                },
+                                {
+                                  "id": "ebd67a29-0ff3-47cd-a43e-0fa544522aa9",
+                                  "key": "story_id",
+                                  "value": "<integer>",
+                                  "description": "(Required) Numeric ID of the story."
+                                }
+                              ]
+                            },
+                            "description": "Unpublishes a story, removing it from public access via the Content Delivery API. The story's draft content is preserved and can be republished at any time."
+                          },
+                          "response": [
+                            {
+                              "id": "eca811f8-ce72-49e9-a0cb-184b478d7836",
+                              "name": "The story was unpublished successfully.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id/unpublish?token=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "spaces",
+                                    ":space_id",
+                                    "stories",
+                                    ":story_id",
+                                    "unpublish"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "token",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "space_id"
+                                    },
+                                    {
+                                      "key": "story_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"story\": {\n    \"id\": \"<integer>\",\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"full_slug\": \"<string>\",\n    \"content\": {\n      \"exercitation_d9\": \"minim adipisicing voluptate\",\n      \"Loremce\": -37609728\n    },\n    \"is_folder\": \"<boolean>\",\n    \"is_startpage\": \"<boolean>\",\n    \"parent_id\": \"<integer>\",\n    \"group_id\": \"<uuid>\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"<dateTime>\",\n    \"first_published_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"position\": \"<integer>\",\n    \"meta_data\": {\n      \"exercitation_152\": 32088953.876485646\n    },\n    \"default_root\": \"<string>\",\n    \"is_demo\": \"<boolean>\"\n  }\n}",
+                              "createdAt": "2026-07-28T03:05:52.000Z",
+                              "updatedAt": "2026-07-28T03:05:52.000Z",
+                              "uid": "35240-eca811f8-ce72-49e9-a0cb-184b478d7836"
+                            },
+                            {
+                              "id": "56ed46ea-015e-4a5c-a99b-914e2c8b4798",
+                              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id/unpublish?token=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "spaces",
+                                    ":space_id",
+                                    "stories",
+                                    ":story_id",
+                                    "unpublish"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "token",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "space_id"
+                                    },
+                                    {
+                                      "key": "story_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:05:52.000Z",
+                              "updatedAt": "2026-07-28T03:05:52.000Z",
+                              "uid": "35240-56ed46ea-015e-4a5c-a99b-914e2c8b4798"
+                            },
+                            {
+                              "id": "f0c765cd-69db-46f4-b5ad-d5b13d336895",
+                              "name": "The requested resource was not found.",
+                              "originalRequest": {
+                                "method": "GET",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id/unpublish?token=<API Key>",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "spaces",
+                                    ":space_id",
+                                    "stories",
+                                    ":story_id",
+                                    "unpublish"
+                                  ],
+                                  "query": [
+                                    {
+                                      "description": "Added as a part of security scheme: apikey",
+                                      "key": "token",
+                                      "value": "<API Key>"
+                                    }
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "space_id"
+                                    },
+                                    {
+                                      "key": "story_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T03:05:52.000Z",
+                              "updatedAt": "2026-07-28T03:05:52.000Z",
+                              "uid": "35240-f0c765cd-69db-46f4-b5ad-d5b13d336895"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-12768301-bd92-46e4-b81d-8d68020b5868"
+                        }
+                      ],
+                      "id": "a53c1d9b-980a-4141-825c-6ef8dce89a6c",
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-a53c1d9b-980a-4141-825c-6ef8dce89a6c"
+                    },
+                    {
+                      "name": "Retrieve a single story",
+                      "id": "00ec03f1-0def-48d4-bbf0-14a89d3111a6",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "stories",
+                            ":story_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "d22ab34c-0ee7-4a05-8468-5778e0cd7d42",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "2ebcd19b-8d79-4b62-922d-99101a8a1f38",
+                              "key": "story_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the story."
+                            }
+                          ]
+                        },
+                        "description": "Returns the full details of a single story by its numeric ID, including draft content, workflow state, locks, and publishing history."
+                      },
+                      "response": [
+                        {
+                          "id": "e79236aa-4a2b-49b9-9341-0a0df09220d5",
+                          "name": "The story was returned successfully.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"story\": {\n    \"id\": \"<integer>\",\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"full_slug\": \"<string>\",\n    \"content\": {\n      \"exercitation_d9\": \"minim adipisicing voluptate\",\n      \"Loremce\": -37609728\n    },\n    \"is_folder\": \"<boolean>\",\n    \"is_startpage\": \"<boolean>\",\n    \"parent_id\": \"<integer>\",\n    \"group_id\": \"<uuid>\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"<dateTime>\",\n    \"first_published_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"position\": \"<integer>\",\n    \"meta_data\": {\n      \"exercitation_152\": 32088953.876485646\n    },\n    \"default_root\": \"<string>\",\n    \"is_demo\": \"<boolean>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-e79236aa-4a2b-49b9-9341-0a0df09220d5"
+                        },
+                        {
+                          "id": "7a78b681-474f-4324-811c-d4a49d3258f6",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-7a78b681-474f-4324-811c-d4a49d3258f6"
+                        },
+                        {
+                          "id": "fb5a9d31-0fff-4bcf-a6aa-2825cf31706a",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-fb5a9d31-0fff-4bcf-a6aa-2825cf31706a"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-00ec03f1-0def-48d4-bbf0-14a89d3111a6"
+                    },
+                    {
+                      "name": "Update a story",
+                      "id": "21aae754-a0b1-4b32-99f4-c48b5b49b9a3",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"story\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"content\": {\n      \"fugiat__\": true\n    },\n    \"parent_id\": \"<integer>\",\n    \"is_startpage\": \"<boolean>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"meta_data\": {\n      \"qui48f\": false\n    },\n    \"sort_by_date\": \"<string>\",\n    \"path\": \"<string>\",\n    \"default_root\": \"<string>\"\n  },\n  \"publish\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "stories",
+                            ":story_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3f3dca1c-5197-4a4c-8ecb-b47868940f58",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "e199d24c-7a66-48dc-98fb-8c2f5eb33046",
+                              "key": "story_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the story."
+                            }
+                          ]
+                        },
+                        "description": "Updates an existing story's content, metadata, or settings. Only the fields provided in the request body are updated. Set publish to 1 to publish the story as part of the update."
+                      },
+                      "response": [
+                        {
+                          "id": "7a3f6b71-9922-432d-92fe-a35cc13f20c2",
+                          "name": "The story was updated successfully.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"story\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"content\": {\n      \"fugiat__\": true\n    },\n    \"parent_id\": \"<integer>\",\n    \"is_startpage\": \"<boolean>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"meta_data\": {\n      \"qui48f\": false\n    },\n    \"sort_by_date\": \"<string>\",\n    \"path\": \"<string>\",\n    \"default_root\": \"<string>\"\n  },\n  \"publish\": 1\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"story\": {\n    \"id\": \"<integer>\",\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"full_slug\": \"<string>\",\n    \"content\": {\n      \"exercitation_d9\": \"minim adipisicing voluptate\",\n      \"Loremce\": -37609728\n    },\n    \"is_folder\": \"<boolean>\",\n    \"is_startpage\": \"<boolean>\",\n    \"parent_id\": \"<integer>\",\n    \"group_id\": \"<uuid>\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"<dateTime>\",\n    \"first_published_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"position\": \"<integer>\",\n    \"meta_data\": {\n      \"exercitation_152\": 32088953.876485646\n    },\n    \"default_root\": \"<string>\",\n    \"is_demo\": \"<boolean>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-7a3f6b71-9922-432d-92fe-a35cc13f20c2"
+                        },
+                        {
+                          "id": "720d82ac-8931-4489-8847-fce46a5d4f85",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"story\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"content\": {\n      \"fugiat__\": true\n    },\n    \"parent_id\": \"<integer>\",\n    \"is_startpage\": \"<boolean>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"meta_data\": {\n      \"qui48f\": false\n    },\n    \"sort_by_date\": \"<string>\",\n    \"path\": \"<string>\",\n    \"default_root\": \"<string>\"\n  },\n  \"publish\": 1\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-720d82ac-8931-4489-8847-fce46a5d4f85"
+                        },
+                        {
+                          "id": "3e13fb5e-753a-455f-be08-6954b1be7aa5",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"story\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"content\": {\n      \"fugiat__\": true\n    },\n    \"parent_id\": \"<integer>\",\n    \"is_startpage\": \"<boolean>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"meta_data\": {\n      \"qui48f\": false\n    },\n    \"sort_by_date\": \"<string>\",\n    \"path\": \"<string>\",\n    \"default_root\": \"<string>\"\n  },\n  \"publish\": 1\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-3e13fb5e-753a-455f-be08-6954b1be7aa5"
+                        },
+                        {
+                          "id": "6d90b42c-5d5e-446f-9327-ca69c646ea7e",
+                          "name": "The request body contained validation errors. Check the error message for details on which fields failed validation.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"story\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"content\": {\n      \"fugiat__\": true\n    },\n    \"parent_id\": \"<integer>\",\n    \"is_startpage\": \"<boolean>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"meta_data\": {\n      \"qui48f\": false\n    },\n    \"sort_by_date\": \"<string>\",\n    \"path\": \"<string>\",\n    \"default_root\": \"<string>\"\n  },\n  \"publish\": 1\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-6d90b42c-5d5e-446f-9327-ca69c646ea7e"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-21aae754-a0b1-4b32-99f4-c48b5b49b9a3"
+                    },
+                    {
+                      "name": "Delete a story",
+                      "id": "ec364915-b5e6-4efc-be68-bed707ae7357",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "stories",
+                            ":story_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ad17986c-3aec-4eda-a693-c752cdb98a13",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "0916cd58-1b07-486b-8140-6935170fa2a4",
+                              "key": "story_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the story."
+                            }
+                          ]
+                        },
+                        "description": "Permanently deletes a story from the space. This action cannot be undone. Deleting a folder story also deletes all stories nested within it."
+                      },
+                      "response": [
+                        {
+                          "id": "671c2139-f7c7-41f3-8661-18a78dae831c",
+                          "name": "The story was deleted successfully.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-671c2139-f7c7-41f3-8661-18a78dae831c"
+                        },
+                        {
+                          "id": "4e95d793-376c-4789-a814-4dae4b5f700d",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-4e95d793-376c-4789-a814-4dae4b5f700d"
+                        },
+                        {
+                          "id": "024d9fb4-5fc5-4915-8a5f-bf430ec756a4",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/stories/:story_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "stories",
+                                ":story_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "story_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:52.000Z",
+                          "updatedAt": "2026-07-28T03:05:52.000Z",
+                          "uid": "35240-024d9fb4-5fc5-4915-8a5f-bf430ec756a4"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-ec364915-b5e6-4efc-be68-bed707ae7357"
+                    }
+                  ],
+                  "id": "d70e874b-c113-4503-a3e5-8aa78706d710",
+                  "createdAt": "2026-07-28T03:05:52.000Z",
+                  "updatedAt": "2026-07-28T03:05:52.000Z",
+                  "uid": "35240-d70e874b-c113-4503-a3e5-8aa78706d710"
+                },
+                {
+                  "name": "List stories in a space",
+                  "id": "7c6f6b13-668f-4c97-b742-0d1356913f9f",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/stories?page=1&per_page=25&with_tag=<string>&folder_only=1&story_only=1&by_slugs=<string>&search=<string>&sort_by=<string>&starts_with=<string>&in_trash=1&in_release=<integer>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "stories"
+                      ],
+                      "query": [
+                        {
+                          "description": "Page number for paginated results, starting at 1.",
+                          "key": "page",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Number of results per page. Maximum 100.",
+                          "key": "per_page",
+                          "value": "25"
+                        },
+                        {
+                          "description": "Filter stories that have this tag applied.",
+                          "key": "with_tag",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set to 1 to only return folder stories.",
+                          "key": "folder_only",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Set to 1 to exclude folder stories from the results.",
+                          "key": "story_only",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Comma-separated list of full_slug values to filter by.",
+                          "key": "by_slugs",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Text search to filter stories by name.",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Field and direction to sort by, formatted as field:asc or field:desc.",
+                          "key": "sort_by",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Filter stories whose full_slug starts with this prefix.",
+                          "key": "starts_with",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Set to 1 to return only stories in the trash.",
+                          "key": "in_trash",
+                          "value": "1"
+                        },
+                        {
+                          "description": "Filter stories belonging to a specific release ID.",
+                          "key": "in_release",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "4e31450b-9d12-4bcd-be3a-599553773cb9",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of stories in the space. The response includes both published and draft stories. Results can be filtered by folder, publication status, component type, and text search."
+                  },
+                  "response": [
+                    {
+                      "id": "facfc427-c2cf-4fa4-8043-73c8e326ab00",
+                      "name": "A paginated list of stories was returned successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/stories?page=1&per_page=25&with_tag=<string>&folder_only=1&story_only=1&by_slugs=<string>&search=<string>&sort_by=<string>&starts_with=<string>&in_trash=1&in_release=<integer>&token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "stories"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for paginated results, starting at 1.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Number of results per page. Maximum 100.",
+                              "key": "per_page",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Filter stories that have this tag applied.",
+                              "key": "with_tag",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set to 1 to only return folder stories.",
+                              "key": "folder_only",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Set to 1 to exclude folder stories from the results.",
+                              "key": "story_only",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Comma-separated list of full_slug values to filter by.",
+                              "key": "by_slugs",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Text search to filter stories by name.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Field and direction to sort by, formatted as field:asc or field:desc.",
+                              "key": "sort_by",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter stories whose full_slug starts with this prefix.",
+                              "key": "starts_with",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set to 1 to return only stories in the trash.",
+                              "key": "in_trash",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Filter stories belonging to a specific release ID.",
+                              "key": "in_release",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        },
+                        {
+                          "disabled": false,
+                          "description": {
+                            "content": "Total number of stories matching the query.",
+                            "type": "text/plain"
+                          },
+                          "key": "Total",
+                          "value": "<integer>"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"stories\": [\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"quis_8\": -74469851.64642781\n      },\n      \"is_folder\": \"<boolean>\",\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"published\": \"<boolean>\",\n      \"published_at\": \"<dateTime>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"pinned\": \"<boolean>\",\n      \"position\": \"<integer>\",\n      \"meta_data\": {\n        \"sit_c\": 29752860.03940645,\n        \"aliquip67b\": 12709343.638073593\n      },\n      \"default_root\": \"<string>\",\n      \"is_demo\": \"<boolean>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"uuid\": \"<uuid>\",\n      \"name\": \"<string>\",\n      \"slug\": \"<string>\",\n      \"full_slug\": \"<string>\",\n      \"content\": {\n        \"sunt835\": true,\n        \"cupidatat_b\": false\n      },\n      \"is_folder\": \"<boolean>\",\n      \"is_startpage\": \"<boolean>\",\n      \"parent_id\": \"<integer>\",\n      \"group_id\": \"<uuid>\",\n      \"published\": \"<boolean>\",\n      \"published_at\": \"<dateTime>\",\n      \"first_published_at\": \"<dateTime>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"tag_list\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"pinned\": \"<boolean>\",\n      \"position\": \"<integer>\",\n      \"meta_data\": {\n        \"laboris5f\": 87781700,\n        \"irure_93\": -52306190.002623506\n      },\n      \"default_root\": \"<string>\",\n      \"is_demo\": \"<boolean>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-facfc427-c2cf-4fa4-8043-73c8e326ab00"
+                    },
+                    {
+                      "id": "7d3e1444-ea63-4d38-9b71-1cda70183449",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/stories?page=1&per_page=25&with_tag=<string>&folder_only=1&story_only=1&by_slugs=<string>&search=<string>&sort_by=<string>&starts_with=<string>&in_trash=1&in_release=<integer>&token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "stories"
+                          ],
+                          "query": [
+                            {
+                              "description": "Page number for paginated results, starting at 1.",
+                              "key": "page",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Number of results per page. Maximum 100.",
+                              "key": "per_page",
+                              "value": "25"
+                            },
+                            {
+                              "description": "Filter stories that have this tag applied.",
+                              "key": "with_tag",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set to 1 to only return folder stories.",
+                              "key": "folder_only",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Set to 1 to exclude folder stories from the results.",
+                              "key": "story_only",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Comma-separated list of full_slug values to filter by.",
+                              "key": "by_slugs",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Text search to filter stories by name.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Field and direction to sort by, formatted as field:asc or field:desc.",
+                              "key": "sort_by",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Filter stories whose full_slug starts with this prefix.",
+                              "key": "starts_with",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Set to 1 to return only stories in the trash.",
+                              "key": "in_trash",
+                              "value": "1"
+                            },
+                            {
+                              "description": "Filter stories belonging to a specific release ID.",
+                              "key": "in_release",
+                              "value": "<integer>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-7d3e1444-ea63-4d38-9b71-1cda70183449"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:52.000Z",
+                  "updatedAt": "2026-07-28T03:05:52.000Z",
+                  "uid": "35240-7c6f6b13-668f-4c97-b742-0d1356913f9f"
+                },
+                {
+                  "name": "Create a story",
+                  "id": "b2fde64f-e115-4f1d-bfa4-1fb3e9406e30",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"story\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"content\": {\n      \"ut_2c\": -364351,\n      \"Lorem_8_1\": -49491559.82596394,\n      \"magna4\": \"aliqua non dolor\"\n    },\n    \"parent_id\": \"<integer>\",\n    \"is_startpage\": \"<boolean>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"meta_data\": {\n      \"Loremb\": \"nulla amet dolore sed\"\n    },\n    \"sort_by_date\": \"<string>\",\n    \"path\": \"<string>\",\n    \"default_root\": \"<string>\"\n  },\n  \"publish\": 1\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/stories",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "stories"
+                      ],
+                      "variable": [
+                        {
+                          "id": "ff214f6b-051a-469c-8db1-e2935434fcad",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Creates a new story in the space. The request body must include the story name, slug, and content object. Optionally specify a parent_id to nest the story inside a folder. Stories are created in draft state unless publish is set to 1."
+                  },
+                  "response": [
+                    {
+                      "id": "7c0a5af4-f9be-476b-8164-2fa706ccfc67",
+                      "name": "The story was created successfully.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"story\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"content\": {\n      \"ut_2c\": -364351,\n      \"Lorem_8_1\": -49491559.82596394,\n      \"magna4\": \"aliqua non dolor\"\n    },\n    \"parent_id\": \"<integer>\",\n    \"is_startpage\": \"<boolean>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"meta_data\": {\n      \"Loremb\": \"nulla amet dolore sed\"\n    },\n    \"sort_by_date\": \"<string>\",\n    \"path\": \"<string>\",\n    \"default_root\": \"<string>\"\n  },\n  \"publish\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/stories?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "stories"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"story\": {\n    \"id\": \"<integer>\",\n    \"uuid\": \"<uuid>\",\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"full_slug\": \"<string>\",\n    \"content\": {\n      \"exercitation_d9\": \"minim adipisicing voluptate\",\n      \"Loremce\": -37609728\n    },\n    \"is_folder\": \"<boolean>\",\n    \"is_startpage\": \"<boolean>\",\n    \"parent_id\": \"<integer>\",\n    \"group_id\": \"<uuid>\",\n    \"published\": \"<boolean>\",\n    \"published_at\": \"<dateTime>\",\n    \"first_published_at\": \"<dateTime>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"position\": \"<integer>\",\n    \"meta_data\": {\n      \"exercitation_152\": 32088953.876485646\n    },\n    \"default_root\": \"<string>\",\n    \"is_demo\": \"<boolean>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-7c0a5af4-f9be-476b-8164-2fa706ccfc67"
+                    },
+                    {
+                      "id": "136f9da5-2237-4acd-a3ed-934626bebced",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"story\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"content\": {\n      \"ut_2c\": -364351,\n      \"Lorem_8_1\": -49491559.82596394,\n      \"magna4\": \"aliqua non dolor\"\n    },\n    \"parent_id\": \"<integer>\",\n    \"is_startpage\": \"<boolean>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"meta_data\": {\n      \"Loremb\": \"nulla amet dolore sed\"\n    },\n    \"sort_by_date\": \"<string>\",\n    \"path\": \"<string>\",\n    \"default_root\": \"<string>\"\n  },\n  \"publish\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/stories?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "stories"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-136f9da5-2237-4acd-a3ed-934626bebced"
+                    },
+                    {
+                      "id": "5bda489b-813e-4e7b-8e54-00a0da1363f4",
+                      "name": "The request body contained validation errors. Check the error message for details on which fields failed validation.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"story\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\",\n    \"content\": {\n      \"ut_2c\": -364351,\n      \"Lorem_8_1\": -49491559.82596394,\n      \"magna4\": \"aliqua non dolor\"\n    },\n    \"parent_id\": \"<integer>\",\n    \"is_startpage\": \"<boolean>\",\n    \"tag_list\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"pinned\": \"<boolean>\",\n    \"meta_data\": {\n      \"Loremb\": \"nulla amet dolore sed\"\n    },\n    \"sort_by_date\": \"<string>\",\n    \"path\": \"<string>\",\n    \"default_root\": \"<string>\"\n  },\n  \"publish\": 1\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/stories?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "stories"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:52.000Z",
+                      "updatedAt": "2026-07-28T03:05:52.000Z",
+                      "uid": "35240-5bda489b-813e-4e7b-8e54-00a0da1363f4"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:52.000Z",
+                  "updatedAt": "2026-07-28T03:05:52.000Z",
+                  "uid": "35240-b2fde64f-e115-4f1d-bfa4-1fb3e9406e30"
+                }
+              ],
+              "id": "1a4d135c-35ea-4231-b571-c86b5cd6ef55",
+              "createdAt": "2026-07-28T03:05:52.000Z",
+              "updatedAt": "2026-07-28T03:05:52.000Z",
+              "uid": "35240-1a4d135c-35ea-4231-b571-c86b5cd6ef55"
+            }
+          ],
+          "id": "11dd25e7-8871-401b-bd16-c97fc6691511",
+          "createdAt": "2026-07-28T03:05:52.000Z",
+          "updatedAt": "2026-07-28T03:05:52.000Z",
+          "uid": "35240-11dd25e7-8871-401b-bd16-c97fc6691511"
+        }
+      ],
+      "id": "8497cb61-2298-4f72-9f23-08f7af1e67e4",
+      "createdAt": "2026-07-28T03:05:52.000Z",
+      "updatedAt": "2026-07-28T03:05:52.000Z",
+      "uid": "35240-8497cb61-2298-4f72-9f23-08f7af1e67e4"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.storyblok.com/v2/cdn"
+    }
+  ]
+}

@@ -1,0 +1,1186 @@
+{
+  "info": {
+    "_postman_id": "987dae13-ecc5-4552-b6c1-f78c4de2ef66",
+    "name": "Storyblok Content Delivery API v2 Assets Components API",
+    "description": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:46.000Z",
+    "updatedAt": "2026-07-28T03:05:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-987dae13-ecc5-4552-b6c1-f78c4de2ef66"
+  },
+  "item": [
+    {
+      "name": "spaces",
+      "item": [
+        {
+          "name": "{space_id}",
+          "item": [
+            {
+              "name": "components",
+              "item": [
+                {
+                  "name": "{component_id}",
+                  "item": [
+                    {
+                      "name": "Retrieve a single component",
+                      "id": "79434b55-8fd2-4a65-bc4c-79aad5d74c8b",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "components",
+                            ":component_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "fba66d1d-0b94-4e0c-9d09-b793b6108864",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "4c10b16c-e57d-45ef-bc4f-2c969b5ffba3",
+                              "key": "component_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the component."
+                            }
+                          ]
+                        },
+                        "description": "Returns the full schema definition of a single component by its numeric ID, including all field definitions and their configuration."
+                      },
+                      "response": [
+                        {
+                          "id": "8ace3207-b4d6-44c6-8440-9872e3299fb4",
+                          "name": "The component was returned successfully.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "components",
+                                ":component_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "component_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"component\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"schema\": {\n      \"consequat2f\": {\n        \"quif90\": false,\n        \"Duis5a\": 36797430.69780472\n      },\n      \"anim_c_0\": {\n        \"cillum_f7_\": \"eiusmod dolore\",\n        \"enim8b\": 87443875.30942503,\n        \"tempor6d\": \"minim elit deserunt reprehenderit\",\n        \"utb\": -75625632\n      },\n      \"mollit_181\": {\n        \"velit9\": \"et\",\n        \"proident_3\": 34211370\n      }\n    },\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:05:47.000Z",
+                          "updatedAt": "2026-07-28T03:05:47.000Z",
+                          "uid": "35240-8ace3207-b4d6-44c6-8440-9872e3299fb4"
+                        },
+                        {
+                          "id": "1d3e6b55-7ff4-47cd-969c-277fe57842c5",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "components",
+                                ":component_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "component_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:47.000Z",
+                          "updatedAt": "2026-07-28T03:05:47.000Z",
+                          "uid": "35240-1d3e6b55-7ff4-47cd-969c-277fe57842c5"
+                        },
+                        {
+                          "id": "cdef4b7a-ba8d-4292-b4db-b4bad783d863",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "components",
+                                ":component_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "component_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:47.000Z",
+                          "updatedAt": "2026-07-28T03:05:47.000Z",
+                          "uid": "35240-cdef4b7a-ba8d-4292-b4db-b4bad783d863"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:47.000Z",
+                      "updatedAt": "2026-07-28T03:05:47.000Z",
+                      "uid": "35240-79434b55-8fd2-4a65-bc4c-79aad5d74c8b"
+                    },
+                    {
+                      "name": "Update a component",
+                      "id": "03c4903b-fb4b-4823-b254-44c58a140a53",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "PUT",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"exercitation_4c\": {\n        \"exc\": 78164348\n      },\n      \"consequat026\": {\n        \"incf\": -20440851.58863668\n      },\n      \"Excepteur16a\": {\n        \"ea_5\": \"labore Duis\",\n        \"essed_\": 7669108,\n        \"anim08\": -18145600\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "components",
+                            ":component_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b4abd5c2-2729-4e49-864c-49d5e714d036",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "a88e5801-729a-4068-a14f-b32faf3f2a06",
+                              "key": "component_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the component."
+                            }
+                          ]
+                        },
+                        "description": "Updates an existing component definition. Changes to the schema affect all stories that use this component."
+                      },
+                      "response": [
+                        {
+                          "id": "6587e451-bd74-4ee3-91de-1f4d0db343c1",
+                          "name": "The component was updated successfully.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"exercitation_4c\": {\n        \"exc\": 78164348\n      },\n      \"consequat026\": {\n        \"incf\": -20440851.58863668\n      },\n      \"Excepteur16a\": {\n        \"ea_5\": \"labore Duis\",\n        \"essed_\": 7669108,\n        \"anim08\": -18145600\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "components",
+                                ":component_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "component_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"component\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"schema\": {\n      \"consequat2f\": {\n        \"quif90\": false,\n        \"Duis5a\": 36797430.69780472\n      },\n      \"anim_c_0\": {\n        \"cillum_f7_\": \"eiusmod dolore\",\n        \"enim8b\": 87443875.30942503,\n        \"tempor6d\": \"minim elit deserunt reprehenderit\",\n        \"utb\": -75625632\n      },\n      \"mollit_181\": {\n        \"velit9\": \"et\",\n        \"proident_3\": 34211370\n      }\n    },\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                          "createdAt": "2026-07-28T03:05:47.000Z",
+                          "updatedAt": "2026-07-28T03:05:47.000Z",
+                          "uid": "35240-6587e451-bd74-4ee3-91de-1f4d0db343c1"
+                        },
+                        {
+                          "id": "86b26e0f-a2ee-4485-9ba2-f226f69f4c8e",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"exercitation_4c\": {\n        \"exc\": 78164348\n      },\n      \"consequat026\": {\n        \"incf\": -20440851.58863668\n      },\n      \"Excepteur16a\": {\n        \"ea_5\": \"labore Duis\",\n        \"essed_\": 7669108,\n        \"anim08\": -18145600\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "components",
+                                ":component_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "component_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:47.000Z",
+                          "updatedAt": "2026-07-28T03:05:47.000Z",
+                          "uid": "35240-86b26e0f-a2ee-4485-9ba2-f226f69f4c8e"
+                        },
+                        {
+                          "id": "75f719e0-602a-48ba-aa61-a042cba31de1",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "PUT",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"exercitation_4c\": {\n        \"exc\": 78164348\n      },\n      \"consequat026\": {\n        \"incf\": -20440851.58863668\n      },\n      \"Excepteur16a\": {\n        \"ea_5\": \"labore Duis\",\n        \"essed_\": 7669108,\n        \"anim08\": -18145600\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "components",
+                                ":component_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "component_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:47.000Z",
+                          "updatedAt": "2026-07-28T03:05:47.000Z",
+                          "uid": "35240-75f719e0-602a-48ba-aa61-a042cba31de1"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:47.000Z",
+                      "updatedAt": "2026-07-28T03:05:47.000Z",
+                      "uid": "35240-03c4903b-fb4b-4823-b254-44c58a140a53"
+                    },
+                    {
+                      "name": "Delete a component",
+                      "id": "ef99cb9f-fd87-4116-9b78-86507cbfc86f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "components",
+                            ":component_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "10e2f0ad-4ff4-4227-80df-b6a94c783a5e",
+                              "key": "space_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the Storyblok space."
+                            },
+                            {
+                              "id": "2e0a2016-683c-443d-b45a-e50b912c9f1e",
+                              "key": "component_id",
+                              "value": "<integer>",
+                              "description": "(Required) Numeric ID of the component."
+                            }
+                          ]
+                        },
+                        "description": "Deletes a component definition from the space. Stories that reference this component will retain their existing content but the schema validation will no longer apply."
+                      },
+                      "response": [
+                        {
+                          "id": "6bbf00da-2d44-483f-886f-76aceb002d8b",
+                          "name": "The component was deleted successfully.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "components",
+                                ":component_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "component_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": null,
+                          "createdAt": "2026-07-28T03:05:47.000Z",
+                          "updatedAt": "2026-07-28T03:05:47.000Z",
+                          "uid": "35240-6bbf00da-2d44-483f-886f-76aceb002d8b"
+                        },
+                        {
+                          "id": "278c9b17-d215-478c-8579-c20a34189cd1",
+                          "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "components",
+                                ":component_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "component_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:47.000Z",
+                          "updatedAt": "2026-07-28T03:05:47.000Z",
+                          "uid": "35240-278c9b17-d215-478c-8579-c20a34189cd1"
+                        },
+                        {
+                          "id": "3f575394-7e6b-473a-be1b-d11f9d4c83f3",
+                          "name": "The requested resource was not found.",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/spaces/:space_id/components/:component_id?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "spaces",
+                                ":space_id",
+                                "components",
+                                ":component_id"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "space_id"
+                                },
+                                {
+                                  "key": "component_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:47.000Z",
+                          "updatedAt": "2026-07-28T03:05:47.000Z",
+                          "uid": "35240-3f575394-7e6b-473a-be1b-d11f9d4c83f3"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:47.000Z",
+                      "updatedAt": "2026-07-28T03:05:47.000Z",
+                      "uid": "35240-ef99cb9f-fd87-4116-9b78-86507cbfc86f"
+                    }
+                  ],
+                  "id": "6af7c990-47d5-4024-af78-5eb238660bf8",
+                  "createdAt": "2026-07-28T03:05:47.000Z",
+                  "updatedAt": "2026-07-28T03:05:47.000Z",
+                  "uid": "35240-6af7c990-47d5-4024-af78-5eb238660bf8"
+                },
+                {
+                  "name": "List components in a space",
+                  "id": "776292ab-5990-4c1e-844d-bb72b52a15cf",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/components?search=<string>&in_groups=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "components"
+                      ],
+                      "query": [
+                        {
+                          "description": "Filter components by name using a partial text match.",
+                          "key": "search",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Comma-separated list of component group UUIDs to filter components by their assigned group.",
+                          "key": "in_groups",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "d268047a-7ff0-4f50-9fd8-0f431812bbf7",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Returns all component definitions for the space. Components define the content schema used by stories, including field names, types, and validation rules."
+                  },
+                  "response": [
+                    {
+                      "id": "8a24c6fb-89fd-452b-afcc-d05136b12195",
+                      "name": "A list of component definitions was returned successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/components?search=<string>&in_groups=<string>&token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "components"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter components by name using a partial text match.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of component group UUIDs to filter components by their assigned group.",
+                              "key": "in_groups",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"components\": [\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"schema\": {\n        \"eiusmod60\": {\n          \"nulla_8\": 24891533.84819196,\n          \"minim__da\": \"nostrud reprehenderit elit\"\n        },\n        \"ad_37b\": {\n          \"cillum_ab\": 67160354.84360713,\n          \"aliquip_37\": 9872031.216204971,\n          \"anim__\": \"voluptate cillum\"\n        },\n        \"ind36\": {\n          \"officia7\": \"anim id c\",\n          \"minim_74c\": \"Lorem Ut\"\n        },\n        \"Ut_d8b\": {\n          \"autee12\": -26372146.596874073,\n          \"eu_b4_\": -45466872,\n          \"deserunt_be\": 48998455.46134749\n        },\n        \"veniam_6\": {\n          \"id1e\": false\n        }\n      },\n      \"is_root\": \"<boolean>\",\n      \"is_nestable\": \"<boolean>\",\n      \"component_group_uuid\": \"<uuid>\"\n    },\n    {\n      \"id\": \"<integer>\",\n      \"name\": \"<string>\",\n      \"display_name\": \"<string>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\",\n      \"schema\": {\n        \"sedbd1\": {\n          \"commodo_8f\": \"pariatur laboris\",\n          \"reprehenderit69f\": \"laborum in dolor Excepteur in\"\n        },\n        \"deserunta4d\": {\n          \"irure7bf\": \"voluptate dolor\",\n          \"veniam_75a\": -85705666,\n          \"cupidatat5\": 55141251.03393996\n        }\n      },\n      \"is_root\": \"<boolean>\",\n      \"is_nestable\": \"<boolean>\",\n      \"component_group_uuid\": \"<uuid>\"\n    }\n  ]\n}",
+                      "createdAt": "2026-07-28T03:05:47.000Z",
+                      "updatedAt": "2026-07-28T03:05:47.000Z",
+                      "uid": "35240-8a24c6fb-89fd-452b-afcc-d05136b12195"
+                    },
+                    {
+                      "id": "94740acb-0499-48cc-851a-8c5a60b2602f",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/components?search=<string>&in_groups=<string>&token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "components"
+                          ],
+                          "query": [
+                            {
+                              "description": "Filter components by name using a partial text match.",
+                              "key": "search",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Comma-separated list of component group UUIDs to filter components by their assigned group.",
+                              "key": "in_groups",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:47.000Z",
+                      "updatedAt": "2026-07-28T03:05:47.000Z",
+                      "uid": "35240-94740acb-0499-48cc-851a-8c5a60b2602f"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:47.000Z",
+                  "updatedAt": "2026-07-28T03:05:47.000Z",
+                  "uid": "35240-776292ab-5990-4c1e-844d-bb72b52a15cf"
+                },
+                {
+                  "name": "Create a component",
+                  "id": "42315a46-f81c-42f0-9627-cee42c6b80fd",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"exercitation_4c\": {\n        \"exc\": 78164348\n      },\n      \"consequat026\": {\n        \"incf\": -20440851.58863668\n      },\n      \"Excepteur16a\": {\n        \"ea_5\": \"labore Duis\",\n        \"essed_\": 7669108,\n        \"anim08\": -18145600\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/spaces/:space_id/components",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "spaces",
+                        ":space_id",
+                        "components"
+                      ],
+                      "variable": [
+                        {
+                          "id": "14d9a040-8bf6-474c-80f9-2e3e4a7f57e9",
+                          "key": "space_id",
+                          "value": "<integer>",
+                          "description": "(Required) Numeric ID of the Storyblok space."
+                        }
+                      ]
+                    },
+                    "description": "Creates a new component definition in the space. The component schema specifies the field definitions that will be available to stories using this component."
+                  },
+                  "response": [
+                    {
+                      "id": "a39678ad-0b87-4e8f-bedd-95ede8106446",
+                      "name": "The component was created successfully.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"exercitation_4c\": {\n        \"exc\": 78164348\n      },\n      \"consequat026\": {\n        \"incf\": -20440851.58863668\n      },\n      \"Excepteur16a\": {\n        \"ea_5\": \"labore Duis\",\n        \"essed_\": 7669108,\n        \"anim08\": -18145600\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/components?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "components"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Created",
+                      "code": 201,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"component\": {\n    \"id\": \"<integer>\",\n    \"name\": \"<string>\",\n    \"display_name\": \"<string>\",\n    \"created_at\": \"<dateTime>\",\n    \"updated_at\": \"<dateTime>\",\n    \"schema\": {\n      \"consequat2f\": {\n        \"quif90\": false,\n        \"Duis5a\": 36797430.69780472\n      },\n      \"anim_c_0\": {\n        \"cillum_f7_\": \"eiusmod dolore\",\n        \"enim8b\": 87443875.30942503,\n        \"tempor6d\": \"minim elit deserunt reprehenderit\",\n        \"utb\": -75625632\n      },\n      \"mollit_181\": {\n        \"velit9\": \"et\",\n        \"proident_3\": 34211370\n      }\n    },\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                      "createdAt": "2026-07-28T03:05:47.000Z",
+                      "updatedAt": "2026-07-28T03:05:47.000Z",
+                      "uid": "35240-a39678ad-0b87-4e8f-bedd-95ede8106446"
+                    },
+                    {
+                      "id": "7c9a0a53-3529-47a1-bc95-97c036cac980",
+                      "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"exercitation_4c\": {\n        \"exc\": 78164348\n      },\n      \"consequat026\": {\n        \"incf\": -20440851.58863668\n      },\n      \"Excepteur16a\": {\n        \"ea_5\": \"labore Duis\",\n        \"essed_\": 7669108,\n        \"anim08\": -18145600\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/components?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "components"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:47.000Z",
+                      "updatedAt": "2026-07-28T03:05:47.000Z",
+                      "uid": "35240-7c9a0a53-3529-47a1-bc95-97c036cac980"
+                    },
+                    {
+                      "id": "d91fca74-e21f-447e-8a12-53633f4f5b24",
+                      "name": "The request body contained validation errors. Check the error message for details on which fields failed validation.",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"exercitation_4c\": {\n        \"exc\": 78164348\n      },\n      \"consequat026\": {\n        \"incf\": -20440851.58863668\n      },\n      \"Excepteur16a\": {\n        \"ea_5\": \"labore Duis\",\n        \"essed_\": 7669108,\n        \"anim08\": -18145600\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/spaces/:space_id/components?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "spaces",
+                            ":space_id",
+                            "components"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "space_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:47.000Z",
+                      "updatedAt": "2026-07-28T03:05:47.000Z",
+                      "uid": "35240-d91fca74-e21f-447e-8a12-53633f4f5b24"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:47.000Z",
+                  "updatedAt": "2026-07-28T03:05:47.000Z",
+                  "uid": "35240-42315a46-f81c-42f0-9627-cee42c6b80fd"
+                }
+              ],
+              "id": "26b7b865-7f7d-44c2-b602-6ac27f0862da",
+              "createdAt": "2026-07-28T03:05:47.000Z",
+              "updatedAt": "2026-07-28T03:05:47.000Z",
+              "uid": "35240-26b7b865-7f7d-44c2-b602-6ac27f0862da"
+            }
+          ],
+          "id": "85aa89ac-42fa-4f15-ae51-24a5ba387e00",
+          "createdAt": "2026-07-28T03:05:47.000Z",
+          "updatedAt": "2026-07-28T03:05:47.000Z",
+          "uid": "35240-85aa89ac-42fa-4f15-ae51-24a5ba387e00"
+        }
+      ],
+      "id": "166bdd56-fbff-478d-bc75-35df9c9b4584",
+      "createdAt": "2026-07-28T03:05:47.000Z",
+      "updatedAt": "2026-07-28T03:05:47.000Z",
+      "uid": "35240-166bdd56-fbff-478d-bc75-35df9c9b4584"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.storyblok.com/v2/cdn"
+    }
+  ]
+}

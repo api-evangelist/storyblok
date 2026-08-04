@@ -1,0 +1,1644 @@
+openapi: 3.1.0
+info:
+  title: Storyblok Management API
+  description: >-
+    The Storyblok Management API is a REST API that allows developers to
+    programmatically create, read, update, and delete content and configuration
+    within a Storyblok space. It supports managing stories, components, assets,
+    datasources, collaborators, webhooks, and space settings. The API uses OAuth
+    or personal access tokens for authentication and is suitable for building
+    editorial tooling, content migration scripts, CI/CD pipelines, and automated
+    publishing workflows. All write operations are scoped to individual spaces
+    and respect role-based access control.
+  version: '1'
+  contact:
+    name: Storyblok Support
+    url: https://www.storyblok.com/contact
+  termsOfService: https://www.storyblok.com/legal/terms-of-service
+externalDocs:
+  description: Storyblok Management API Documentation
+  url: https://www.storyblok.com/docs/api/management
+servers:
+  - url: https://mapi.storyblok.com/v1
+    description: Management API Production Server
+tags:
+  - name: Assets
+    description: >-
+      Assets are files stored in Storyblok's asset library, including images,
+      documents, and other media. The Management API allows uploading, tagging,
+      and organizing assets.
+  - name: Collaborators
+    description: >-
+      Collaborators are users invited to a Storyblok space with specific roles
+      and permissions. The Management API allows adding, updating, and removing
+      collaborators.
+  - name: Components
+    description: >-
+      Components define the schema and field structure for story content. This
+      includes managing component definitions, field types, and component groups.
+  - name: Datasources
+    description: >-
+      Datasources and their entries can be created and managed via the
+      Management API, enabling programmatic updates to options lists and
+      translations.
+  - name: Spaces
+    description: >-
+      Spaces are the top-level containers in Storyblok. Each space has its own
+      content, components, assets, and settings. The spaces endpoint allows
+      retrieval and management of space metadata and configuration.
+  - name: Stories
+    description: >-
+      Stories are content entries in Storyblok. The Management API provides
+      full CRUD access to stories, including creating drafts, publishing,
+      unpublishing, and bulk operations.
+  - name: Webhooks
+    description: >-
+      Webhooks allow external services to be notified when events occur in a
+      Storyblok space, such as story publication or asset upload. The Management
+      API provides full CRUD operations for webhook configuration.
+security:
+  - personalAccessToken: []
+  - oauthToken: []
+paths:
+  /spaces/{space_id}:
+    get:
+      operationId: getSpace
+      summary: Retrieve a space
+      description: >-
+        Returns the details of a Storyblok space including its name, plan,
+        regional endpoint, domain configuration, language settings, and
+        statistics. This endpoint is useful for validating space access and
+        retrieving configuration needed for other API calls.
+      tags:
+        - Spaces
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+      responses:
+        '200':
+          description: The space details were returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  space:
+                    $ref: '#/components/schemas/Space'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /spaces/{space_id}/stories:
+    get:
+      operationId: listManagementStories
+      summary: List stories in a space
+      description: >-
+        Returns a paginated list of stories in the space. The response includes
+        both published and draft stories. Results can be filtered by folder,
+        publication status, component type, and text search.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: with_tag
+          in: query
+          description: Filter stories that have this tag applied.
+          required: false
+          schema:
+            type: string
+        - name: folder_only
+          in: query
+          description: >-
+            Set to 1 to only return folder stories.
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: story_only
+          in: query
+          description: >-
+            Set to 1 to exclude folder stories from the results.
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: by_slugs
+          in: query
+          description: Comma-separated list of full_slug values to filter by.
+          required: false
+          schema:
+            type: string
+        - name: search
+          in: query
+          description: Text search to filter stories by name.
+          required: false
+          schema:
+            type: string
+        - name: sort_by
+          in: query
+          description: >-
+            Field and direction to sort by, formatted as field:asc or
+            field:desc.
+          required: false
+          schema:
+            type: string
+        - name: starts_with
+          in: query
+          description: Filter stories whose full_slug starts with this prefix.
+          required: false
+          schema:
+            type: string
+        - name: in_trash
+          in: query
+          description: Set to 1 to return only stories in the trash.
+          required: false
+          schema:
+            type: integer
+            enum: [0, 1]
+        - name: in_release
+          in: query
+          description: Filter stories belonging to a specific release ID.
+          required: false
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A paginated list of stories was returned successfully.
+          headers:
+            Total:
+              description: Total number of stories matching the query.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  stories:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ManagementStory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      operationId: createStory
+      summary: Create a story
+      description: >-
+        Creates a new story in the space. The request body must include the
+        story name, slug, and content object. Optionally specify a parent_id
+        to nest the story inside a folder. Stories are created in draft state
+        unless publish is set to 1.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - story
+              properties:
+                story:
+                  $ref: '#/components/schemas/StoryInput'
+                publish:
+                  type: integer
+                  enum: [0, 1]
+                  description: >-
+                    Set to 1 to immediately publish the story after creation.
+      responses:
+        '201':
+          description: The story was created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  story:
+                    $ref: '#/components/schemas/ManagementStory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /spaces/{space_id}/stories/{story_id}:
+    get:
+      operationId: getManagementStory
+      summary: Retrieve a single story
+      description: >-
+        Returns the full details of a single story by its numeric ID, including
+        draft content, workflow state, locks, and publishing history.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/StoryId'
+      responses:
+        '200':
+          description: The story was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  story:
+                    $ref: '#/components/schemas/ManagementStory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      operationId: updateStory
+      summary: Update a story
+      description: >-
+        Updates an existing story's content, metadata, or settings. Only the
+        fields provided in the request body are updated. Set publish to 1 to
+        publish the story as part of the update.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/StoryId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - story
+              properties:
+                story:
+                  $ref: '#/components/schemas/StoryInput'
+                publish:
+                  type: integer
+                  enum: [0, 1]
+                  description: Set to 1 to publish the story as part of this update.
+      responses:
+        '200':
+          description: The story was updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  story:
+                    $ref: '#/components/schemas/ManagementStory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+    delete:
+      operationId: deleteStory
+      summary: Delete a story
+      description: >-
+        Permanently deletes a story from the space. This action cannot be
+        undone. Deleting a folder story also deletes all stories nested within
+        it.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/StoryId'
+      responses:
+        '200':
+          description: The story was deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /spaces/{space_id}/stories/{story_id}/publish:
+    get:
+      operationId: publishStory
+      summary: Publish a story
+      description: >-
+        Publishes the current draft version of a story, making it available
+        via the Content Delivery API with the public token. If the story has
+        a scheduled publication date, this endpoint publishes it immediately
+        regardless of the schedule.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/StoryId'
+        - name: release_id
+          in: query
+          description: >-
+            Publish the story as part of a specific release rather than
+            immediately to production.
+          required: false
+          schema:
+            type: integer
+        - name: lang
+          in: query
+          description: >-
+            Language code to publish a specific translation of the story.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The story was published successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  story:
+                    $ref: '#/components/schemas/ManagementStory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /spaces/{space_id}/stories/{story_id}/unpublish:
+    get:
+      operationId: unpublishStory
+      summary: Unpublish a story
+      description: >-
+        Unpublishes a story, removing it from public access via the Content
+        Delivery API. The story's draft content is preserved and can be
+        republished at any time.
+      tags:
+        - Stories
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/StoryId'
+      responses:
+        '200':
+          description: The story was unpublished successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  story:
+                    $ref: '#/components/schemas/ManagementStory'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /spaces/{space_id}/components:
+    get:
+      operationId: listComponents
+      summary: List components in a space
+      description: >-
+        Returns all component definitions for the space. Components define the
+        content schema used by stories, including field names, types, and
+        validation rules.
+      tags:
+        - Components
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - name: search
+          in: query
+          description: Filter components by name using a partial text match.
+          required: false
+          schema:
+            type: string
+        - name: in_groups
+          in: query
+          description: >-
+            Comma-separated list of component group UUIDs to filter components
+            by their assigned group.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of component definitions was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  components:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Component'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      operationId: createComponent
+      summary: Create a component
+      description: >-
+        Creates a new component definition in the space. The component schema
+        specifies the field definitions that will be available to stories using
+        this component.
+      tags:
+        - Components
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - component
+              properties:
+                component:
+                  $ref: '#/components/schemas/ComponentInput'
+      responses:
+        '201':
+          description: The component was created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  component:
+                    $ref: '#/components/schemas/Component'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /spaces/{space_id}/components/{component_id}:
+    get:
+      operationId: getComponent
+      summary: Retrieve a single component
+      description: >-
+        Returns the full schema definition of a single component by its
+        numeric ID, including all field definitions and their configuration.
+      tags:
+        - Components
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/ComponentId'
+      responses:
+        '200':
+          description: The component was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  component:
+                    $ref: '#/components/schemas/Component'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      operationId: updateComponent
+      summary: Update a component
+      description: >-
+        Updates an existing component definition. Changes to the schema
+        affect all stories that use this component.
+      tags:
+        - Components
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/ComponentId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - component
+              properties:
+                component:
+                  $ref: '#/components/schemas/ComponentInput'
+      responses:
+        '200':
+          description: The component was updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  component:
+                    $ref: '#/components/schemas/Component'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      operationId: deleteComponent
+      summary: Delete a component
+      description: >-
+        Deletes a component definition from the space. Stories that reference
+        this component will retain their existing content but the schema
+        validation will no longer apply.
+      tags:
+        - Components
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/ComponentId'
+      responses:
+        '200':
+          description: The component was deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /spaces/{space_id}/assets:
+    get:
+      operationId: listAssets
+      summary: List assets in a space
+      description: >-
+        Returns a paginated list of assets in the space. Assets can be
+        filtered by content type, folder, and filename search. The response
+        includes the asset URL and metadata.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+        - name: in_folder
+          in: query
+          description: Filter assets within a specific asset folder ID.
+          required: false
+          schema:
+            type: integer
+        - name: search
+          in: query
+          description: Filter assets by filename using a partial text match.
+          required: false
+          schema:
+            type: string
+        - name: content_type
+          in: query
+          description: >-
+            Filter assets by MIME type, such as image/jpeg or
+            application/pdf.
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paginated list of assets was returned successfully.
+          headers:
+            Total:
+              description: Total number of assets matching the query.
+              schema:
+                type: integer
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  assets:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      operationId: signAssetUpload
+      summary: Sign an asset upload
+      description: >-
+        Initiates the asset upload process by requesting a signed upload URL
+        from Storyblok's asset CDN. After receiving the signed URL and form
+        fields, upload the file directly to the CDN using a multipart POST
+        request, then call the asset finalization endpoint.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - filename
+              properties:
+                filename:
+                  type: string
+                  description: The filename of the asset to be uploaded.
+                size:
+                  type: string
+                  description: The file size in bytes as a string.
+                content_type:
+                  type: string
+                  description: The MIME type of the file, such as image/jpeg.
+                asset_folder_id:
+                  type: integer
+                  description: >-
+                    Optional ID of the asset folder to place the uploaded
+                    asset in.
+      responses:
+        '200':
+          description: The signed upload URL was returned successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssetUploadResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /spaces/{space_id}/assets/{asset_id}:
+    get:
+      operationId: getAsset
+      summary: Retrieve a single asset
+      description: >-
+        Returns the full metadata for a single asset by its numeric ID,
+        including its CDN URL, dimensions, content type, and associated tags.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/AssetId'
+      responses:
+        '200':
+          description: The asset was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  asset:
+                    $ref: '#/components/schemas/Asset'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      operationId: deleteAsset
+      summary: Delete an asset
+      description: >-
+        Permanently deletes an asset from the space's asset library and removes
+        it from the CDN. This action cannot be undone. Stories referencing this
+        asset will display broken media after deletion.
+      tags:
+        - Assets
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/AssetId'
+      responses:
+        '200':
+          description: The asset was deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /spaces/{space_id}/datasources:
+    get:
+      operationId: listManagementDatasources
+      summary: List datasources in a space
+      description: >-
+        Returns all datasources defined in the space. Use this endpoint to
+        enumerate available datasources before creating, updating, or deleting
+        their entries.
+      tags:
+        - Datasources
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PerPage'
+      responses:
+        '200':
+          description: A list of datasources was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasources:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/ManagementDatasource'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      operationId: createDatasource
+      summary: Create a datasource
+      description: >-
+        Creates a new datasource in the space. Optionally define dimensions to
+        support locale-specific or variant values alongside the default entries.
+      tags:
+        - Datasources
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - datasource
+              properties:
+                datasource:
+                  $ref: '#/components/schemas/DatasourceInput'
+      responses:
+        '201':
+          description: The datasource was created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  datasource:
+                    $ref: '#/components/schemas/ManagementDatasource'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /spaces/{space_id}/collaborators:
+    get:
+      operationId: listCollaborators
+      summary: List collaborators in a space
+      description: >-
+        Returns a list of all collaborators who have access to the space,
+        including their roles, permissions, and invitation status.
+      tags:
+        - Collaborators
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+      responses:
+        '200':
+          description: A list of collaborators was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  collaborators:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Collaborator'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      operationId: addCollaborator
+      summary: Add a collaborator
+      description: >-
+        Invites a user to the space by email address and assigns them a role.
+        If the user already has a Storyblok account they will be added
+        immediately; otherwise an invitation email is sent.
+      tags:
+        - Collaborators
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - collaborator
+              properties:
+                collaborator:
+                  $ref: '#/components/schemas/CollaboratorInput'
+      responses:
+        '201':
+          description: The collaborator was added successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  collaborator:
+                    $ref: '#/components/schemas/Collaborator'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /spaces/{space_id}/collaborators/{collaborator_id}:
+    delete:
+      operationId: deleteCollaborator
+      summary: Remove a collaborator
+      description: >-
+        Removes a collaborator from the space, revoking their access. The
+        user's Storyblok account is not deleted; they simply lose access to
+        this space.
+      tags:
+        - Collaborators
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - name: collaborator_id
+          in: path
+          description: Numeric ID of the collaborator to remove.
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: The collaborator was removed successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /spaces/{space_id}/webhook_endpoints:
+    get:
+      operationId: listWebhooks
+      summary: List webhook endpoints
+      description: >-
+        Returns all webhook endpoints configured for the space, including their
+        target URLs, event subscriptions, and optional secret configuration.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+      responses:
+        '200':
+          description: A list of webhook endpoints was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhook_endpoints:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+    post:
+      operationId: createWebhook
+      summary: Create a webhook endpoint
+      description: >-
+        Registers a new webhook endpoint to receive event notifications from
+        the space. Specify the target URL, the events to subscribe to, and an
+        optional secret for signature validation.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - webhook_endpoint
+              properties:
+                webhook_endpoint:
+                  $ref: '#/components/schemas/WebhookEndpointInput'
+      responses:
+        '201':
+          description: The webhook endpoint was created successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhook_endpoint:
+                    $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '422':
+          $ref: '#/components/responses/UnprocessableEntity'
+
+  /spaces/{space_id}/webhook_endpoints/{webhook_id}:
+    get:
+      operationId: getWebhook
+      summary: Retrieve a single webhook endpoint
+      description: >-
+        Returns the configuration of a single webhook endpoint by its
+        numeric ID.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '200':
+          description: The webhook endpoint was returned successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhook_endpoint:
+                    $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    put:
+      operationId: updateWebhook
+      summary: Update a webhook endpoint
+      description: >-
+        Updates an existing webhook endpoint's URL, subscribed events, or
+        secret key.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/WebhookId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - webhook_endpoint
+              properties:
+                webhook_endpoint:
+                  $ref: '#/components/schemas/WebhookEndpointInput'
+      responses:
+        '200':
+          description: The webhook endpoint was updated successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  webhook_endpoint:
+                    $ref: '#/components/schemas/WebhookEndpoint'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+    delete:
+      operationId: deleteWebhook
+      summary: Delete a webhook endpoint
+      description: >-
+        Permanently removes a webhook endpoint from the space. No further
+        event notifications will be sent to the associated URL.
+      tags:
+        - Webhooks
+      parameters:
+        - $ref: '#/components/parameters/SpaceId'
+        - $ref: '#/components/parameters/WebhookId'
+      responses:
+        '200':
+          description: The webhook endpoint was deleted successfully.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    personalAccessToken:
+      type: http
+      scheme: bearer
+      description: >-
+        Personal access token generated in the Storyblok account settings.
+        Provides access to all spaces the account has permissions for.
+    oauthToken:
+      type: http
+      scheme: bearer
+      description: >-
+        OAuth 2.0 access token for third-party application integrations.
+        Scoped to specific spaces and permissions granted during authorization.
+
+  parameters:
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+
+    StoryId:
+      name: story_id
+      in: path
+      description: Numeric ID of the story.
+      required: true
+      schema:
+        type: integer
+      example: 67890
+
+    ComponentId:
+      name: component_id
+      in: path
+      description: Numeric ID of the component.
+      required: true
+      schema:
+        type: integer
+      example: 11111
+
+    AssetId:
+      name: asset_id
+      in: path
+      description: Numeric ID of the asset.
+      required: true
+      schema:
+        type: integer
+      example: 22222
+
+    WebhookId:
+      name: webhook_id
+      in: path
+      description: Numeric ID of the webhook endpoint.
+      required: true
+      schema:
+        type: integer
+      example: 33333
+
+    Page:
+      name: page
+      in: query
+      description: Page number for paginated results, starting at 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of results per page. Maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+
+  responses:
+    Unauthorized:
+      description: >-
+        Authentication failed. Verify the Authorization header contains a
+        valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+    UnprocessableEntity:
+      description: >-
+        The request body contained validation errors. Check the error message
+        for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Space:
+      type: object
+      description: >-
+        A Storyblok space containing all content, components, assets, and
+        settings for a project.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the space.
+        name:
+          type: string
+          description: Display name of the space.
+        domain:
+          type: string
+          description: Primary domain associated with the space for preview links.
+        version:
+          type: integer
+          description: Current cache version of the space content.
+        languages:
+          type: array
+          description: List of language codes supported by this space.
+          items:
+            type: string
+        default_lang:
+          type: string
+          description: Default language code for the space.
+        plan:
+          type: string
+          description: Current subscription plan name for the space.
+        plan_level:
+          type: integer
+          description: Numeric plan level indicating feature availability.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp of when the space was created.
+        stories_count:
+          type: integer
+          description: Total number of stories in the space.
+        assets_count:
+          type: integer
+          description: Total number of assets in the space.
+        collaborators_count:
+          type: integer
+          description: Total number of collaborators with access to the space.
+
+    ManagementStory:
+      type: object
+      description: >-
+        A story as returned by the Management API, including draft content,
+        workflow state, and editorial metadata not available via the Content
+        Delivery API.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the story.
+        uuid:
+          type: string
+          format: uuid
+          description: Universally unique identifier of the story.
+        name:
+          type: string
+          description: Display name of the story in the editor.
+        slug:
+          type: string
+          description: URL-safe slug within the parent folder.
+        full_slug:
+          type: string
+          description: Full path including parent folder slugs.
+        content:
+          type: object
+          description: Story content as a nested JSON object defined by the component schema.
+          additionalProperties: true
+        is_folder:
+          type: boolean
+          description: True if this story is a folder.
+        is_startpage:
+          type: boolean
+          description: True if this story is the start page of its folder.
+        parent_id:
+          type: integer
+          nullable: true
+          description: Numeric ID of the parent folder, or null if at root.
+        group_id:
+          type: string
+          format: uuid
+          description: UUID grouping alternate language versions of this story.
+        published:
+          type: boolean
+          description: True if the story currently has a published version.
+        published_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the most recent publication.
+        first_published_at:
+          type: string
+          format: date-time
+          nullable: true
+          description: Timestamp of the first publication.
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last modification timestamp.
+        tag_list:
+          type: array
+          description: Tag slugs attached to this story.
+          items:
+            type: string
+        pinned:
+          type: boolean
+          description: True if the story is pinned in the editor for quick access.
+        position:
+          type: integer
+          description: Sort position within the parent folder.
+        meta_data:
+          type: object
+          nullable: true
+          description: Custom metadata object attached to the story.
+          additionalProperties: true
+        default_root:
+          type: string
+          nullable: true
+          description: Default component type allowed at the root of this story.
+        is_demo:
+          type: boolean
+          description: True if this is a demo story.
+
+    StoryInput:
+      type: object
+      description: Input object for creating or updating a story.
+      required:
+        - name
+        - slug
+        - content
+      properties:
+        name:
+          type: string
+          description: Display name of the story shown in the editor.
+        slug:
+          type: string
+          description: URL-safe slug segment within the parent folder.
+        content:
+          type: object
+          description: >-
+            Story content as a JSON object. Must include a component field
+            with the component type name.
+          additionalProperties: true
+        parent_id:
+          type: integer
+          description: Numeric ID of the parent folder story.
+        is_startpage:
+          type: boolean
+          description: Set to true to mark this story as the folder start page.
+        tag_list:
+          type: array
+          description: Tag slugs to attach to the story.
+          items:
+            type: string
+        pinned:
+          type: boolean
+          description: Set to true to pin the story in the editor.
+        meta_data:
+          type: object
+          description: Custom metadata key-value pairs.
+          additionalProperties: true
+        sort_by_date:
+          type: string
+          description: Optional date string for custom date-based sorting.
+        path:
+          type: string
+          description: Custom URL path override for the story.
+        default_root:
+          type: string
+          description: Default root component type for this story.
+
+    Component:
+      type: object
+      description: >-
+        A component definition specifying the content schema for a story type,
+        including all field definitions and their validation rules.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the component.
+        name:
+          type: string
+          description: Display name and technical identifier of the component.
+        display_name:
+          type: string
+          nullable: true
+          description: Optional human-readable display name overriding the technical name.
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last modification timestamp.
+        schema:
+          type: object
+          description: >-
+            Map of field names to field definition objects. Each field
+            definition includes a type and optional validation configuration.
+          additionalProperties:
+            type: object
+            additionalProperties: true
+        is_root:
+          type: boolean
+          description: True if this component can be used as the root of a story.
+        is_nestable:
+          type: boolean
+          description: True if this component can be nested inside other components.
+        component_group_uuid:
+          type: string
+          format: uuid
+          nullable: true
+          description: UUID of the component group this component belongs to.
+
+    ComponentInput:
+      type: object
+      description: Input object for creating or updating a component definition.
+      required:
+        - name
+        - schema
+      properties:
+        name:
+          type: string
+          description: Technical name identifier for the component.
+        display_name:
+          type: string
+          description: Optional human-readable display name.
+        schema:
+          type: object
+          description: Field definitions map.
+          additionalProperties:
+            type: object
+            additionalProperties: true
+        is_root:
+          type: boolean
+          description: Set to true to allow this component as a story root.
+        is_nestable:
+          type: boolean
+          description: Set to true to allow nesting inside other components.
+        component_group_uuid:
+          type: string
+          format: uuid
+          description: UUID of the component group to assign this component to.
+
+    Asset:
+      type: object
+      description: >-
+        An asset stored in Storyblok's asset library, including its CDN URL,
+        content type, dimensions, and editorial metadata.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the asset.
+        filename:
+          type: string
+          description: >-
+            Full CDN URL of the asset, used to reference the asset in
+            story content.
+        content_type:
+          type: string
+          description: MIME type of the asset file.
+        content_length:
+          type: integer
+          description: File size in bytes.
+        asset_folder_id:
+          type: integer
+          nullable: true
+          description: ID of the asset folder this asset belongs to.
+        created_at:
+          type: string
+          format: date-time
+          description: Upload timestamp.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last modification timestamp.
+        is_private:
+          type: boolean
+          description: True if access to this asset requires authentication.
+        alt:
+          type: string
+          nullable: true
+          description: Alt text for the asset, used for accessibility.
+        title:
+          type: string
+          nullable: true
+          description: Display title for the asset.
+        copyright:
+          type: string
+          nullable: true
+          description: Copyright or attribution text for the asset.
+        focus:
+          type: string
+          nullable: true
+          description: >-
+            Focal point coordinates used by the image service for smart
+            cropping, formatted as x:y.
+
+    AssetUploadResponse:
+      type: object
+      description: >-
+        Response from the asset upload signing endpoint containing the
+        CDN upload URL and required form fields.
+      properties:
+        id:
+          type: integer
+          description: Numeric ID of the new asset record created in Storyblok.
+        filename:
+          type: string
+          description: The final CDN URL the asset will be available at once uploaded.
+        post_url:
+          type: string
+          description: The CDN endpoint URL to POST the file upload to.
+        fields:
+          type: object
+          description: >-
+            Form fields that must be included in the multipart upload POST
+            to the CDN, including the signed authorization fields.
+          additionalProperties:
+            type: string
+
+    ManagementDatasource:
+      type: object
+      description: Datasource as returned by the Management API.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier.
+        name:
+          type: string
+          description: Human-readable name.
+        slug:
+          type: string
+          description: URL-safe identifier used to query entries.
+        dimensions:
+          type: array
+          description: Dimensions enabling locale-specific or variant entry values.
+          items:
+            type: object
+            properties:
+              id:
+                type: integer
+                description: Dimension ID.
+              name:
+                type: string
+                description: Dimension display name.
+              entry_value:
+                type: string
+                description: Dimension slug.
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last modification timestamp.
+
+    DatasourceInput:
+      type: object
+      description: Input for creating or updating a datasource.
+      required:
+        - name
+        - slug
+      properties:
+        name:
+          type: string
+          description: Display name for the datasource.
+        slug:
+          type: string
+          description: URL-safe identifier slug.
+
+    Collaborator:
+      type: object
+      description: >-
+        A collaborator with access to the space, including their role assignment
+        and invitation status.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the collaborator record.
+        user_id:
+          type: integer
+          description: Numeric ID of the associated Storyblok user account.
+        role:
+          type: string
+          description: >-
+            Role assigned to the collaborator. Built-in roles are admin,
+            editor, and viewer.
+          enum: [admin, editor, viewer]
+        invited:
+          type: boolean
+          description: True if an invitation email was sent and not yet accepted.
+        space_role_id:
+          type: integer
+          nullable: true
+          description: ID of a custom space role if a custom role is assigned.
+        space_role_ids:
+          type: array
+          description: List of custom space role IDs assigned to this collaborator.
+          items:
+            type: integer
+        user:
+          type: object
+          description: Basic user profile information.
+          properties:
+            userid:
+              type: string
+              description: Storyblok username.
+            email:
+              type: string
+              format: email
+              description: Email address of the collaborator.
+            avatar:
+              type: string
+              nullable: true
+              description: URL of the user's avatar image.
+            friendly_name:
+              type: string
+              description: Display name of the user.
+
+    CollaboratorInput:
+      type: object
+      description: Input for inviting a collaborator to a space.
+      required:
+        - email
+        - role
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address of the user to invite.
+        role:
+          type: string
+          description: Role to assign to the collaborator.
+          enum: [admin, editor, viewer]
+        space_role_id:
+          type: integer
+          description: ID of a custom space role to assign instead of a built-in role.
+
+    WebhookEndpoint:
+      type: object
+      description: >-
+        A webhook endpoint that receives event notifications from the space
+        when configured actions occur.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the webhook endpoint.
+        url:
+          type: string
+          format: uri
+          description: Target URL that receives the POST request when an event fires.
+        name:
+          type: string
+          description: Optional display name for the webhook endpoint.
+        actions:
+          type: array
+          description: >-
+            List of event action strings this webhook is subscribed to,
+            such as story.published or asset.created.
+          items:
+            type: string
+        description:
+          type: string
+          nullable: true
+          description: Optional description of the webhook's purpose.
+        secret:
+          type: string
+          nullable: true
+          description: >-
+            Webhook secret key used to generate the webhook-signature HMAC-SHA1
+            header for payload verification. Only visible on creation.
+        activated:
+          type: boolean
+          description: True if the webhook endpoint is active and will receive events.
+        created_at:
+          type: string
+          format: date-time
+          description: Creation timestamp.
+        updated_at:
+          type: string
+          format: date-time
+          description: Last update timestamp.
+
+    WebhookEndpointInput:
+      type: object
+      description: Input for creating or updating a webhook endpoint.
+      required:
+        - url
+        - actions
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Target URL that will receive POST requests on events.
+        name:
+          type: string
+          description: Optional display name for the webhook endpoint.
+        actions:
+          type: array
+          description: >-
+            Event action strings to subscribe to. Valid actions include
+            story.published, story.unpublished, story.deleted, story.moved,
+            asset.created, asset.deleted, datasource.entries_updated.
+          items:
+            type: string
+        description:
+          type: string
+          description: Optional description of the webhook's purpose.
+        secret:
+          type: string
+          description: >-
+            Optional secret key used to sign the webhook-signature header
+            for payload integrity verification.
+        activated:
+          type: boolean
+          description: Set to false to disable the webhook without deleting it.
+
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.

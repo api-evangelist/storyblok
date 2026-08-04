@@ -1,0 +1,684 @@
+{
+  "info": {
+    "_postman_id": "de436e36-7dc6-4c88-b3ce-d529ac0d66ec",
+    "name": "Storyblok Content Delivery API v2 Assets Image Transformation API",
+    "description": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T03:05:49.000Z",
+    "updatedAt": "2026-07-28T03:05:49.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-de436e36-7dc6-4c88-b3ce-d529ac0d66ec"
+  },
+  "item": [
+    {
+      "name": "{asset_path}",
+      "item": [
+        {
+          "name": "m",
+          "item": [
+            {
+              "name": "{width}x{height}",
+              "item": [
+                {
+                  "name": "filters:{filter_chain}",
+                  "item": [
+                    {
+                      "name": "Transform image with resize and filter chain",
+                      "id": "27fd1a09-945a-4eb9-9b4d-963c52d0c41f",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "image/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:asset_path/m/{{width}}x{{height}}/filters:{{filter_chain}}",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":asset_path",
+                            "m",
+                            "{{width}}x{{height}}",
+                            "filters:{{filter_chain}}"
+                          ],
+                          "variable": [
+                            {
+                              "id": "830e3553-fc04-4944-b1ba-5f1ad761aca9",
+                              "key": "asset_path",
+                              "value": "<string>",
+                              "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                            }
+                          ]
+                        },
+                        "description": "Returns the image after applying a resize operation and one or more filters. Filters are chained using colons in the filter_chain path segment. Supported filter functions include format(webp|jpeg|png|avif), quality(0-100), fill(color_hex), blur(amount), grayscale(), focal(x:y), rotate(degrees), brightness(amount), and crop(top_left_x, top_left_y, bottom_right_x, bottom_right_y). Multiple filters are separated by colons, for example filters:format(webp):quality(80)."
+                      },
+                      "response": [
+                        {
+                          "id": "4dea567d-0a36-423c-93bb-5cc02eaa86ee",
+                          "name": "The transformed image was returned successfully.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "image/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:asset_path/m/{{width}}x{{height}}/filters:{{filter_chain}}?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":asset_path",
+                                "m",
+                                "{{width}}x{{height}}",
+                                "filters:{{filter_chain}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "asset_path"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "image/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<binary>",
+                          "createdAt": "2026-07-28T03:05:49.000Z",
+                          "updatedAt": "2026-07-28T03:05:49.000Z",
+                          "uid": "35240-4dea567d-0a36-423c-93bb-5cc02eaa86ee"
+                        },
+                        {
+                          "id": "70b825eb-2a2c-4041-8d26-bb124314bd6f",
+                          "name": "The requested asset was not found at the given path.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:asset_path/m/{{width}}x{{height}}/filters:{{filter_chain}}?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":asset_path",
+                                "m",
+                                "{{width}}x{{height}}",
+                                "filters:{{filter_chain}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "asset_path"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:49.000Z",
+                          "updatedAt": "2026-07-28T03:05:49.000Z",
+                          "uid": "35240-70b825eb-2a2c-4041-8d26-bb124314bd6f"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:49.000Z",
+                      "updatedAt": "2026-07-28T03:05:49.000Z",
+                      "uid": "35240-27fd1a09-945a-4eb9-9b4d-963c52d0c41f"
+                    }
+                  ],
+                  "id": "53fb48fb-6ce0-462c-8e37-3c740be4875a",
+                  "createdAt": "2026-07-28T03:05:49.000Z",
+                  "updatedAt": "2026-07-28T03:05:49.000Z",
+                  "uid": "35240-53fb48fb-6ce0-462c-8e37-3c740be4875a"
+                },
+                {
+                  "name": "Resize an image to specified dimensions",
+                  "id": "043c2080-4747-4791-b4c1-2dbb7850e83e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "image/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:asset_path/m/{{width}}x{{height}}",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":asset_path",
+                        "m",
+                        "{{width}}x{{height}}"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f2d44ae6-e68d-482a-86f2-5d323a058a8f",
+                          "key": "asset_path",
+                          "value": "<string>",
+                          "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                        }
+                      ]
+                    },
+                    "description": "Returns the image resized to the specified width and height in pixels. If only width is provided (e.g., 500x0), the height is scaled proportionally. If only height is provided (e.g., 0x300), the width is scaled proportionally. Both dimensions set to 0 returns the original size."
+                  },
+                  "response": [
+                    {
+                      "id": "7afa42c3-f08e-4fb2-b44b-6b2cce3682e1",
+                      "name": "The resized image was returned successfully.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "image/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:asset_path/m/{{width}}x{{height}}?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":asset_path",
+                            "m",
+                            "{{width}}x{{height}}"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "asset_path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "text",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "image/*"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "<binary>",
+                      "createdAt": "2026-07-28T03:05:49.000Z",
+                      "updatedAt": "2026-07-28T03:05:49.000Z",
+                      "uid": "35240-7afa42c3-f08e-4fb2-b44b-6b2cce3682e1"
+                    },
+                    {
+                      "id": "535a1884-a681-49a9-b87d-c257bd610c01",
+                      "name": "The requested asset was not found at the given path.",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:asset_path/m/{{width}}x{{height}}?token=<API Key>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":asset_path",
+                            "m",
+                            "{{width}}x{{height}}"
+                          ],
+                          "query": [
+                            {
+                              "description": "Added as a part of security scheme: apikey",
+                              "key": "token",
+                              "value": "<API Key>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "asset_path"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T03:05:49.000Z",
+                      "updatedAt": "2026-07-28T03:05:49.000Z",
+                      "uid": "35240-535a1884-a681-49a9-b87d-c257bd610c01"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T03:05:49.000Z",
+                  "updatedAt": "2026-07-28T03:05:49.000Z",
+                  "uid": "35240-043c2080-4747-4791-b4c1-2dbb7850e83e"
+                }
+              ],
+              "id": "f8895080-1c30-4e85-bb42-287123417022",
+              "createdAt": "2026-07-28T03:05:49.000Z",
+              "updatedAt": "2026-07-28T03:05:49.000Z",
+              "uid": "35240-f8895080-1c30-4e85-bb42-287123417022"
+            },
+            {
+              "name": "fit-in",
+              "item": [
+                {
+                  "name": "{width}x{height}",
+                  "item": [
+                    {
+                      "name": "Fit image within specified dimensions without cropping",
+                      "id": "b19a5ae9-6ee1-4f66-9947-4d4f1d10c887",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "image/*"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/:asset_path/m/fit-in/{{width}}x{{height}}",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            ":asset_path",
+                            "m",
+                            "fit-in",
+                            "{{width}}x{{height}}"
+                          ],
+                          "variable": [
+                            {
+                              "id": "da64cb9b-1206-4bc9-97a1-8dc8ef5c1af1",
+                              "key": "asset_path",
+                              "value": "<string>",
+                              "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                            }
+                          ]
+                        },
+                        "description": "Returns the image scaled to fit within the specified width and height while maintaining aspect ratio and without cropping. The resulting image will not exceed the specified dimensions but may be smaller if the aspect ratios differ. Combine with a fill filter to pad the background color."
+                      },
+                      "response": [
+                        {
+                          "id": "4a7f21e9-d85c-4ea3-9db0-6cfdd3fdf26f",
+                          "name": "The fit-in image was returned successfully.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "image/*"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:asset_path/m/fit-in/{{width}}x{{height}}?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":asset_path",
+                                "m",
+                                "fit-in",
+                                "{{width}}x{{height}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "asset_path"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "text",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "image/*"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "<binary>",
+                          "createdAt": "2026-07-28T03:05:49.000Z",
+                          "updatedAt": "2026-07-28T03:05:49.000Z",
+                          "uid": "35240-4a7f21e9-d85c-4ea3-9db0-6cfdd3fdf26f"
+                        },
+                        {
+                          "id": "84cbf036-de74-4a40-b88b-672fc033a8a0",
+                          "name": "The requested asset was not found at the given path.",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/:asset_path/m/fit-in/{{width}}x{{height}}?token=<API Key>",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                ":asset_path",
+                                "m",
+                                "fit-in",
+                                "{{width}}x{{height}}"
+                              ],
+                              "query": [
+                                {
+                                  "description": "Added as a part of security scheme: apikey",
+                                  "key": "token",
+                                  "value": "<API Key>"
+                                }
+                              ],
+                              "variable": [
+                                {
+                                  "key": "asset_path"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T03:05:49.000Z",
+                          "updatedAt": "2026-07-28T03:05:49.000Z",
+                          "uid": "35240-84cbf036-de74-4a40-b88b-672fc033a8a0"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T03:05:49.000Z",
+                      "updatedAt": "2026-07-28T03:05:49.000Z",
+                      "uid": "35240-b19a5ae9-6ee1-4f66-9947-4d4f1d10c887"
+                    }
+                  ],
+                  "id": "e839b652-fbd9-45a9-b5d6-1c8b083fbcc8",
+                  "createdAt": "2026-07-28T03:05:49.000Z",
+                  "updatedAt": "2026-07-28T03:05:49.000Z",
+                  "uid": "35240-e839b652-fbd9-45a9-b5d6-1c8b083fbcc8"
+                }
+              ],
+              "id": "dd9a01fb-2701-40e6-b80b-313858feea02",
+              "createdAt": "2026-07-28T03:05:49.000Z",
+              "updatedAt": "2026-07-28T03:05:49.000Z",
+              "uid": "35240-dd9a01fb-2701-40e6-b80b-313858feea02"
+            },
+            {
+              "name": "Retrieve original image with transformation routing enabled",
+              "id": "6eba4068-050e-41a4-8e3f-21f837a669bb",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "image/*"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/:asset_path/m/",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    ":asset_path",
+                    "m",
+                    ""
+                  ],
+                  "variable": [
+                    {
+                      "id": "7b6ee71e-2c11-475a-83a4-6c3aaa86a871",
+                      "key": "asset_path",
+                      "value": "<string>",
+                      "description": "(Required) The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg."
+                    }
+                  ]
+                },
+                "description": "Returns the original image without any transformation. The /m/ path segment activates the Image Service transformation routing for all subsequent operations. Any further path segments after /m/ apply transformations such as resizing, cropping, and filter effects."
+              },
+              "response": [
+                {
+                  "id": "4fabd2ff-f41f-4997-b176-caab12845c66",
+                  "name": "The image was returned successfully.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "image/*"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:asset_path/m/?token=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":asset_path",
+                        "m",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "token",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "asset_path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "image/*"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "<binary>",
+                  "createdAt": "2026-07-28T03:05:49.000Z",
+                  "updatedAt": "2026-07-28T03:05:49.000Z",
+                  "uid": "35240-4fabd2ff-f41f-4997-b176-caab12845c66"
+                },
+                {
+                  "id": "9deac30a-d4d2-444c-b8e4-b9830a7fa950",
+                  "name": "The requested asset was not found at the given path.",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/:asset_path/m/?token=<API Key>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        ":asset_path",
+                        "m",
+                        ""
+                      ],
+                      "query": [
+                        {
+                          "description": "Added as a part of security scheme: apikey",
+                          "key": "token",
+                          "value": "<API Key>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "key": "asset_path"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T03:05:49.000Z",
+                  "updatedAt": "2026-07-28T03:05:49.000Z",
+                  "uid": "35240-9deac30a-d4d2-444c-b8e4-b9830a7fa950"
+                }
+              ],
+              "createdAt": "2026-07-28T03:05:49.000Z",
+              "updatedAt": "2026-07-28T03:05:49.000Z",
+              "uid": "35240-6eba4068-050e-41a4-8e3f-21f837a669bb"
+            }
+          ],
+          "id": "edc4c674-6cf3-4f93-84b9-72d2d4f1e805",
+          "createdAt": "2026-07-28T03:05:49.000Z",
+          "updatedAt": "2026-07-28T03:05:49.000Z",
+          "uid": "35240-edc4c674-6cf3-4f93-84b9-72d2d4f1e805"
+        }
+      ],
+      "id": "56328552-d610-4f51-8f36-8c2d963a80ba",
+      "createdAt": "2026-07-28T03:05:49.000Z",
+      "updatedAt": "2026-07-28T03:05:49.000Z",
+      "uid": "35240-56328552-d610-4f51-8f36-8c2d963a80ba"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token",
+        "type": "string"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}",
+        "type": "string"
+      },
+      {
+        "key": "in",
+        "value": "query",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.storyblok.com/v2/cdn"
+    },
+    {
+      "key": "width",
+      "value": "<integer>"
+    },
+    {
+      "key": "height",
+      "value": "<integer>"
+    },
+    {
+      "key": "filter_chain",
+      "value": "<string>"
+    }
+  ]
+}
