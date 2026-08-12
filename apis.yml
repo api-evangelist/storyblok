@@ -253,6 +253,10 @@ apis:
   - type: Documentation
     url: https://www.storyblok.com/docs/image-service
 common:
+- type: MCPServer
+  url: mcp/storyblok-mcp.yml
+- type: Overlay
+  url: overlays/storyblok-content-delivery-api-v2-overlay.yaml
 - type: PostmanWorkspace
   url: https://www.postman.com/kinlaneapi/storyblok/overview
 - type: AgenticAccess
