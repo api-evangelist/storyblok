@@ -35,7 +35,7 @@ tags:
 created: '2026-05-02'
 modified: '2026-06-20'
 url: https://raw.githubusercontent.com/api-evangelist/storyblok/refs/heads/main/apis.yml
-specificationVersion: '0.19'
+specificationVersion: '0.23'
 apis:
 - aid: storyblok:storyblok-webhooks
   name: Storyblok Webhooks
