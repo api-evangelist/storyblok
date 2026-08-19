@@ -1,0 +1,1167 @@
+{
+  "item": [
+    {
+      "id": "45811b17-4e38-42f3-a8e5-5614ebf27118",
+      "name": "Components",
+      "description": {
+        "content": "Components define the schema and field structure for story content. This includes managing component definitions, field types, and component groups.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "779257ae-67df-412b-a4fc-1b3b41a28bcc",
+          "name": "List components in a space",
+          "request": {
+            "name": "List components in a space",
+            "description": {
+              "content": "Returns all component definitions for the space. Components define the content schema used by stories, including field names, types, and validation rules.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "components"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter components by name using a partial text match."
+                },
+                {
+                  "disabled": false,
+                  "key": "in_groups",
+                  "value": "<string>",
+                  "description": "Comma-separated list of component group UUIDs to filter components by their assigned group."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "604a7156-56c8-46b8-9c54-20180a58611d",
+              "name": "A list of component definitions was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "in_groups",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"components\": [\n    {\n      \"id\": 1820,\n      \"name\": \"string\",\n      \"display_name\": \"string\",\n      \"created_at\": \"1967-10-03T04:07:16.953Z\",\n      \"updated_at\": \"1948-04-06T17:24:11.229Z\",\n      \"schema\": {\n        \"key_0\": {\n          \"key_0\": false\n        }\n      },\n      \"is_root\": true,\n      \"is_nestable\": true,\n      \"component_group_uuid\": \"a6e81218-7ea4-76e5-d73b-e4e01c4af03a\"\n    },\n    {\n      \"id\": 295,\n      \"name\": \"string\",\n      \"display_name\": \"string\",\n      \"created_at\": \"2009-07-02T12:16:43.413Z\",\n      \"updated_at\": \"1993-08-03T00:55:05.673Z\",\n      \"schema\": {\n        \"key_0\": {\n          \"key_0\": \"string\"\n        },\n        \"key_1\": {\n          \"key_0\": \"string\",\n          \"key_1\": 1189\n        }\n      },\n      \"is_root\": true,\n      \"is_nestable\": false,\n      \"component_group_uuid\": \"6524a4d5-f53c-7e11-d0b2-8b4e34e6fcff\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "df876a69-7b17-4295-84bb-c07470b0942f",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "in_groups",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "423e0e4f-926a-4a42-80ff-c7857df21786",
+          "name": "Create a component",
+          "request": {
+            "name": "Create a component",
+            "description": {
+              "content": "Creates a new component definition in the space. The component schema specifies the field definitions that will be available to stories using this component.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "components"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": 3633,\n        \"key_1\": true\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "16c679bf-cdde-4833-ab7c-5f2e8984cc25",
+              "name": "The component was created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component\": {\n    \"name\": \"string\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 2494\n      }\n    },\n    \"display_name\": \"string\",\n    \"is_root\": true,\n    \"is_nestable\": false,\n    \"component_group_uuid\": \"e46b0c56-9f89-89cf-b420-5f1c4e841e89\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"component\": {\n    \"id\": 7412,\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"created_at\": \"1964-02-13T19:45:48.119Z\",\n    \"updated_at\": \"1951-05-27T09:39:20.171Z\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 8929.201771331156\n      },\n      \"key_2\": {\n        \"key_0\": true,\n        \"key_1\": 864,\n        \"key_2\": 3730\n      }\n    },\n    \"is_root\": false,\n    \"is_nestable\": false,\n    \"component_group_uuid\": \"af770929-5143-fa78-2997-81907049f38e\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0efb8653-c37a-402c-9ab5-cb3bc7ab31da",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component\": {\n    \"name\": \"string\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 2494\n      }\n    },\n    \"display_name\": \"string\",\n    \"is_root\": true,\n    \"is_nestable\": false,\n    \"component_group_uuid\": \"e46b0c56-9f89-89cf-b420-5f1c4e841e89\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6885d807-b9bf-4079-b787-402f01906442",
+              "name": "The request body contained validation errors. Check the error message for details on which fields failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component\": {\n    \"name\": \"string\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 2494\n      }\n    },\n    \"display_name\": \"string\",\n    \"is_root\": true,\n    \"is_nestable\": false,\n    \"component_group_uuid\": \"e46b0c56-9f89-89cf-b420-5f1c4e841e89\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "38489832-5946-4cc2-aaf0-08b94e63e045",
+          "name": "Retrieve a single component",
+          "request": {
+            "name": "Retrieve a single component",
+            "description": {
+              "content": "Returns the full schema definition of a single component by its numeric ID, including all field definitions and their configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "components",
+                ":component_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "component_id",
+                  "description": "(Required) Numeric ID of the component."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "baab1255-8f53-451f-aff5-1223ecc4cabb",
+              "name": "The component was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components",
+                    ":component_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "component_id",
+                      "description": "(Required) Numeric ID of the component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"component\": {\n    \"id\": 7412,\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"created_at\": \"1964-02-13T19:45:48.119Z\",\n    \"updated_at\": \"1951-05-27T09:39:20.171Z\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 8929.201771331156\n      },\n      \"key_2\": {\n        \"key_0\": true,\n        \"key_1\": 864,\n        \"key_2\": 3730\n      }\n    },\n    \"is_root\": false,\n    \"is_nestable\": false,\n    \"component_group_uuid\": \"af770929-5143-fa78-2997-81907049f38e\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c4c60508-3703-47f6-913d-aaecd8893d35",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components",
+                    ":component_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "component_id",
+                      "description": "(Required) Numeric ID of the component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5e7b6820-399f-42d4-aad2-9513cb5ea230",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components",
+                    ":component_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "component_id",
+                      "description": "(Required) Numeric ID of the component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e22d6e63-fbb1-422b-a9da-5b1bbf39b42b",
+          "name": "Update a component",
+          "request": {
+            "name": "Update a component",
+            "description": {
+              "content": "Updates an existing component definition. Changes to the schema affect all stories that use this component.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "components",
+                ":component_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "component_id",
+                  "description": "(Required) Numeric ID of the component."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"component\": {\n    \"name\": \"<string>\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": 3633,\n        \"key_1\": true\n      }\n    },\n    \"display_name\": \"<string>\",\n    \"is_root\": \"<boolean>\",\n    \"is_nestable\": \"<boolean>\",\n    \"component_group_uuid\": \"<uuid>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a43c2444-dc13-41d3-bf1b-f92a7933bff3",
+              "name": "The component was updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components",
+                    ":component_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "component_id",
+                      "description": "(Required) Numeric ID of the component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component\": {\n    \"name\": \"string\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 2494\n      }\n    },\n    \"display_name\": \"string\",\n    \"is_root\": true,\n    \"is_nestable\": false,\n    \"component_group_uuid\": \"e46b0c56-9f89-89cf-b420-5f1c4e841e89\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"component\": {\n    \"id\": 7412,\n    \"name\": \"string\",\n    \"display_name\": \"string\",\n    \"created_at\": \"1964-02-13T19:45:48.119Z\",\n    \"updated_at\": \"1951-05-27T09:39:20.171Z\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 8929.201771331156\n      },\n      \"key_2\": {\n        \"key_0\": true,\n        \"key_1\": 864,\n        \"key_2\": 3730\n      }\n    },\n    \"is_root\": false,\n    \"is_nestable\": false,\n    \"component_group_uuid\": \"af770929-5143-fa78-2997-81907049f38e\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b4877d4-cacb-4137-acfc-580056ba4fa8",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components",
+                    ":component_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "component_id",
+                      "description": "(Required) Numeric ID of the component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component\": {\n    \"name\": \"string\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 2494\n      }\n    },\n    \"display_name\": \"string\",\n    \"is_root\": true,\n    \"is_nestable\": false,\n    \"component_group_uuid\": \"e46b0c56-9f89-89cf-b420-5f1c4e841e89\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "666f6fbb-66e5-430d-812e-770e21c565c8",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components",
+                    ":component_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "component_id",
+                      "description": "(Required) Numeric ID of the component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"component\": {\n    \"name\": \"string\",\n    \"schema\": {\n      \"key_0\": {\n        \"key_0\": true,\n        \"key_1\": \"string\"\n      },\n      \"key_1\": {\n        \"key_0\": 2494\n      }\n    },\n    \"display_name\": \"string\",\n    \"is_root\": true,\n    \"is_nestable\": false,\n    \"component_group_uuid\": \"e46b0c56-9f89-89cf-b420-5f1c4e841e89\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2aac9965-bd18-42eb-9934-6fe32e10dab3",
+          "name": "Delete a component",
+          "request": {
+            "name": "Delete a component",
+            "description": {
+              "content": "Deletes a component definition from the space. Stories that reference this component will retain their existing content but the schema validation will no longer apply.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "components",
+                ":component_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "component_id",
+                  "description": "(Required) Numeric ID of the component."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7e1323a7-d910-4898-81b6-245675d23cf2",
+              "name": "The component was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components",
+                    ":component_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "component_id",
+                      "description": "(Required) Numeric ID of the component."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0d0e958e-2553-4f38-a7c3-7b50627d6479",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components",
+                    ":component_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "component_id",
+                      "description": "(Required) Numeric ID of the component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9ba68591-c97d-457d-81ff-3f01025f5379",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "components",
+                    ":component_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "component_id",
+                      "description": "(Required) Numeric ID of the component."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.storyblok.com/v2/cdn",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "1a5480ed-69ec-4781-a5bc-06088974a6dd",
+    "name": "Storyblok Content Delivery API v2 Assets Components API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+      "type": "text/plain"
+    }
+  }
+}

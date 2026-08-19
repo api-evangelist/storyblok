@@ -1,0 +1,172 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Storyblok Content Delivery API v2 Assets Datasources API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Datasources",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all datasources",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/datasources",
+            "params": [
+              {
+                "name": "token",
+                "value": "your-public-token",
+                "type": "query",
+                "description": "The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter datasources by name using a partial text match."
+              }
+            ]
+          },
+          "docs": "Returns a list of all datasources defined in the space. Datasources are reusable collections of key-value pairs used for options lists, translations, and configuration. Use this endpoint to discover available datasources before fetching their entries."
+        },
+        {
+          "info": {
+            "name": "List datasource entries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/datasource_entries",
+            "params": [
+              {
+                "name": "token",
+                "value": "your-public-token",
+                "type": "query",
+                "description": "The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+              },
+              {
+                "name": "datasource",
+                "value": "colors",
+                "type": "query",
+                "description": "The slug of the datasource to retrieve entries from."
+              },
+              {
+                "name": "datasource_id",
+                "value": "",
+                "type": "query",
+                "description": "The numeric ID of the datasource to retrieve entries from."
+              },
+              {
+                "name": "dimension",
+                "value": "",
+                "type": "query",
+                "description": "Dimension slug to retrieve dimension-specific values alongside the default values."
+              },
+              {
+                "name": "cv",
+                "value": "",
+                "type": "query",
+                "description": "Cache version timestamp to bypass CDN caching."
+              }
+            ]
+          },
+          "docs": "Returns the key-value entries for a specific datasource. Optionally filter by dimension to retrieve locale-specific or variant values. Results are paginated and can be filtered by datasource slug or ID."
+        },
+        {
+          "info": {
+            "name": "List datasources in a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/datasources",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results, starting at 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Maximum 100."
+              }
+            ]
+          },
+          "docs": "Returns all datasources defined in the space. Use this endpoint to enumerate available datasources before creating, updating, or deleting their entries."
+        },
+        {
+          "info": {
+            "name": "Create a datasource",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/datasources",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new datasource in the space. Optionally define dimensions to support locale-specific or variant values alongside the default entries."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

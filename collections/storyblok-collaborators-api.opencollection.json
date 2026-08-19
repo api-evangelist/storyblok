@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Storyblok Content Delivery API v2 Assets Collaborators API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Collaborators",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List collaborators in a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/collaborators",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ]
+          },
+          "docs": "Returns a list of all collaborators who have access to the space, including their roles, permissions, and invitation status."
+        },
+        {
+          "info": {
+            "name": "Add a collaborator",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/collaborators",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Invites a user to the space by email address and assigns them a role. If the user already has a Storyblok account they will be added immediately; otherwise an invitation email is sent."
+        },
+        {
+          "info": {
+            "name": "Remove a collaborator",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/collaborators/:collaborator_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "collaborator_id",
+                "value": "",
+                "type": "path",
+                "description": "Numeric ID of the collaborator to remove."
+              }
+            ]
+          },
+          "docs": "Removes a collaborator from the space, revoking their access. The user's Storyblok account is not deleted; they simply lose access to this space."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

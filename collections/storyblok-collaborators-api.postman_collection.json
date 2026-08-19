@@ -1,0 +1,647 @@
+{
+  "item": [
+    {
+      "id": "c4e0daf0-bb8f-4a22-a2e1-1892d4477fdd",
+      "name": "Collaborators",
+      "description": {
+        "content": "Collaborators are users invited to a Storyblok space with specific roles and permissions. The Management API allows adding, updating, and removing collaborators.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8ade90ea-5375-4dbe-94a9-9c8f2a28ec9e",
+          "name": "List collaborators in a space",
+          "request": {
+            "name": "List collaborators in a space",
+            "description": {
+              "content": "Returns a list of all collaborators who have access to the space, including their roles, permissions, and invitation status.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "collaborators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "59f6606a-8249-488a-8884-ba19c8bdae04",
+              "name": "A list of collaborators was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"collaborators\": [\n    {\n      \"id\": 6943,\n      \"user_id\": 1726,\n      \"role\": \"admin\",\n      \"invited\": false,\n      \"space_role_id\": 4656,\n      \"space_role_ids\": [\n        4495,\n        8894\n      ],\n      \"user\": {\n        \"userid\": \"string\",\n        \"email\": \"dj-jg4hur@qeovUmIBj.tyc\",\n        \"avatar\": \"string\",\n        \"friendly_name\": \"string\"\n      }\n    },\n    {\n      \"id\": 4180,\n      \"user_id\": 6618,\n      \"role\": \"editor\",\n      \"invited\": false,\n      \"space_role_id\": 4880,\n      \"space_role_ids\": [\n        5683,\n        1913\n      ],\n      \"user\": {\n        \"userid\": \"string\",\n        \"email\": \"6gyymP0GkjBdlV@LNskjbdrvbWwqeEzsQIw.eola\",\n        \"avatar\": \"string\",\n        \"friendly_name\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8e3a9259-f1fe-48d2-ae4c-99b4616ef07e",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e8cbf2ea-0e76-47f6-b81b-870637bdc0f0",
+          "name": "Add a collaborator",
+          "request": {
+            "name": "Add a collaborator",
+            "description": {
+              "content": "Invites a user to the space by email address and assigns them a role. If the user already has a Storyblok account they will be added immediately; otherwise an invitation email is sent.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "collaborators"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"collaborator\": {\n    \"email\": \"<email>\",\n    \"role\": \"<string>\",\n    \"space_role_id\": \"<integer>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "575313f1-04c0-402d-acc3-b66ed789ba39",
+              "name": "The collaborator was added successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"collaborator\": {\n    \"email\": \"f6CnEmZH@aNbgmdmHlCnOBWolwzPWpUlfvoJoull.gu\",\n    \"role\": \"viewer\",\n    \"space_role_id\": 7424\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"collaborator\": {\n    \"id\": 4145,\n    \"user_id\": 188,\n    \"role\": \"editor\",\n    \"invited\": true,\n    \"space_role_id\": 5018,\n    \"space_role_ids\": [\n      5273,\n      8776\n    ],\n    \"user\": {\n      \"userid\": \"string\",\n      \"email\": \"7F5QnrH1d-oeQ@dvf.rbb\",\n      \"avatar\": \"string\",\n      \"friendly_name\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5125fa9b-5cec-4551-8e86-e7a46f03f9b4",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"collaborator\": {\n    \"email\": \"f6CnEmZH@aNbgmdmHlCnOBWolwzPWpUlfvoJoull.gu\",\n    \"role\": \"viewer\",\n    \"space_role_id\": 7424\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7c0a31e8-77ef-4ad4-a95c-23ecc9781bd1",
+              "name": "The request body contained validation errors. Check the error message for details on which fields failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "collaborators"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"collaborator\": {\n    \"email\": \"f6CnEmZH@aNbgmdmHlCnOBWolwzPWpUlfvoJoull.gu\",\n    \"role\": \"viewer\",\n    \"space_role_id\": 7424\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "91417095-d568-4fdb-97e2-726ea4d8eaa6",
+          "name": "Remove a collaborator",
+          "request": {
+            "name": "Remove a collaborator",
+            "description": {
+              "content": "Removes a collaborator from the space, revoking their access. The user's Storyblok account is not deleted; they simply lose access to this space.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "collaborators",
+                ":collaborator_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "collaborator_id",
+                  "description": "(Required) Numeric ID of the collaborator to remove."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "78ad8c52-f6cd-45d0-b1dc-1c26fca72bd6",
+              "name": "The collaborator was removed successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "collaborators",
+                    ":collaborator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "collaborator_id",
+                      "description": "(Required) Numeric ID of the collaborator to remove."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b436f704-89be-4b76-83ef-c36d1be8fad1",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "collaborators",
+                    ":collaborator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "collaborator_id",
+                      "description": "(Required) Numeric ID of the collaborator to remove."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e074d35a-80ce-4ab7-92f2-24db1bca6607",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "collaborators",
+                    ":collaborator_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "collaborator_id",
+                      "description": "(Required) Numeric ID of the collaborator to remove."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.storyblok.com/v2/cdn",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "8d8797d6-7ec2-4f29-a35f-15243084e7c6",
+    "name": "Storyblok Content Delivery API v2 Assets Collaborators API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+      "type": "text/plain"
+    }
+  }
+}

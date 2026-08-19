@@ -1,0 +1,87 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Storyblok Content Delivery API v2 Assets Links API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Links",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all links",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/links",
+            "params": [
+              {
+                "name": "token",
+                "value": "your-public-token",
+                "type": "query",
+                "description": "The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token."
+              },
+              {
+                "name": "starts_with",
+                "value": "",
+                "type": "query",
+                "description": "Filter links by full_slug prefix to return only links in a specific folder."
+              },
+              {
+                "name": "paginated",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to enable pagination on the links response. When enabled, use page and per_page parameters to control the result set."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+              },
+              {
+                "name": "including_dates",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to include published_at, created_at, and updated_at timestamps in each link entry."
+              },
+              {
+                "name": "cv",
+                "value": "",
+                "type": "query",
+                "description": "Cache version timestamp to bypass CDN caching."
+              }
+            ]
+          },
+          "docs": "Returns a flat or tree-structured map of all story URLs in the space. This endpoint is commonly used to generate navigation menus, breadcrumbs, and sitemaps. The response is keyed by story UUID and each entry contains the slug, name, and parent information."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

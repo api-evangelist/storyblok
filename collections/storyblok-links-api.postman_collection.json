@@ -1,0 +1,277 @@
+{
+  "item": [
+    {
+      "id": "5380b342-9fa6-4e5a-8421-85148f0cbadf",
+      "name": "Links",
+      "description": {
+        "content": "The links endpoint returns a flat or tree-structured list of all story URLs in a space, suitable for navigation generation and sitemap building.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "45645b52-e43e-4fba-860c-c5df2d55a406",
+          "name": "List all links",
+          "request": {
+            "name": "List all links",
+            "description": {
+              "content": "Returns a flat or tree-structured map of all story URLs in the space. This endpoint is commonly used to generate navigation menus, breadcrumbs, and sitemaps. The response is keyed by story UUID and each entry contains the slug, name, and parent information.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "links"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+                },
+                {
+                  "disabled": false,
+                  "key": "version",
+                  "value": "published",
+                  "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token."
+                },
+                {
+                  "disabled": false,
+                  "key": "starts_with",
+                  "value": "<string>",
+                  "description": "Filter links by full_slug prefix to return only links in a specific folder."
+                },
+                {
+                  "disabled": false,
+                  "key": "paginated",
+                  "value": "<integer>",
+                  "description": "Set to 1 to enable pagination on the links response. When enabled, use page and per_page parameters to control the result set."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "including_dates",
+                  "value": "<integer>",
+                  "description": "Set to 1 to include published_at, created_at, and updated_at timestamps in each link entry."
+                },
+                {
+                  "disabled": false,
+                  "key": "cv",
+                  "value": "<integer>",
+                  "description": "Cache version timestamp to bypass CDN caching."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8c6afc37-39eb-4409-b57c-f0fb72fd76cb",
+              "name": "A map of links was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paginated",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "including_dates",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"links\": {\n    \"key_0\": {\n      \"id\": 2257,\n      \"slug\": \"string\",\n      \"name\": \"string\",\n      \"is_folder\": false,\n      \"parent_id\": 8108,\n      \"published\": true,\n      \"position\": 9738,\n      \"uuid\": \"d80c4abd-bcc4-91bc-6e34-52f58213b83a\",\n      \"is_startpage\": true,\n      \"real_path\": \"string\",\n      \"published_at\": \"1962-01-07T07:02:54.735Z\",\n      \"created_at\": \"1989-05-12T17:45:59.722Z\",\n      \"updated_at\": \"1974-10-22T15:38:22.689Z\"\n    },\n    \"key_1\": {\n      \"id\": 6752,\n      \"slug\": \"string\",\n      \"name\": \"string\",\n      \"is_folder\": true,\n      \"parent_id\": 1032,\n      \"published\": false,\n      \"position\": 3838,\n      \"uuid\": \"5ec11f79-80b5-131b-7cf2-bde0e9ecba2d\",\n      \"is_startpage\": true,\n      \"real_path\": \"string\",\n      \"published_at\": \"1967-07-19T09:12:21.652Z\",\n      \"created_at\": \"1983-05-03T07:58:17.712Z\",\n      \"updated_at\": \"1966-12-22T01:59:04.524Z\"\n    },\n    \"key_2\": {\n      \"id\": 3681,\n      \"slug\": \"string\",\n      \"name\": \"string\",\n      \"is_folder\": false,\n      \"parent_id\": 5173,\n      \"published\": true,\n      \"position\": 3914,\n      \"uuid\": \"f9f4bde8-251a-c67c-9a7c-6ff076993a69\",\n      \"is_startpage\": false,\n      \"real_path\": \"string\",\n      \"published_at\": \"1964-01-27T14:59:51.409Z\",\n      \"created_at\": \"1989-08-21T06:30:57.905Z\",\n      \"updated_at\": \"1958-09-28T09:36:38.760Z\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4605479e-00a2-4463-beb3-be6442818d1f",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "links"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "version",
+                      "value": "published"
+                    },
+                    {
+                      "key": "starts_with",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "paginated",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "including_dates",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.storyblok.com/v2/cdn",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "30522ea0-298a-48e2-a846-3de4b3faf5dc",
+    "name": "Storyblok Content Delivery API v2 Assets Links API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+      "type": "text/plain"
+    }
+  }
+}

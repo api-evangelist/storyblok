@@ -1,0 +1,159 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Storyblok Content Delivery API v2 Assets Components API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Components",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List components in a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/components",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Filter components by name using a partial text match."
+              },
+              {
+                "name": "in_groups",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of component group UUIDs to filter components by their assigned group."
+              }
+            ]
+          },
+          "docs": "Returns all component definitions for the space. Components define the content schema used by stories, including field names, types, and validation rules."
+        },
+        {
+          "info": {
+            "name": "Create a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/components",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new component definition in the space. The component schema specifies the field definitions that will be available to stories using this component."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single component",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/components/:component_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "component_id",
+                "value": "11111",
+                "type": "path",
+                "description": "Numeric ID of the component."
+              }
+            ]
+          },
+          "docs": "Returns the full schema definition of a single component by its numeric ID, including all field definitions and their configuration."
+        },
+        {
+          "info": {
+            "name": "Update a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/components/:component_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "component_id",
+                "value": "11111",
+                "type": "path",
+                "description": "Numeric ID of the component."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing component definition. Changes to the schema affect all stories that use this component."
+        },
+        {
+          "info": {
+            "name": "Delete a component",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/components/:component_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "component_id",
+                "value": "11111",
+                "type": "path",
+                "description": "Numeric ID of the component."
+              }
+            ]
+          },
+          "docs": "Deletes a component definition from the space. Stories that reference this component will retain their existing content but the schema validation will no longer apply."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Storyblok Content Delivery API v2 Assets Tags API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Tags",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List all tags",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/tags",
+            "params": [
+              {
+                "name": "token",
+                "value": "your-public-token",
+                "type": "query",
+                "description": "The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+              },
+              {
+                "name": "starts_with",
+                "value": "",
+                "type": "query",
+                "description": "Filter tags by prefix. Only tags whose name starts with the given value are returned."
+              },
+              {
+                "name": "cv",
+                "value": "",
+                "type": "query",
+                "description": "Cache version timestamp to bypass CDN caching."
+              }
+            ]
+          },
+          "docs": "Returns a list of all tags used in published stories within the space. Tags can be used to filter stories by calling the stories endpoint with the with_tag parameter."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

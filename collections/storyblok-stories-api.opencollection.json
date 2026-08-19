@@ -1,0 +1,500 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Storyblok Content Delivery API v2 Assets Stories API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Stories",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List multiple stories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/stories",
+            "params": [
+              {
+                "name": "token",
+                "value": "your-public-token",
+                "type": "query",
+                "description": "The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+              },
+              {
+                "name": "starts_with",
+                "value": "blog/",
+                "type": "query",
+                "description": "Filter stories by full_slug prefix. Only stories whose full_slug starts with the given value are returned. Useful for fetching content within a specific folder."
+              },
+              {
+                "name": "by_slugs",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of full_slug values to retrieve specific stories by their slugs."
+              },
+              {
+                "name": "excluding_slugs",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of full_slug values to exclude from the results."
+              },
+              {
+                "name": "with_tag",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of tag slugs to filter stories by. Multiple tags are treated as an OR condition."
+              },
+              {
+                "name": "is_startpage",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to only return folder start pages. Set to 0 to exclude them. Omit to return all stories."
+              },
+              {
+                "name": "sort_by",
+                "value": "published_at:desc",
+                "type": "query",
+                "description": "Sort the response by a specific field and direction. Supports all default story fields and custom fields defined in the component schema. Format: field:asc or field:desc."
+              },
+              {
+                "name": "search_term",
+                "value": "",
+                "type": "query",
+                "description": "Full-text search term to filter stories whose content fields contain the given string."
+              },
+              {
+                "name": "resolve_relations",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response."
+              },
+              {
+                "name": "resolve_links",
+                "value": "",
+                "type": "query",
+                "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string."
+              },
+              {
+                "name": "language",
+                "value": "en",
+                "type": "query",
+                "description": "ISO language code to return the story content in the specified language. Falls back to the default language if the translation is unavailable."
+              },
+              {
+                "name": "fallback_lang",
+                "value": "",
+                "type": "query",
+                "description": "Fallback language code used when the requested language translation is not available."
+              },
+              {
+                "name": "filter_query",
+                "value": "",
+                "type": "query",
+                "description": "Object to filter stories by custom field values using operators such as in, not_in, like, gt-int, lt-int. Keys are field paths relative to the story content object."
+              },
+              {
+                "name": "by_uuids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of story UUIDs to retrieve specific stories by their unique identifiers."
+              },
+              {
+                "name": "excluding_ids",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of story IDs to exclude from the results."
+              },
+              {
+                "name": "cv",
+                "value": "",
+                "type": "query",
+                "description": "Cache version timestamp. Pass the current Unix timestamp to bypass CDN caching and retrieve the latest content."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of published stories from the space. Stories can be filtered by slug, tag, component type, and custom fields. The response includes the story content along with metadata such as publication dates and alternate language versions. Pagination is controlled via the page and per_page query parameters."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single story by slug",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/stories/:slug",
+            "params": [
+              {
+                "name": "slug",
+                "value": "blog/my-first-post",
+                "type": "path",
+                "description": "The full_slug of the story, which is the path within the space such as home or blog/my-post."
+              },
+              {
+                "name": "token",
+                "value": "your-public-token",
+                "type": "query",
+                "description": "The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token."
+              },
+              {
+                "name": "resolve_relations",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of component.field paths to resolve referenced story relations inline in the response."
+              },
+              {
+                "name": "resolve_links",
+                "value": "",
+                "type": "query",
+                "description": "Set to story to resolve story link fields. Set to url to resolve to the story URL string."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "ISO language code to return the story content in the specified language."
+              },
+              {
+                "name": "cv",
+                "value": "",
+                "type": "query",
+                "description": "Cache version timestamp to bypass CDN caching."
+              }
+            ]
+          },
+          "docs": "Returns a single published story identified by its full_slug. The slug is the path of the story within the space, such as home or blog/my-post. The response includes the full story content, metadata, and optionally resolved relations and links."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single story by ID",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/stories/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "123456",
+                "type": "path",
+                "description": "The numeric ID of the story."
+              },
+              {
+                "name": "token",
+                "value": "your-public-token",
+                "type": "query",
+                "description": "The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+              },
+              {
+                "name": "version",
+                "value": "",
+                "type": "query",
+                "description": "Content version to retrieve. Use published to get published content (default) or draft to get the latest saved draft. The draft version requires the preview API token."
+              },
+              {
+                "name": "language",
+                "value": "",
+                "type": "query",
+                "description": "ISO language code to return the story content in."
+              },
+              {
+                "name": "cv",
+                "value": "",
+                "type": "query",
+                "description": "Cache version timestamp to bypass CDN caching."
+              }
+            ]
+          },
+          "docs": "Returns a single published story identified by its numeric ID. This endpoint is useful when you have a story ID from a relation field and need to retrieve the full story object."
+        },
+        {
+          "info": {
+            "name": "List stories in a space",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/stories",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "page",
+                "value": "",
+                "type": "query",
+                "description": "Page number for paginated results, starting at 1."
+              },
+              {
+                "name": "per_page",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page. Maximum 100."
+              },
+              {
+                "name": "with_tag",
+                "value": "",
+                "type": "query",
+                "description": "Filter stories that have this tag applied."
+              },
+              {
+                "name": "folder_only",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to only return folder stories."
+              },
+              {
+                "name": "story_only",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to exclude folder stories from the results."
+              },
+              {
+                "name": "by_slugs",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of full_slug values to filter by."
+              },
+              {
+                "name": "search",
+                "value": "",
+                "type": "query",
+                "description": "Text search to filter stories by name."
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Field and direction to sort by, formatted as field:asc or field:desc."
+              },
+              {
+                "name": "starts_with",
+                "value": "",
+                "type": "query",
+                "description": "Filter stories whose full_slug starts with this prefix."
+              },
+              {
+                "name": "in_trash",
+                "value": "",
+                "type": "query",
+                "description": "Set to 1 to return only stories in the trash."
+              },
+              {
+                "name": "in_release",
+                "value": "",
+                "type": "query",
+                "description": "Filter stories belonging to a specific release ID."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of stories in the space. The response includes both published and draft stories. Results can be filtered by folder, publication status, component type, and text search."
+        },
+        {
+          "info": {
+            "name": "Create a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/stories",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new story in the space. The request body must include the story name, slug, and content object. Optionally specify a parent_id to nest the story inside a folder. Stories are created in draft state unless publish is set to 1."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single story",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/stories/:story_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              }
+            ]
+          },
+          "docs": "Returns the full details of a single story by its numeric ID, including draft content, workflow state, locks, and publishing history."
+        },
+        {
+          "info": {
+            "name": "Update a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/stories/:story_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing story's content, metadata, or settings. Only the fields provided in the request body are updated. Set publish to 1 to publish the story as part of the update."
+        },
+        {
+          "info": {
+            "name": "Delete a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/stories/:story_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a story from the space. This action cannot be undone. Deleting a folder story also deletes all stories nested within it."
+        },
+        {
+          "info": {
+            "name": "Publish a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/stories/:story_id/publish",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              },
+              {
+                "name": "release_id",
+                "value": "",
+                "type": "query",
+                "description": "Publish the story as part of a specific release rather than immediately to production."
+              },
+              {
+                "name": "lang",
+                "value": "",
+                "type": "query",
+                "description": "Language code to publish a specific translation of the story."
+              }
+            ]
+          },
+          "docs": "Publishes the current draft version of a story, making it available via the Content Delivery API with the public token. If the story has a scheduled publication date, this endpoint publishes it immediately regardless of the schedule."
+        },
+        {
+          "info": {
+            "name": "Unpublish a story",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/stories/:story_id/unpublish",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "story_id",
+                "value": "67890",
+                "type": "path",
+                "description": "Numeric ID of the story."
+              }
+            ]
+          },
+          "docs": "Unpublishes a story, removing it from public access via the Content Delivery API. The story's draft content is preserved and can be republished at any time."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

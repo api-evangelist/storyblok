@@ -1,0 +1,1138 @@
+{
+  "item": [
+    {
+      "id": "8514d3d5-6754-4f84-8c23-9847a37e34af",
+      "name": "Webhooks",
+      "description": {
+        "content": "Webhooks allow external services to be notified when events occur in a Storyblok space, such as story publication or asset upload. The Management API provides full CRUD operations for webhook configuration.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5cf90721-d360-46d6-b170-64ea63b1d5c5",
+          "name": "List webhook endpoints",
+          "request": {
+            "name": "List webhook endpoints",
+            "description": {
+              "content": "Returns all webhook endpoints configured for the space, including their target URLs, event subscriptions, and optional secret configuration.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "webhook_endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e7a38892-b200-4724-80d3-4d4bfbfa2b68",
+              "name": "A list of webhook endpoints was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"webhook_endpoints\": [\n    {\n      \"id\": 9240,\n      \"url\": \"https://xC.tatoX-LVugvBffFz58T,ZAl30\",\n      \"name\": \"string\",\n      \"actions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"secret\": \"string\",\n      \"activated\": false,\n      \"created_at\": \"2016-04-29T15:01:25.279Z\",\n      \"updated_at\": \"1958-07-31T15:13:54.772Z\"\n    },\n    {\n      \"id\": 3294,\n      \"url\": \"https://vGloXtIRbPGJ.xfwHc4WLFzHnAm4wrR90AbxJFo4\",\n      \"name\": \"string\",\n      \"actions\": [\n        \"string\",\n        \"string\"\n      ],\n      \"description\": \"string\",\n      \"secret\": \"string\",\n      \"activated\": true,\n      \"created_at\": \"1998-08-16T14:56:29.135Z\",\n      \"updated_at\": \"1992-10-06T08:44:39.211Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "159c8d2e-caf4-48ef-82e8-d0027d10286b",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c6db45b9-a080-43df-87f3-e32579b86c66",
+          "name": "Create a webhook endpoint",
+          "request": {
+            "name": "Create a webhook endpoint",
+            "description": {
+              "content": "Registers a new webhook endpoint to receive event notifications from the space. Specify the target URL, the events to subscribe to, and an optional secret for signature validation.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "webhook_endpoints"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d288ed78-44d7-473e-b920-8abd1e9e01b3",
+              "name": "The webhook endpoint was created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"https://RMgcANAihhfiBNkPVMIJyEtSFPVod.wjhOgV312RCWnudAM91QA2,tDKkog4Oeu+QNoWwf.IkwvRJiAcLeZDrdTxrkM11nQ3Qn.0fOjz2.q\",\n    \"actions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"secret\": \"string\",\n    \"activated\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"webhook_endpoint\": {\n    \"id\": 9367,\n    \"url\": \"http://QRITP.kvMIFUe0ugSSVb1Ek9jeIxxImKolu9HnIgRg11PYnLULKuSLf3I\",\n    \"name\": \"string\",\n    \"actions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"description\": \"string\",\n    \"secret\": \"string\",\n    \"activated\": true,\n    \"created_at\": \"1992-07-22T14:00:34.587Z\",\n    \"updated_at\": \"1948-02-26T11:28:47.031Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9e0b0e1c-014b-48ad-b879-ef4346469d06",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"https://RMgcANAihhfiBNkPVMIJyEtSFPVod.wjhOgV312RCWnudAM91QA2,tDKkog4Oeu+QNoWwf.IkwvRJiAcLeZDrdTxrkM11nQ3Qn.0fOjz2.q\",\n    \"actions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"secret\": \"string\",\n    \"activated\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7b8c73c6-e4a3-478a-9d92-e7323d032e0d",
+              "name": "The request body contained validation errors. Check the error message for details on which fields failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"https://RMgcANAihhfiBNkPVMIJyEtSFPVod.wjhOgV312RCWnudAM91QA2,tDKkog4Oeu+QNoWwf.IkwvRJiAcLeZDrdTxrkM11nQ3Qn.0fOjz2.q\",\n    \"actions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"secret\": \"string\",\n    \"activated\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cb6cafb-3582-48b0-9ffa-450fc5995cbc",
+          "name": "Retrieve a single webhook endpoint",
+          "request": {
+            "name": "Retrieve a single webhook endpoint",
+            "description": {
+              "content": "Returns the configuration of a single webhook endpoint by its numeric ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "webhook_endpoints",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "webhook_id",
+                  "description": "(Required) Numeric ID of the webhook endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8a25caf4-b2c5-42e6-8e9d-7b4c68c5e121",
+              "name": "The webhook endpoint was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "webhook_id",
+                      "description": "(Required) Numeric ID of the webhook endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"webhook_endpoint\": {\n    \"id\": 9367,\n    \"url\": \"http://QRITP.kvMIFUe0ugSSVb1Ek9jeIxxImKolu9HnIgRg11PYnLULKuSLf3I\",\n    \"name\": \"string\",\n    \"actions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"description\": \"string\",\n    \"secret\": \"string\",\n    \"activated\": true,\n    \"created_at\": \"1992-07-22T14:00:34.587Z\",\n    \"updated_at\": \"1948-02-26T11:28:47.031Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "939a1592-6a13-4758-8560-426ece3483c6",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "webhook_id",
+                      "description": "(Required) Numeric ID of the webhook endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3601ebe5-3449-4cbc-8c36-dc834a0bd463",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "webhook_id",
+                      "description": "(Required) Numeric ID of the webhook endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e25b30db-5ea9-4f51-86b1-1cf776f418f5",
+          "name": "Update a webhook endpoint",
+          "request": {
+            "name": "Update a webhook endpoint",
+            "description": {
+              "content": "Updates an existing webhook endpoint's URL, subscribed events, or secret key.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "webhook_endpoints",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "webhook_id",
+                  "description": "(Required) Numeric ID of the webhook endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"<uri>\",\n    \"actions\": [\n      \"<string>\",\n      \"<string>\"\n    ],\n    \"name\": \"<string>\",\n    \"description\": \"<string>\",\n    \"secret\": \"<string>\",\n    \"activated\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ff2cc90f-adf0-49a0-be70-31ad07a9b409",
+              "name": "The webhook endpoint was updated successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "webhook_id",
+                      "description": "(Required) Numeric ID of the webhook endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"https://RMgcANAihhfiBNkPVMIJyEtSFPVod.wjhOgV312RCWnudAM91QA2,tDKkog4Oeu+QNoWwf.IkwvRJiAcLeZDrdTxrkM11nQ3Qn.0fOjz2.q\",\n    \"actions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"secret\": \"string\",\n    \"activated\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"webhook_endpoint\": {\n    \"id\": 9367,\n    \"url\": \"http://QRITP.kvMIFUe0ugSSVb1Ek9jeIxxImKolu9HnIgRg11PYnLULKuSLf3I\",\n    \"name\": \"string\",\n    \"actions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"description\": \"string\",\n    \"secret\": \"string\",\n    \"activated\": true,\n    \"created_at\": \"1992-07-22T14:00:34.587Z\",\n    \"updated_at\": \"1948-02-26T11:28:47.031Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9a490998-98d7-472e-a162-6e49c90791ae",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "webhook_id",
+                      "description": "(Required) Numeric ID of the webhook endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"https://RMgcANAihhfiBNkPVMIJyEtSFPVod.wjhOgV312RCWnudAM91QA2,tDKkog4Oeu+QNoWwf.IkwvRJiAcLeZDrdTxrkM11nQ3Qn.0fOjz2.q\",\n    \"actions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"secret\": \"string\",\n    \"activated\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2ca80170-ad9f-4730-b60d-fb763a3d6ce1",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "webhook_id",
+                      "description": "(Required) Numeric ID of the webhook endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"webhook_endpoint\": {\n    \"url\": \"https://RMgcANAihhfiBNkPVMIJyEtSFPVod.wjhOgV312RCWnudAM91QA2,tDKkog4Oeu+QNoWwf.IkwvRJiAcLeZDrdTxrkM11nQ3Qn.0fOjz2.q\",\n    \"actions\": [\n      \"string\",\n      \"string\"\n    ],\n    \"name\": \"string\",\n    \"description\": \"string\",\n    \"secret\": \"string\",\n    \"activated\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e5898927-9500-4ddc-8436-33c8fc43cc9d",
+          "name": "Delete a webhook endpoint",
+          "request": {
+            "name": "Delete a webhook endpoint",
+            "description": {
+              "content": "Permanently removes a webhook endpoint from the space. No further event notifications will be sent to the associated URL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "webhook_endpoints",
+                ":webhook_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "webhook_id",
+                  "description": "(Required) Numeric ID of the webhook endpoint."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "efaedb02-9d04-4619-b8d7-12b618d5b069",
+              "name": "The webhook endpoint was deleted successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "webhook_id",
+                      "description": "(Required) Numeric ID of the webhook endpoint."
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b7301d48-3a97-4a25-9dd1-aec3e2846039",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "webhook_id",
+                      "description": "(Required) Numeric ID of the webhook endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "46a77e4f-a2b1-4302-9819-5e1c63329525",
+              "name": "The requested resource was not found.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "webhook_endpoints",
+                    ":webhook_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "webhook_id",
+                      "description": "(Required) Numeric ID of the webhook endpoint."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.storyblok.com/v2/cdn",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "551d2df8-688e-4815-b7fc-0c956382e4e0",
+    "name": "Storyblok Content Delivery API v2 Assets Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+      "type": "text/plain"
+    }
+  }
+}

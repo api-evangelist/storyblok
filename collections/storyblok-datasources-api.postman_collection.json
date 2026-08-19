@@ -1,0 +1,847 @@
+{
+  "item": [
+    {
+      "id": "c595606e-e35d-4c33-a888-fb5bf3178302",
+      "name": "Datasources",
+      "description": {
+        "content": "Datasources are reusable key-value collections used for options lists, translations, and configuration data within Storyblok spaces.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d032fcf0-88d8-409b-b8f1-f07b9ca58770",
+          "name": "List all datasources",
+          "request": {
+            "name": "List all datasources",
+            "description": {
+              "content": "Returns a list of all datasources defined in the space. Datasources are reusable collections of key-value pairs used for options lists, translations, and configuration. Use this endpoint to discover available datasources before fetching their entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "datasources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "search",
+                  "value": "<string>",
+                  "description": "Filter datasources by name using a partial text match."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "7d747533-7b3d-4b75-8959-aa7fa4cf26a0",
+              "name": "A list of datasources was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"datasources\": [\n    {\n      \"id\": 5930,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"dimensions\": [\n        {\n          \"id\": 4262,\n          \"name\": \"string\",\n          \"entry_value\": \"string\",\n          \"datasource_id\": 8832,\n          \"created_at\": \"1959-05-06T10:23:35.300Z\",\n          \"updated_at\": \"1997-07-31T00:02:39.482Z\"\n        },\n        {\n          \"id\": 1773,\n          \"name\": \"string\",\n          \"entry_value\": \"string\",\n          \"datasource_id\": 6147,\n          \"created_at\": \"2020-02-11T22:24:48.978Z\",\n          \"updated_at\": \"1993-06-01T21:58:31.085Z\"\n        }\n      ]\n    },\n    {\n      \"id\": 9631,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"dimensions\": [\n        {\n          \"id\": 1976,\n          \"name\": \"string\",\n          \"entry_value\": \"string\",\n          \"datasource_id\": 3825,\n          \"created_at\": \"1970-03-26T12:00:00.539Z\",\n          \"updated_at\": \"2019-04-08T06:08:32.276Z\"\n        },\n        {\n          \"id\": 1472,\n          \"name\": \"string\",\n          \"entry_value\": \"string\",\n          \"datasource_id\": 9687,\n          \"created_at\": \"1994-12-12T13:20:36.111Z\",\n          \"updated_at\": \"1987-08-15T07:30:04.556Z\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d8a5453a-71ad-4a6c-8be3-c0504fbf9fb7",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "search",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7aafd6d0-13da-4f43-ad75-3e0dfbdddd3e",
+          "name": "List datasource entries",
+          "request": {
+            "name": "List datasource entries",
+            "description": {
+              "content": "Returns the key-value entries for a specific datasource. Optionally filter by dimension to retrieve locale-specific or variant values. Results are paginated and can be filtered by datasource slug or ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "datasource_entries"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "token",
+                  "value": "<string>",
+                  "description": "(Required) The API access token for the space. Use the public token to access published content or the preview token to access draft content."
+                },
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of items to return per page. Maximum is 100 for most endpoints."
+                },
+                {
+                  "disabled": false,
+                  "key": "datasource",
+                  "value": "<string>",
+                  "description": "The slug of the datasource to retrieve entries from."
+                },
+                {
+                  "disabled": false,
+                  "key": "datasource_id",
+                  "value": "<integer>",
+                  "description": "The numeric ID of the datasource to retrieve entries from."
+                },
+                {
+                  "disabled": false,
+                  "key": "dimension",
+                  "value": "<string>",
+                  "description": "Dimension slug to retrieve dimension-specific values alongside the default values."
+                },
+                {
+                  "disabled": false,
+                  "key": "cv",
+                  "value": "<integer>",
+                  "description": "Cache version timestamp to bypass CDN caching."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "05ff8e91-b307-4a72-8118-f9968d834085",
+              "name": "A list of datasource entries was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasource_entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "datasource",
+                      "value": "colors"
+                    },
+                    {
+                      "key": "datasource_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dimension",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Total number of entries in the datasource.",
+                  "key": "Total",
+                  "value": "178"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"datasource_entries\": [\n    {\n      \"id\": 4842,\n      \"name\": \"string\",\n      \"value\": \"string\",\n      \"dimension_value\": \"string\"\n    },\n    {\n      \"id\": 7953,\n      \"name\": \"string\",\n      \"value\": \"string\",\n      \"dimension_value\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ecc9db6f-d86e-4494-99fd-95dcc8768167",
+              "name": "The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "datasource_entries"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "your-public-token"
+                    },
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "datasource",
+                      "value": "colors"
+                    },
+                    {
+                      "key": "datasource_id",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "dimension",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "cv",
+                      "value": "<integer>"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "40f6ed3e-e69d-4879-8aa8-2407e77adb99",
+          "name": "List datasources in a space",
+          "request": {
+            "name": "List datasources in a space",
+            "description": {
+              "content": "Returns all datasources defined in the space. Use this endpoint to enumerate available datasources before creating, updating, or deleting their entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "datasources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number for paginated results, starting at 1."
+                },
+                {
+                  "disabled": false,
+                  "key": "per_page",
+                  "value": "25",
+                  "description": "Number of results per page. Maximum 100."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8ae3123e-3a48-424c-a5ac-a70c2674aafc",
+              "name": "A list of datasources was returned successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"datasources\": [\n    {\n      \"id\": 9109,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"dimensions\": [\n        {\n          \"id\": 600,\n          \"name\": \"string\",\n          \"entry_value\": \"string\"\n        },\n        {\n          \"id\": 2231,\n          \"name\": \"string\",\n          \"entry_value\": \"string\"\n        }\n      ],\n      \"created_at\": \"1995-01-29T15:54:43.492Z\",\n      \"updated_at\": \"1974-09-13T00:22:46.491Z\"\n    },\n    {\n      \"id\": 6423,\n      \"name\": \"string\",\n      \"slug\": \"string\",\n      \"dimensions\": [\n        {\n          \"id\": 1231,\n          \"name\": \"string\",\n          \"entry_value\": \"string\"\n        },\n        {\n          \"id\": 8969,\n          \"name\": \"string\",\n          \"entry_value\": \"string\"\n        }\n      ],\n      \"created_at\": \"1978-03-01T14:15:54.216Z\",\n      \"updated_at\": \"1947-07-05T11:31:30.130Z\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "28b1649f-88c3-428e-9c7d-9d1ce83ced22",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "per_page",
+                      "value": "25"
+                    },
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "66cfd3ed-d5f2-4fe9-adfe-467c5de8215a",
+          "name": "Create a datasource",
+          "request": {
+            "name": "Create a datasource",
+            "description": {
+              "content": "Creates a new datasource in the space. Optionally define dimensions to support locale-specific or variant values alongside the default entries.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "spaces",
+                ":space_id",
+                "datasources"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<integer>",
+                  "key": "space_id",
+                  "description": "(Required) Numeric ID of the Storyblok space."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"datasource\": {\n    \"name\": \"<string>\",\n    \"slug\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "1c803fe0-a1c5-4b29-9f36-fd999c10b8fa",
+              "name": "The datasource was created successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"datasource\": {\n    \"name\": \"string\",\n    \"slug\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"datasource\": {\n    \"id\": 986,\n    \"name\": \"string\",\n    \"slug\": \"string\",\n    \"dimensions\": [\n      {\n        \"id\": 4857,\n        \"name\": \"string\",\n        \"entry_value\": \"string\"\n      },\n      {\n        \"id\": 4928,\n        \"name\": \"string\",\n        \"entry_value\": \"string\"\n      }\n    ],\n    \"created_at\": \"2017-08-07T05:44:28.206Z\",\n    \"updated_at\": \"1955-07-08T07:23:57.388Z\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7184724b-fcfe-4726-9540-9531cf3f56ec",
+              "name": "Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"datasource\": {\n    \"name\": \"string\",\n    \"slug\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4234728f-a7af-4fc0-a099-2cd2a9731d43",
+              "name": "The request body contained validation errors. Check the error message for details on which fields failed validation.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "spaces",
+                    ":space_id",
+                    "datasources"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "token",
+                      "value": "<API Key>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<integer>",
+                      "key": "space_id",
+                      "description": "(Required) Numeric ID of the Storyblok space."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"datasource\": {\n    \"name\": \"string\",\n    \"slug\": \"string\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.storyblok.com/v2/cdn",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "token"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "query"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "cafefdfc-f39f-4755-92a9-6e3012e85692",
+    "name": "Storyblok Content Delivery API v2 Assets Datasources API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.\n\nContact Support:\n Name: Storyblok Support",
+      "type": "text/plain"
+    }
+  }
+}

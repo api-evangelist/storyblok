@@ -1,0 +1,147 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Storyblok Content Delivery API v2 Assets Webhooks API",
+    "version": "2"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "token",
+      "value": "{{token}}",
+      "placement": "query"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List webhook endpoints",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/webhook_endpoints",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ]
+          },
+          "docs": "Returns all webhook endpoints configured for the space, including their target URLs, event subscriptions, and optional secret configuration."
+        },
+        {
+          "info": {
+            "name": "Create a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/webhook_endpoints",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Registers a new webhook endpoint to receive event notifications from the space. Specify the target URL, the events to subscribe to, and an optional secret for signature validation."
+        },
+        {
+          "info": {
+            "name": "Retrieve a single webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/webhook_endpoints/:webhook_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "webhook_id",
+                "value": "33333",
+                "type": "path",
+                "description": "Numeric ID of the webhook endpoint."
+              }
+            ]
+          },
+          "docs": "Returns the configuration of a single webhook endpoint by its numeric ID."
+        },
+        {
+          "info": {
+            "name": "Update a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/webhook_endpoints/:webhook_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "webhook_id",
+                "value": "33333",
+                "type": "path",
+                "description": "Numeric ID of the webhook endpoint."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing webhook endpoint's URL, subscribed events, or secret key."
+        },
+        {
+          "info": {
+            "name": "Delete a webhook endpoint",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.storyblok.com/v2/cdn/spaces/:space_id/webhook_endpoints/:webhook_id",
+            "params": [
+              {
+                "name": "space_id",
+                "value": "12345",
+                "type": "path",
+                "description": "Numeric ID of the Storyblok space."
+              },
+              {
+                "name": "webhook_id",
+                "value": "33333",
+                "type": "path",
+                "description": "Numeric ID of the webhook endpoint."
+              }
+            ]
+          },
+          "docs": "Permanently removes a webhook endpoint from the space. No further event notifications will be sent to the associated URL."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

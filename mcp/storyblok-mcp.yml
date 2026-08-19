@@ -10,32 +10,36 @@ server:
   landing_page: https://www.storyblok.com/lp/mcp-server
   repository: https://github.com/storyblok/mcp-server
   repository_status: archived
-  note: >-
-    Storyblok's official Management MCP Server. The GitHub repo (local/self-hosted
-    variant) was archived 2026-03-30 in favor of the hosted instance at
-    mcp.labs.storyblok.com. Wraps the Storyblok Management API and exposes it as
-    agent-safe tools. Operations are split into distinct execution modes
-    (read-only, mutating, destructive) for enterprise governance.
+  note: Storyblok's official Management MCP Server. The GitHub repo (local/self-hosted variant) was archived
+    2026-03-30 in favor of the hosted instance at mcp.labs.storyblok.com. Wraps the Storyblok Management
+    API and exposes it as agent-safe tools. Operations are split into distinct execution modes (read-only,
+    mutating, destructive) for enterprise governance.
 authentication:
   type: bearer
   header: Authorization
   credential: Storyblok Personal Access Token
-  example: "Authorization: Bearer <personal_access_token>"
+  example: 'Authorization: Bearer <personal_access_token>'
 install:
-  claude_code: >-
-    claude mcp add --transport http Storyblok https://mcp.labs.storyblok.com/mcp
-    --header "Authorization: Bearer <personal_access_token>"
+  claude_code: 'claude mcp add --transport http Storyblok https://mcp.labs.storyblok.com/mcp --header
+    "Authorization: Bearer <personal_access_token>"'
   claude_desktop_config:
     mcpServers:
       Storyblok:
         type: http
         url: https://mcp.labs.storyblok.com/mcp
         headers:
-          Authorization: "Bearer <personal_access_token>"
+          Authorization: Bearer <personal_access_token>
 capabilities:
-  - Search content by keyword, context, or structure
-  - Full CRUD access to stories (create, read, update, delete)
-  - Publish and unpublish content
-  - Manage assets, components, datasources, workflows and space configuration
-  - Read-only, mutating, and destructive operations exposed as distinct modes
+- Search content by keyword, context, or structure
+- Full CRUD access to stories (create, read, update, delete)
+- Publish and unpublish content
+- Manage assets, components, datasources, workflows and space configuration
+- Read-only, mutating, and destructive operations exposed as distinct modes
 covers_api: storyblok:storyblok-management-api
+deployment:
+  mode: remote
+  endpoint: https://mcp.labs.storyblok.com/mcp
+  verified: probed
+  probe: live
+  checked: '2026-08-12'
+  source: catalog MCP census
