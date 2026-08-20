@@ -31,6 +31,15 @@ tags:
 - Image Optimization
 - REST API
 - Visual Editor
+- Webhook
+tags_raw:
+- CMS
+- Content Delivery
+- Content Management
+- Headless CMS
+- Image Optimization
+- REST API
+- Visual Editor
 - Webhooks
 created: '2026-05-02'
 modified: '2026-06-20'
@@ -44,6 +53,11 @@ apis:
     deletion, asset upload, and pipeline stage transitions. AsyncAPI specification for webhook event schemas.
   humanURL: https://www.storyblok.com/docs/guide/in-depth/webhooks
   tags:
+  - AsyncAPI
+  - Event
+  - Real-Time
+  - Webhook
+  tags_raw:
   - AsyncAPI
   - Events
   - Real-Time
@@ -122,6 +136,8 @@ apis:
   humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
   baseURL: https://api.storyblok.com/v2/cdn
   tags:
+  - Data Sources
+  tags_raw:
   - Datasources
   properties:
   - type: OpenAPI
@@ -240,6 +256,8 @@ apis:
   humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
   baseURL: https://api.storyblok.com/v2/cdn
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
