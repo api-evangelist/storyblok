@@ -10,8 +10,11 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: managementApi
-  url: ../openapi/storyblok-management-api-openapi.yml
+- name: collaboratorsApi
+  url: ../openapi/storyblok-collaborators-api-openapi.yml
+  type: openapi
+- name: spacesApi
+  url: ../openapi/storyblok-spaces-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: onboard-collaborator

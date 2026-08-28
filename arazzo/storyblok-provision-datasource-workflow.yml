@@ -14,11 +14,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: managementApi
-  url: ../openapi/storyblok-management-api-openapi.yml
+- name: datasourcesApi
+  url: ../openapi/storyblok-datasources-api-openapi.yml
   type: openapi
-- name: contentDeliveryApi
-  url: ../openapi/storyblok-content-delivery-api-v2-openapi.yml
+- name: spacesApi
+  url: ../openapi/storyblok-spaces-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: provision-datasource

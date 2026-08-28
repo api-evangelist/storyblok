@@ -11,8 +11,11 @@ info:
     opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: contentDeliveryApi
-  url: ../openapi/storyblok-content-delivery-api-v2-openapi.yml
+- name: linksApi
+  url: ../openapi/storyblok-links-api-openapi.yml
+  type: openapi
+- name: storiesApi
+  url: ../openapi/storyblok-stories-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: build-navigation

@@ -11,8 +11,11 @@ info:
     executed without opening the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: managementApi
-  url: ../openapi/storyblok-management-api-openapi.yml
+- name: componentsApi
+  url: ../openapi/storyblok-components-api-openapi.yml
+  type: openapi
+- name: storiesApi
+  url: ../openapi/storyblok-stories-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: component-to-story

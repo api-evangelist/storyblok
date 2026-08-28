@@ -11,8 +11,11 @@ info:
     description.
   version: 1.0.0
 sourceDescriptions:
-- name: managementApi
-  url: ../openapi/storyblok-management-api-openapi.yml
+- name: spacesApi
+  url: ../openapi/storyblok-spaces-api-openapi.yml
+  type: openapi
+- name: webhooksApi
+  url: ../openapi/storyblok-webhooks-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: register-webhook

@@ -14,8 +14,8 @@ info:
     the underlying OpenAPI description.
   version: 1.0.0
 sourceDescriptions:
-- name: managementApi
-  url: ../openapi/storyblok-management-api-openapi.yml
+- name: storiesApi
+  url: ../openapi/storyblok-stories-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: retire-story
