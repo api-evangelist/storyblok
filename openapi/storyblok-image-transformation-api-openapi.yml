@@ -1,25 +1,15 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Storyblok Content Delivery API v2 Assets Image Transformation API
-  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  title: Storyblok Image Service Image Transformation API
+  description: The Storyblok Image Service is a URL-based image transformation API that allows developers to resize, crop, convert, and optimize images hosted in Storyblok's asset CDN. Transformations are applied by constructing a specific URL with path segments and filter parameters that specify dimensions, format conversion, quality, focal point, and filter effects. The service eliminates the need for a separate image processing pipeline and is suitable for responsive images, thumbnails, and format-optimized delivery across web and mobile applications. Images are served via a global CDN for fast delivery.
   version: '2'
   contact:
     name: Storyblok Support
     url: https://www.storyblok.com/contact
   termsOfService: https://www.storyblok.com/legal/terms-of-service
 servers:
-- url: https://api.storyblok.com/v2/cdn
-  description: Global Production Server
-- url: https://api-us.storyblok.com/v2/cdn
-  description: US Production Server
-- url: https://api-ap.storyblok.com/v2/cdn
-  description: Asia-Pacific Production Server
-- url: https://api-ca.storyblok.com/v2/cdn
-  description: Canada Production Server
-- url: https://api-cn.storyblok.com/v2/cdn
-  description: China Production Server
-security:
-- apiToken: []
+- url: https://img2.storyblok.com
+  description: Storyblok Image CDN
 tags:
 - name: Image Transformation
   description: URL-based image transformation operations applied by constructing a specific path structure following the base asset URL. All operations require the /m/ path segment prefix.
@@ -176,12 +166,6 @@ components:
       schema:
         type: string
       example: f/12345/1200x800/photo.jpg
-  securitySchemes:
-    apiToken:
-      type: apiKey
-      in: query
-      name: token
-      description: Public API token for accessing published content, or Preview API token for accessing draft and published content. Tokens are scoped to a specific Storyblok space.
 externalDocs:
-  description: Storyblok Content Delivery API v2 Documentation
-  url: https://www.storyblok.com/docs/api/content-delivery/v2
+  description: Storyblok Image Service Documentation
+  url: https://www.storyblok.com/docs/api/image-service

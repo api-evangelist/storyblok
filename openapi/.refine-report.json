@@ -1,32 +1,45 @@
 {
   "provider": "storyblok",
   "sources": [
-    "storyblok-assets-api-openapi.yml",
-    "storyblok-collaborators-api-openapi.yml",
-    "storyblok-components-api-openapi.yml",
-    "storyblok-datasources-api-openapi.yml",
-    "storyblok-image-transformation-api-openapi.yml",
-    "storyblok-links-api-openapi.yml",
-    "storyblok-spaces-api-openapi.yml",
-    "storyblok-stories-api-openapi.yml",
-    "storyblok-tags-api-openapi.yml",
-    "storyblok-webhooks-api-openapi.yml"
+    "_original/storyblok-content-delivery-api-v2-openapi.yml",
+    "_original/storyblok-image-service-openapi.yml",
+    "_original/storyblok-management-api-openapi.yml"
   ],
   "outputs": [
+    "storyblok-datasources-api-openapi.yml",
+    "storyblok-links-api-openapi.yml",
+    "storyblok-stories-api-openapi.yml",
+    "storyblok-tags-api-openapi.yml",
+    "storyblok-image-transformation-api-openapi.yml",
     "storyblok-assets-api-openapi.yml",
     "storyblok-collaborators-api-openapi.yml",
     "storyblok-components-api-openapi.yml",
-    "storyblok-datasources-api-openapi.yml",
-    "storyblok-image-transformation-api-openapi.yml",
-    "storyblok-links-api-openapi.yml",
     "storyblok-spaces-api-openapi.yml",
-    "storyblok-stories-api-openapi.yml",
-    "storyblok-tags-api-openapi.yml",
     "storyblok-webhooks-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (3 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "storyblok-content-delivery-api-v2-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "storyblok-content-delivery-api-v2-openapi.yml: tagged paths GET /tags -> Tags",
+    "storyblok-content-delivery-api-v2-openapi.yml: declared missing tag: Tags",
+    "storyblok-image-service-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "storyblok-management-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "tag 'Datasources' spans 2 source specs (storyblok-content-delivery-api-v2-openapi.yml, storyblok-management-api-openapi.yml): per-path servers applied",
+    "tag 'Stories' spans 2 source specs (storyblok-content-delivery-api-v2-openapi.yml, storyblok-management-api-openapi.yml): per-path servers applied"
+  ],
+  "skipped": [
+    "storyblok-assets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-collaborators-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-components-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-datasources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-image-transformation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-spaces-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-stories-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-tags-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-webhooks-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

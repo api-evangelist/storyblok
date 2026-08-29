@@ -1,12 +1,12 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Storyblok Content Delivery API v2 Assets Datasources API
-  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
-  version: '2'
+  title: Storyblok Datasources API
   contact:
     name: Storyblok Support
     url: https://www.storyblok.com/contact
   termsOfService: https://www.storyblok.com/legal/terms-of-service
+  version: '1.0'
+  description: 'Operations tagged Datasources across 2 of this provider''s published API definitions: storyblok-content-delivery-api-v2-openapi.yml, storyblok-management-api-openapi.yml. Each path carries the servers of the definition it was published in.'
 servers:
 - url: https://api.storyblok.com/v2/cdn
   description: Global Production Server
@@ -18,8 +18,8 @@ servers:
   description: Canada Production Server
 - url: https://api-cn.storyblok.com/v2/cdn
   description: China Production Server
-security:
-- apiToken: []
+- url: https://mapi.storyblok.com/v1
+  description: Management API Production Server
 tags:
 - name: Datasources
   description: Datasources are reusable key-value collections used for options lists, translations, and configuration data within Storyblok spaces.
@@ -55,6 +55,19 @@ paths:
                       $ref: '#/components/schemas/Datasource'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiToken: []
+    servers:
+    - url: https://api.storyblok.com/v2/cdn
+      description: Global Production Server
+    - url: https://api-us.storyblok.com/v2/cdn
+      description: US Production Server
+    - url: https://api-ap.storyblok.com/v2/cdn
+      description: Asia-Pacific Production Server
+    - url: https://api-ca.storyblok.com/v2/cdn
+      description: Canada Production Server
+    - url: https://api-cn.storyblok.com/v2/cdn
+      description: China Production Server
   /datasource_entries:
     get:
       operationId: listDatasourceEntries
@@ -110,6 +123,19 @@ paths:
                       $ref: '#/components/schemas/DatasourceEntry'
         '401':
           $ref: '#/components/responses/Unauthorized'
+      security:
+      - apiToken: []
+    servers:
+    - url: https://api.storyblok.com/v2/cdn
+      description: Global Production Server
+    - url: https://api-us.storyblok.com/v2/cdn
+      description: US Production Server
+    - url: https://api-ap.storyblok.com/v2/cdn
+      description: Asia-Pacific Production Server
+    - url: https://api-ca.storyblok.com/v2/cdn
+      description: Canada Production Server
+    - url: https://api-cn.storyblok.com/v2/cdn
+      description: China Production Server
   /spaces/{space_id}/datasources:
     get:
       operationId: listManagementDatasources
@@ -135,6 +161,9 @@ paths:
                       $ref: '#/components/schemas/ManagementDatasource'
         '401':
           $ref: '#/components/responses/Unauthorized_2'
+      security:
+      - personalAccessToken: []
+      - oauthToken: []
     post:
       operationId: createDatasource
       summary: Create a datasource
@@ -168,15 +197,88 @@ paths:
           $ref: '#/components/responses/Unauthorized_2'
         '422':
           $ref: '#/components/responses/UnprocessableEntity'
+      security:
+      - personalAccessToken: []
+      - oauthToken: []
+    servers:
+    - url: https://mapi.storyblok.com/v1
+      description: Management API Production Server
 components:
+  parameters:
+    Token:
+      name: token
+      in: query
+      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
+      required: true
+      schema:
+        type: string
+      example: your-public-token
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of items to return per page. Maximum is 100 for most endpoints.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Page:
+      name: page
+      in: query
+      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+    PerPage_2:
+      name: per_page
+      in: query
+      description: Number of results per page. Maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Page_2:
+      name: page
+      in: query
+      description: Page number for paginated results, starting at 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  responses:
+    Unauthorized:
+      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized_2:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   schemas:
-    Error:
-      type: object
-      description: Error response returned when an API request fails.
-      properties:
-        error:
-          type: string
-          description: Human-readable error message describing what went wrong.
     DatasourceEntry:
       type: object
       description: A single key-value entry within a datasource. Optionally includes a dimension-specific value when a dimension filter is applied.
@@ -233,19 +335,13 @@ components:
                 type: string
                 format: date-time
                 description: Last update timestamp.
-    DatasourceInput:
+    Error:
       type: object
-      description: Input for creating or updating a datasource.
-      required:
-      - name
-      - slug
+      description: Error response returned when an API request fails.
       properties:
-        name:
+        error:
           type: string
-          description: Display name for the datasource.
-        slug:
-          type: string
-          description: URL-safe identifier slug.
+          description: Human-readable error message describing what went wrong.
     ManagementDatasource:
       type: object
       description: Datasource as returned by the Management API.
@@ -282,6 +378,19 @@ components:
           type: string
           format: date-time
           description: Last modification timestamp.
+    DatasourceInput:
+      type: object
+      description: Input for creating or updating a datasource.
+      required:
+      - name
+      - slug
+      properties:
+        name:
+          type: string
+          description: Display name for the datasource.
+        slug:
+          type: string
+          description: URL-safe identifier slug.
     Error_2:
       type: object
       description: Error response returned when an API request fails.
@@ -289,86 +398,20 @@ components:
         error:
           type: string
           description: Human-readable message describing the error.
-  responses:
-    Unauthorized:
-      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized_2:
-      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-  parameters:
-    PerPage:
-      name: per_page
-      in: query
-      description: Number of items to return per page. Maximum is 100 for most endpoints.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Token:
-      name: token
-      in: query
-      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
-      required: true
-      schema:
-        type: string
-      example: your-public-token
-    Page_2:
-      name: page
-      in: query
-      description: Page number for paginated results, starting at 1.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    SpaceId:
-      name: space_id
-      in: path
-      description: Numeric ID of the Storyblok space.
-      required: true
-      schema:
-        type: integer
-      example: 12345
-    PerPage_2:
-      name: per_page
-      in: query
-      description: Number of results per page. Maximum 100.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Page:
-      name: page
-      in: query
-      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
   securitySchemes:
     apiToken:
       type: apiKey
       in: query
       name: token
       description: Public API token for accessing published content, or Preview API token for accessing draft and published content. Tokens are scoped to a specific Storyblok space.
-externalDocs:
-  description: Storyblok Content Delivery API v2 Documentation
-  url: https://www.storyblok.com/docs/api/content-delivery/v2
+    personalAccessToken:
+      type: http
+      scheme: bearer
+      description: Personal access token generated in the Storyblok account settings. Provides access to all spaces the account has permissions for.
+    oauthToken:
+      type: http
+      scheme: bearer
+      description: OAuth 2.0 access token for third-party application integrations. Scoped to specific spaces and permissions granted during authorization.
+x-refined-from:
+- storyblok-content-delivery-api-v2-openapi.yml
+- storyblok-management-api-openapi.yml
