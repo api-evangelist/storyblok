@@ -284,6 +284,8 @@ apis:
   - type: Documentation
     url: https://www.storyblok.com/docs/image-service
 common:
+- type: Website
+  url: https://www.storyblok.com/
 - type: MCPServer
   url: mcp/storyblok-mcp.yml
 - type: Overlay
