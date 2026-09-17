@@ -141,28 +141,6 @@ apis:
     url: https://www.storyblok.com/docs/api/management
   - type: Documentation
     url: https://www.storyblok.com/docs/image-service
-- aid: storyblok:storyblok-datasources-api
-  name: Storyblok Datasources API
-  description: >-
-    Datasources are reusable key-value collections used for options lists, translations, and configuration
-    data within Storyblok spaces.
-  humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
-  baseURL: https://api.storyblok.com/v2/cdn
-  tags:
-  - Data Sources
-  tags_raw:
-  - Datasources
-  properties:
-  - type: OpenAPI
-    url: openapi/storyblok-datasources-api-openapi.yml
-  - type: Documentation
-    url: https://www.storyblok.com/docs/api/content-delivery/v2
-  - type: GraphQL
-    url: graphql/storyblok-graphql.md
-  - type: Documentation
-    url: https://www.storyblok.com/docs/api/management
-  - type: Documentation
-    url: https://www.storyblok.com/docs/image-service
 - aid: storyblok:storyblok-image-transformation-api
   name: Storyblok Image Transformation API
   description: >-
@@ -275,6 +253,26 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/storyblok-webhooks-api-openapi.yml
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/content-delivery/v2
+  - type: GraphQL
+    url: graphql/storyblok-graphql.md
+  - type: Documentation
+    url: https://www.storyblok.com/docs/api/management
+  - type: Documentation
+    url: https://www.storyblok.com/docs/image-service
+- aid: storyblok:storyblok-data-sources-api
+  name: Storyblok Data Sources API
+  description: >-
+    Datasources are reusable key-value collections used for options lists, translations, and configuration
+    data within Storyblok spaces.
+  humanURL: https://www.storyblok.com/docs/guide/in-depth/webhooks
+  baseURL: https://api.storyblok.com/v2/cdn
+  tags:
+  - Data Sources
+  properties:
+  - type: OpenAPI
+    url: openapi/storyblok-data-sources-api-openapi.yml
   - type: Documentation
     url: https://www.storyblok.com/docs/api/content-delivery/v2
   - type: GraphQL
