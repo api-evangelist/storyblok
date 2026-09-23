@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Storyblok Content Delivery API v2 Tags API
-  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels.
   version: '2'
   contact:
     name: Storyblok Support
@@ -59,13 +59,6 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Tag:
       type: object
@@ -93,6 +86,13 @@ components:
       schema:
         type: string
       example: your-public-token
+  responses:
+    Unauthorized:
+      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiToken:
       type: apiKey

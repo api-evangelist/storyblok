@@ -17,7 +17,9 @@
     "storyblok-spaces-api-openapi.yml",
     "storyblok-webhooks-api-openapi.yml"
   ],
-  "archived": [],
+  "archived": [
+    "deleted 1 superseded output(s) from the previous generation"
+  ],
   "errors": [],
   "warnings": [],
   "notes": [
@@ -28,13 +30,15 @@
     "storyblok-image-service-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "storyblok-management-api-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
     "tag 'Datasources' spans 2 source specs (storyblok-content-delivery-api-v2-openapi.yml, storyblok-management-api-openapi.yml): per-path servers applied",
-    "tag 'Stories' spans 2 source specs (storyblok-content-delivery-api-v2-openapi.yml, storyblok-management-api-openapi.yml): per-path servers applied"
+    "tag 'Stories' spans 2 source specs (storyblok-content-delivery-api-v2-openapi.yml, storyblok-management-api-openapi.yml): per-path servers applied",
+    "superseded outputs removed: storyblok-data-sources-api-openapi.yml",
+    "apis.yml register: written (+1 apis, 11 total)"
   ],
   "skipped": [
     "storyblok-assets-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "storyblok-collaborators-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "storyblok-components-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "storyblok-datasources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "storyblok-data-sources-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "storyblok-image-transformation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "storyblok-links-api-openapi.yml: previously refined output, superseded by openapi/_original/",
     "storyblok-spaces-api-openapi.yml: previously refined output, superseded by openapi/_original/",

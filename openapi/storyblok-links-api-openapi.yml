@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Storyblok Content Delivery API v2 Links API
-  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels. It provides access to stories, datasources, links, tags, and asset metadata through predictable endpoints with token-based authentication. The API supports filtering, pagination, full-text search, and relation resolution, allowing developers to retrieve precisely the content their application needs. It is optimized for performance and available across multiple regional endpoints to minimize latency for global deployments.
+  description: The Storyblok Content Delivery API v2 is a REST API that enables developers to fetch published content from a Storyblok space for delivery to end users across web, mobile, and other channels.
   version: '2'
   contact:
     name: Storyblok Support
@@ -83,6 +83,33 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   parameters:
+    Page:
+      name: page
+      in: query
+      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of items to return per page. Maximum is 100 for most endpoints.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Token:
+      name: token
+      in: query
+      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
+      required: true
+      schema:
+        type: string
+      example: your-public-token
     Version:
       name: version
       in: query
@@ -94,40 +121,6 @@ components:
         - published
         - draft
         default: published
-    Token:
-      name: token
-      in: query
-      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
-      required: true
-      schema:
-        type: string
-      example: your-public-token
-    PerPage:
-      name: per_page
-      in: query
-      description: Number of items to return per page. Maximum is 100 for most endpoints.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Page:
-      name: page
-      in: query
-      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-  responses:
-    Unauthorized:
-      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     Error:
       type: object
@@ -188,6 +181,13 @@ components:
           format: date-time
           nullable: true
           description: Last update timestamp. Only returned when including_dates=1.
+  responses:
+    Unauthorized:
+      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiToken:
       type: apiKey

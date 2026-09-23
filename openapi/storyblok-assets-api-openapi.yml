@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Storyblok Management Assets API
-  description: The Storyblok Management API is a REST API that allows developers to programmatically create, read, update, and delete content and configuration within a Storyblok space. It supports managing stories, components, assets, datasources, collaborators, webhooks, and space settings. The API uses OAuth or personal access tokens for authentication and is suitable for building editorial tooling, content migration scripts, CI/CD pipelines, and automated publishing workflows. All write operations are scoped to individual spaces and respect role-based access control.
+  description: The Storyblok Management API is a REST API that allows developers to programmatically create, read, update, and delete content and configuration within a Storyblok space.
   version: '1'
   contact:
     name: Storyblok Support
@@ -153,16 +153,6 @@ components:
       schema:
         type: integer
       example: 12345
-    PerPage:
-      name: per_page
-      in: query
-      description: Number of results per page. Maximum 100.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
     AssetId:
       name: asset_id
       in: path
@@ -180,19 +170,16 @@ components:
         type: integer
         minimum: 1
         default: 1
-  responses:
-    Unauthorized:
-      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of results per page. Maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
   schemas:
     Error:
       type: object
@@ -201,6 +188,24 @@ components:
         error:
           type: string
           description: Human-readable message describing the error.
+    AssetUploadResponse:
+      type: object
+      description: Response from the asset upload signing endpoint containing the CDN upload URL and required form fields.
+      properties:
+        id:
+          type: integer
+          description: Numeric ID of the new asset record created in Storyblok.
+        filename:
+          type: string
+          description: The final CDN URL the asset will be available at once uploaded.
+        post_url:
+          type: string
+          description: The CDN endpoint URL to POST the file upload to.
+        fields:
+          type: object
+          description: Form fields that must be included in the multipart upload POST to the CDN, including the signed authorization fields.
+          additionalProperties:
+            type: string
     Asset:
       type: object
       description: An asset stored in Storyblok's asset library, including its CDN URL, content type, dimensions, and editorial metadata.
@@ -248,24 +253,19 @@ components:
           type: string
           nullable: true
           description: Focal point coordinates used by the image service for smart cropping, formatted as x:y.
-    AssetUploadResponse:
-      type: object
-      description: Response from the asset upload signing endpoint containing the CDN upload URL and required form fields.
-      properties:
-        id:
-          type: integer
-          description: Numeric ID of the new asset record created in Storyblok.
-        filename:
-          type: string
-          description: The final CDN URL the asset will be available at once uploaded.
-        post_url:
-          type: string
-          description: The CDN endpoint URL to POST the file upload to.
-        fields:
-          type: object
-          description: Form fields that must be included in the multipart upload POST to the CDN, including the signed authorization fields.
-          additionalProperties:
-            type: string
+  responses:
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     personalAccessToken:
       type: http

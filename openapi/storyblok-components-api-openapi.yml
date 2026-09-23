@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Storyblok Management Components API
-  description: The Storyblok Management API is a REST API that allows developers to programmatically create, read, update, and delete content and configuration within a Storyblok space. It supports managing stories, components, assets, datasources, collaborators, webhooks, and space settings. The API uses OAuth or personal access tokens for authentication and is suitable for building editorial tooling, content migration scripts, CI/CD pipelines, and automated publishing workflows. All write operations are scoped to individual spaces and respect role-based access control.
+  description: The Storyblok Management API is a REST API that allows developers to programmatically create, read, update, and delete content and configuration within a Storyblok space.
   version: '1'
   contact:
     name: Storyblok Support
@@ -161,14 +161,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    ComponentId:
-      name: component_id
-      in: path
-      description: Numeric ID of the component.
-      required: true
-      schema:
-        type: integer
-      example: 11111
     SpaceId:
       name: space_id
       in: path
@@ -177,25 +169,14 @@ components:
       schema:
         type: integer
       example: 12345
-  responses:
-    Unauthorized:
-      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ComponentId:
+      name: component_id
+      in: path
+      description: Numeric ID of the component.
+      required: true
+      schema:
+        type: integer
+      example: 11111
   schemas:
     Error:
       type: object
@@ -272,6 +253,25 @@ components:
           format: uuid
           nullable: true
           description: UUID of the component group this component belongs to.
+  responses:
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     personalAccessToken:
       type: http

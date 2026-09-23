@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: Storyblok Image Service Image Transformation API
-  description: The Storyblok Image Service is a URL-based image transformation API that allows developers to resize, crop, convert, and optimize images hosted in Storyblok's asset CDN. Transformations are applied by constructing a specific URL with path segments and filter parameters that specify dimensions, format conversion, quality, focal point, and filter effects. The service eliminates the need for a separate image processing pipeline and is suitable for responsive images, thumbnails, and format-optimized delivery across web and mobile applications. Images are served via a global CDN for fast delivery.
+  description: The Storyblok Image Service is a URL-based image transformation API that allows developers to resize, crop, convert, and optimize images hosted in Storyblok's asset CDN.
   version: '2'
   contact:
     name: Storyblok Support
@@ -146,6 +146,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    AssetPath:
+      name: asset_path
+      in: path
+      description: The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg.
+      required: true
+      schema:
+        type: string
+      example: f/12345/1200x800/photo.jpg
   responses:
     NotFound:
       description: The requested asset was not found at the given path.
@@ -157,15 +166,6 @@ components:
               error:
                 type: string
                 description: Error message describing why the asset was not found.
-  parameters:
-    AssetPath:
-      name: asset_path
-      in: path
-      description: The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg.
-      required: true
-      schema:
-        type: string
-      example: f/12345/1200x800/photo.jpg
 externalDocs:
   description: Storyblok Image Service Documentation
   url: https://www.storyblok.com/docs/api/image-service

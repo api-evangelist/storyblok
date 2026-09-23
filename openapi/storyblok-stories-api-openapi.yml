@@ -632,6 +632,49 @@ paths:
       description: Management API Production Server
 components:
   parameters:
+    StoryId:
+      name: id
+      in: path
+      description: The numeric ID of the story.
+      required: true
+      schema:
+        type: integer
+      example: 123456
+    Page:
+      name: page
+      in: query
+      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    StorySlug:
+      name: slug
+      in: path
+      description: The full_slug of the story, which is the path within the space such as home or blog/my-post.
+      required: true
+      schema:
+        type: string
+      example: blog/my-first-post
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of items to return per page. Maximum is 100 for most endpoints.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Token:
+      name: token
+      in: query
+      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
+      required: true
+      schema:
+        type: string
+      example: your-public-token
     Version:
       name: version
       in: query
@@ -643,49 +686,6 @@ components:
         - published
         - draft
         default: published
-    Token:
-      name: token
-      in: query
-      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
-      required: true
-      schema:
-        type: string
-      example: your-public-token
-    PerPage:
-      name: per_page
-      in: query
-      description: Number of items to return per page. Maximum is 100 for most endpoints.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Page:
-      name: page
-      in: query
-      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    StoryId:
-      name: id
-      in: path
-      description: The numeric ID of the story.
-      required: true
-      schema:
-        type: integer
-      example: 123456
-    StorySlug:
-      name: slug
-      in: path
-      description: The full_slug of the story, which is the path within the space such as home or blog/my-post.
-      required: true
-      schema:
-        type: string
-      example: blog/my-first-post
     SpaceId:
       name: space_id
       in: path
@@ -694,6 +694,23 @@ components:
       schema:
         type: integer
       example: 12345
+    StoryId_2:
+      name: story_id
+      in: path
+      description: Numeric ID of the story.
+      required: true
+      schema:
+        type: integer
+      example: 67890
+    Page_2:
+      name: page
+      in: query
+      description: Page number for paginated results, starting at 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
     PerPage_2:
       name: per_page
       in: query
@@ -704,68 +721,7 @@ components:
         minimum: 1
         maximum: 100
         default: 25
-    Page_2:
-      name: page
-      in: query
-      description: Page number for paginated results, starting at 1.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    StoryId_2:
-      name: story_id
-      in: path
-      description: Numeric ID of the story.
-      required: true
-      schema:
-        type: integer
-      example: 67890
-  responses:
-    UnprocessableEntity:
-      description: The request parameters were invalid. Check the query parameter values for format errors.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested story was not found. Check that the slug or ID is correct and that the story is published when using the public token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity_2:
-      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    Unauthorized_2:
-      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
-    NotFound_2:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
   schemas:
-    Error:
-      type: object
-      description: Error response returned when an API request fails.
-      properties:
-        error:
-          type: string
-          description: Human-readable error message describing what went wrong.
     Story:
       type: object
       description: A story is a content entry in Storyblok. It holds structured content defined by a component schema and metadata such as dates, slug, and language alternates.
@@ -856,6 +812,13 @@ components:
           description: Metadata about alternate language versions of this story.
           items:
             $ref: '#/components/schemas/StoryAlternate'
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable error message describing what went wrong.
     StoryAlternate:
       type: object
       description: Metadata about an alternate language version of a story.
@@ -961,13 +924,6 @@ components:
         is_demo:
           type: boolean
           description: True if this is a demo story.
-    Error_2:
-      type: object
-      description: Error response returned when an API request fails.
-      properties:
-        error:
-          type: string
-          description: Human-readable message describing the error.
     StoryInput:
       type: object
       description: Input object for creating or updating a story.
@@ -1013,6 +969,50 @@ components:
         default_root:
           type: string
           description: Default root component type for this story.
+    Error_2:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
+  responses:
+    UnprocessableEntity:
+      description: The request parameters were invalid. Check the query parameter values for format errors.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: The request was not authenticated. Ensure the token query parameter contains a valid public or preview API token for the space.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested story was not found. Check that the slug or ID is correct and that the story is published when using the public token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    UnprocessableEntity_2:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    Unauthorized_2:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+    NotFound_2:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
   securitySchemes:
     apiToken:
       type: apiKey
