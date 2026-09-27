@@ -160,60 +160,26 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    SpaceId:
-      name: space_id
-      in: path
-      description: Numeric ID of the Storyblok space.
-      required: true
-      schema:
-        type: integer
-      example: 12345
-    ComponentId:
-      name: component_id
-      in: path
-      description: Numeric ID of the component.
-      required: true
-      schema:
-        type: integer
-      example: 11111
+  responses:
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      description: Error response returned when an API request fails.
-      properties:
-        error:
-          type: string
-          description: Human-readable message describing the error.
-    ComponentInput:
-      type: object
-      description: Input object for creating or updating a component definition.
-      required:
-      - name
-      - schema
-      properties:
-        name:
-          type: string
-          description: Technical name identifier for the component.
-        display_name:
-          type: string
-          description: Optional human-readable display name.
-        schema:
-          type: object
-          description: Field definitions map.
-          additionalProperties:
-            type: object
-            additionalProperties: true
-        is_root:
-          type: boolean
-          description: Set to true to allow this component as a story root.
-        is_nestable:
-          type: boolean
-          description: Set to true to allow nesting inside other components.
-        component_group_uuid:
-          type: string
-          format: uuid
-          description: UUID of the component group to assign this component to.
     Component:
       type: object
       description: A component definition specifying the content schema for a story type, including all field definitions and their validation rules.
@@ -253,25 +219,59 @@ components:
           format: uuid
           nullable: true
           description: UUID of the component group this component belongs to.
-  responses:
-    UnprocessableEntity:
-      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    ComponentInput:
+      type: object
+      description: Input object for creating or updating a component definition.
+      required:
+      - name
+      - schema
+      properties:
+        name:
+          type: string
+          description: Technical name identifier for the component.
+        display_name:
+          type: string
+          description: Optional human-readable display name.
+        schema:
+          type: object
+          description: Field definitions map.
+          additionalProperties:
+            type: object
+            additionalProperties: true
+        is_root:
+          type: boolean
+          description: Set to true to allow this component as a story root.
+        is_nestable:
+          type: boolean
+          description: Set to true to allow nesting inside other components.
+        component_group_uuid:
+          type: string
+          format: uuid
+          description: UUID of the component group to assign this component to.
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
+  parameters:
+    ComponentId:
+      name: component_id
+      in: path
+      description: Numeric ID of the component.
+      required: true
+      schema:
+        type: integer
+      example: 11111
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
   securitySchemes:
     personalAccessToken:
       type: http

@@ -189,9 +189,11 @@ apis:
   humanURL: https://www.storyblok.com/docs/api/content-delivery/v2
   baseURL: https://api.storyblok.com/v2/cdn
   tags:
+  - Spaces
   - Space
   tags_raw:
   - Spaces
+  - Space
   properties:
   - type: OpenAPI
     url: openapi/storyblok-spaces-api-openapi.yml

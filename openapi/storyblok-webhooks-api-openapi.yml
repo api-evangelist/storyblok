@@ -148,59 +148,26 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  parameters:
-    SpaceId:
-      name: space_id
-      in: path
-      description: Numeric ID of the Storyblok space.
-      required: true
-      schema:
-        type: integer
-      example: 12345
-    WebhookId:
-      name: webhook_id
-      in: path
-      description: Numeric ID of the webhook endpoint.
-      required: true
-      schema:
-        type: integer
-      example: 33333
+  responses:
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    WebhookEndpointInput:
-      type: object
-      description: Input for creating or updating a webhook endpoint.
-      required:
-      - url
-      - actions
-      properties:
-        url:
-          type: string
-          format: uri
-          description: Target URL that will receive POST requests on events.
-        name:
-          type: string
-          description: Optional display name for the webhook endpoint.
-        actions:
-          type: array
-          description: Event action strings to subscribe to. Valid actions include story.published, story.unpublished, story.deleted, story.moved, asset.created, asset.deleted, datasource.entries_updated.
-          items:
-            type: string
-        description:
-          type: string
-          description: Optional description of the webhook's purpose.
-        secret:
-          type: string
-          description: Optional secret key used to sign the webhook-signature header for payload integrity verification.
-        activated:
-          type: boolean
-          description: Set to false to disable the webhook without deleting it.
-    Error:
-      type: object
-      description: Error response returned when an API request fails.
-      properties:
-        error:
-          type: string
-          description: Human-readable message describing the error.
     WebhookEndpoint:
       type: object
       description: A webhook endpoint that receives event notifications from the space when configured actions occur.
@@ -239,25 +206,58 @@ components:
           type: string
           format: date-time
           description: Last update timestamp.
-  responses:
-    UnprocessableEntity:
-      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    WebhookEndpointInput:
+      type: object
+      description: Input for creating or updating a webhook endpoint.
+      required:
+      - url
+      - actions
+      properties:
+        url:
+          type: string
+          format: uri
+          description: Target URL that will receive POST requests on events.
+        name:
+          type: string
+          description: Optional display name for the webhook endpoint.
+        actions:
+          type: array
+          description: Event action strings to subscribe to. Valid actions include story.published, story.unpublished, story.deleted, story.moved, asset.created, asset.deleted, datasource.entries_updated.
+          items:
+            type: string
+        description:
+          type: string
+          description: Optional description of the webhook's purpose.
+        secret:
+          type: string
+          description: Optional secret key used to sign the webhook-signature header for payload integrity verification.
+        activated:
+          type: boolean
+          description: Set to false to disable the webhook without deleting it.
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
+  parameters:
+    WebhookId:
+      name: webhook_id
+      in: path
+      description: Numeric ID of the webhook endpoint.
+      required: true
+      schema:
+        type: integer
+      example: 33333
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
   securitySchemes:
     personalAccessToken:
       type: http

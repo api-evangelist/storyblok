@@ -60,6 +60,13 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable error message describing what went wrong.
     Tag:
       type: object
       description: A tag label attached to stories for filtering and categorization.
@@ -70,13 +77,6 @@ components:
         taggings_count:
           type: integer
           description: Number of published stories that have this tag applied.
-    Error:
-      type: object
-      description: Error response returned when an API request fails.
-      properties:
-        error:
-          type: string
-          description: Human-readable error message describing what went wrong.
   parameters:
     Token:
       name: token
