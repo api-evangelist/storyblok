@@ -146,6 +146,15 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  parameters:
+    AssetPath:
+      name: asset_path
+      in: path
+      description: The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg.
+      required: true
+      schema:
+        type: string
+      example: f/12345/1200x800/photo.jpg
   responses:
     NotFound:
       description: The requested asset was not found at the given path.
@@ -157,15 +166,6 @@ components:
               error:
                 type: string
                 description: Error message describing why the asset was not found.
-  parameters:
-    AssetPath:
-      name: asset_path
-      in: path
-      description: The path portion of the original Storyblok asset CDN URL after the hostname. For example, if the asset URL is https://img2.storyblok.com/f/12345/1200x800/photo.jpg, the asset_path is f/12345/1200x800/photo.jpg.
-      required: true
-      schema:
-        type: string
-      example: f/12345/1200x800/photo.jpg
 externalDocs:
   description: Storyblok Image Service Documentation
   url: https://www.storyblok.com/docs/api/image-service

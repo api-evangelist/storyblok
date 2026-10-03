@@ -54,6 +54,15 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
   schemas:
     Error:
       type: object
@@ -105,15 +114,6 @@ components:
         collaborators_count:
           type: integer
           description: Total number of collaborators with access to the space.
-  parameters:
-    SpaceId:
-      name: space_id
-      in: path
-      description: Numeric ID of the Storyblok space.
-      required: true
-      schema:
-        type: integer
-      example: 12345
   securitySchemes:
     personalAccessToken:
       type: http

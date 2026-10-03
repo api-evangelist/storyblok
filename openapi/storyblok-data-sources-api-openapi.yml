@@ -211,36 +211,74 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error_2'
     Unauthorized_2:
       description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error_2'
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error_2'
+  parameters:
+    PerPage:
+      name: per_page
+      in: query
+      description: Number of items to return per page. Maximum is 100 for most endpoints.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Token:
+      name: token
+      in: query
+      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
+      required: true
+      schema:
+        type: string
+      example: your-public-token
+    Page:
+      name: page
+      in: query
+      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+    PerPage_2:
+      name: per_page
+      in: query
+      description: Number of results per page. Maximum 100.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 25
+    Page_2:
+      name: page
+      in: query
+      description: Page number for paginated results, starting at 1.
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
   schemas:
-    DatasourceEntry:
-      type: object
-      description: A single key-value entry within a datasource. Optionally includes a dimension-specific value when a dimension filter is applied.
-      properties:
-        id:
-          type: integer
-          description: Unique numeric identifier of the datasource entry.
-        name:
-          type: string
-          description: Human-readable label for this entry, often used as display text.
-        value:
-          type: string
-          description: The value associated with this entry's key.
-        dimension_value:
-          type: string
-          nullable: true
-          description: Dimension-specific value returned when a dimension query parameter is provided.
     Error:
       type: object
       description: Error response returned when an API request fails.
@@ -287,6 +325,30 @@ components:
                 type: string
                 format: date-time
                 description: Last update timestamp.
+    DatasourceEntry:
+      type: object
+      description: A single key-value entry within a datasource. Optionally includes a dimension-specific value when a dimension filter is applied.
+      properties:
+        id:
+          type: integer
+          description: Unique numeric identifier of the datasource entry.
+        name:
+          type: string
+          description: Human-readable label for this entry, often used as display text.
+        value:
+          type: string
+          description: The value associated with this entry's key.
+        dimension_value:
+          type: string
+          nullable: true
+          description: Dimension-specific value returned when a dimension query parameter is provided.
+    Error_2:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
     DatasourceInput:
       type: object
       description: Input for creating or updating a datasource.
@@ -336,68 +398,6 @@ components:
           type: string
           format: date-time
           description: Last modification timestamp.
-    Error_2:
-      type: object
-      description: Error response returned when an API request fails.
-      properties:
-        error:
-          type: string
-          description: Human-readable message describing the error.
-  parameters:
-    Token:
-      name: token
-      in: query
-      description: The API access token for the space. Use the public token to access published content or the preview token to access draft content.
-      required: true
-      schema:
-        type: string
-      example: your-public-token
-    Page:
-      name: page
-      in: query
-      description: Page number for paginated results. Starts at 1. Requesting a page higher than the last available page returns an empty array.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    PerPage:
-      name: per_page
-      in: query
-      description: Number of items to return per page. Maximum is 100 for most endpoints.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    Page_2:
-      name: page
-      in: query
-      description: Page number for paginated results, starting at 1.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-    PerPage_2:
-      name: per_page
-      in: query
-      description: Number of results per page. Maximum 100.
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 25
-    SpaceId:
-      name: space_id
-      in: path
-      description: Numeric ID of the Storyblok space.
-      required: true
-      schema:
-        type: integer
-      example: 12345
   securitySchemes:
     apiToken:
       type: apiKey

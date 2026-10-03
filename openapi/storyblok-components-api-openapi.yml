@@ -161,14 +161,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    UnprocessableEntity:
-      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
       content:
         application/json:
           schema:
@@ -179,6 +179,23 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+  parameters:
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
+    ComponentId:
+      name: component_id
+      in: path
+      description: Numeric ID of the component.
+      required: true
+      schema:
+        type: integer
+      example: 11111
   schemas:
     Component:
       type: object
@@ -219,6 +236,13 @@ components:
           format: uuid
           nullable: true
           description: UUID of the component group this component belongs to.
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
     ComponentInput:
       type: object
       description: Input object for creating or updating a component definition.
@@ -248,30 +272,6 @@ components:
           type: string
           format: uuid
           description: UUID of the component group to assign this component to.
-    Error:
-      type: object
-      description: Error response returned when an API request fails.
-      properties:
-        error:
-          type: string
-          description: Human-readable message describing the error.
-  parameters:
-    ComponentId:
-      name: component_id
-      in: path
-      description: Numeric ID of the component.
-      required: true
-      schema:
-        type: integer
-      example: 11111
-    SpaceId:
-      name: space_id
-      in: path
-      description: Numeric ID of the Storyblok space.
-      required: true
-      schema:
-        type: integer
-      example: 12345
   securitySchemes:
     personalAccessToken:
       type: http
