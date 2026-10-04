@@ -286,6 +286,9 @@ apis:
   - type: Documentation
     url: https://www.storyblok.com/docs/image-service
 common:
+- type: CapabilityMap
+  url: capabilities/storyblok-capability-edges.yml
+  name: Storyblok Business Capability Map
 - type: Website
   url: https://www.storyblok.com/
 - type: MCPServer
