@@ -96,35 +96,28 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  responses:
-    Unauthorized:
-      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    UnprocessableEntity:
-      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    SpaceId:
-      name: space_id
-      in: path
-      description: Numeric ID of the Storyblok space.
-      required: true
-      schema:
-        type: integer
-      example: 12345
   schemas:
+    CollaboratorInput:
+      type: object
+      description: Input for inviting a collaborator to a space.
+      required:
+      - email
+      - role
+      properties:
+        email:
+          type: string
+          format: email
+          description: Email address of the user to invite.
+        role:
+          type: string
+          description: Role to assign to the collaborator.
+          enum:
+          - admin
+          - editor
+          - viewer
+        space_role_id:
+          type: integer
+          description: ID of a custom space role to assign instead of a built-in role.
     Error:
       type: object
       description: Error response returned when an API request fails.
@@ -179,27 +172,34 @@ components:
             friendly_name:
               type: string
               description: Display name of the user.
-    CollaboratorInput:
-      type: object
-      description: Input for inviting a collaborator to a space.
-      required:
-      - email
-      - role
-      properties:
-        email:
-          type: string
-          format: email
-          description: Email address of the user to invite.
-        role:
-          type: string
-          description: Role to assign to the collaborator.
-          enum:
-          - admin
-          - editor
-          - viewer
-        space_role_id:
-          type: integer
-          description: ID of a custom space role to assign instead of a built-in role.
+  responses:
+    UnprocessableEntity:
+      description: The request body contained validation errors. Check the error message for details on which fields failed validation.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
   securitySchemes:
     personalAccessToken:
       type: http
