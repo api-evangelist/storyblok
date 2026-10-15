@@ -1,5 +1,57 @@
 generated: '2026-10-15'
 edges:
+- partner_name: Lokalise
+  app: lokalise
+  partner: lokalise
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://www.storyblok.com/apps/external/lokalise
+  category: null
+  contract_reference:
+    register: Storyblok App Directory (storyblok.com/apps)
+    spec_file: null
+    role: storyblok-app
+    registered_name: Lokalise
+    matched_domain: lokalise.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - lokalise
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  detected_by: sweep-content-design.py
+  detected: '2026-10-15'
+- partner_name: Transperfect
+  app: transperfect
+  partner: transperfect
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  relationship: platform-app
+  direction: partner-built
+  evidence: https://www.storyblok.com/apps/external/transperfect
+  category: null
+  contract_reference:
+    register: Storyblok App Directory (storyblok.com/apps)
+    spec_file: null
+    role: storyblok-app
+    registered_name: Transperfect
+    matched_domain: transperfect.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - transperfect
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  detected_by: sweep-content-design.py
+  detected: '2026-10-15'
 - partner_name: Akeneo
   app: Akeneo
   partner: akeneo
@@ -116,5 +168,5 @@ marketplace_apps:
   url: https://www.storyblok.com/apps
   app_count: 70
   adapter: sweep-content-design.py:sitemap-0.xml + app pages (Author, Website)
-  listed: 4
+  listed: 6
   note: 70 listings read; only domain-linked builders / vendors are written
