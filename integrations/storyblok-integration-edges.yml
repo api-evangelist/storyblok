@@ -1,0 +1,120 @@
+generated: '2026-10-15'
+edges:
+- partner_name: Akeneo
+  app: Akeneo
+  partner: akeneo
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://www.storyblok.com/apps/storyblok-gmbh@akeneo
+  category: null
+  contract_reference:
+    register: Storyblok App Directory (storyblok.com/apps)
+    spec_file: null
+    role: storyblok-provider-built-app
+    registered_name: Storyblok GmbH
+    matched_domain: akeneo.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Akeneo
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  detected_by: sweep-content-design.py
+  detected: '2026-10-15'
+- partner_name: Algolia
+  app: Algolia
+  partner: algolia
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://www.storyblok.com/apps/storyblok-gmbh@algolia
+  category: null
+  contract_reference:
+    register: Storyblok App Directory (storyblok.com/apps)
+    spec_file: null
+    role: storyblok-provider-built-app
+    registered_name: Storyblok GmbH
+    matched_domain: algolia.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Algolia
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  detected_by: sweep-content-design.py
+  detected: '2026-10-15'
+- partner_name: Semrush Keywords
+  app: Semrush Keywords
+  partner: semrush
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://www.storyblok.com/apps/storyblok-gmbh@semrush-keywords-app-extension
+  category: null
+  contract_reference:
+    register: Storyblok App Directory (storyblok.com/apps)
+    spec_file: null
+    role: storyblok-provider-built-app
+    registered_name: Storyblok GmbH
+    matched_domain: semrush.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Semrush Keywords
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  detected_by: sweep-content-design.py
+  detected: '2026-10-15'
+- partner_name: Smartling
+  app: Smartling
+  partner: smartling
+  partner_match: domain
+  type: marketplace
+  marketplace: own
+  channel: provider-built
+  relationship: platform-app
+  direction: provider-built
+  evidence: https://www.storyblok.com/apps/storyblok-gmbh@smartling
+  category: null
+  contract_reference:
+    register: Storyblok App Directory (storyblok.com/apps)
+    spec_file: null
+    role: storyblok-provider-built-app
+    registered_name: Storyblok GmbH
+    matched_domain: smartling.com
+    matched_by: domain
+    listings: 1
+    sample_apps:
+    - Smartling
+    signal_note: one edge per (builder, platform); listings are context, never read
+    detected_by: sweep-content-design.py
+    detected: '2026-10-15'
+  detected_by: sweep-content-design.py
+  detected: '2026-10-15'
+method: searched
+checked:
+- https://www.storyblok.com/sitemap-0.xml
+source:
+- https://www.storyblok.com/sitemap-0.xml
+marketplace_apps:
+- marketplace: own
+  channel: partner-built
+  app: storyblok
+  url: https://www.storyblok.com/apps
+  app_count: 70
+  adapter: sweep-content-design.py:sitemap-0.xml + app pages (Author, Website)
+  listed: 4
+  note: 70 listings read; only domain-linked builders / vendors are written
