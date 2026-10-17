@@ -41,14 +41,29 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SpaceId:
+      name: space_id
+      in: path
+      description: Numeric ID of the Storyblok space.
+      required: true
+      schema:
+        type: integer
+      example: 12345
   schemas:
-    Error:
-      type: object
-      description: Error response returned when an API request fails.
-      properties:
-        error:
-          type: string
-          description: Human-readable message describing the error.
     Space:
       type: object
       description: A Storyblok space containing all content, components, assets, and settings for a project.
@@ -92,28 +107,13 @@ components:
         collaborators_count:
           type: integer
           description: Total number of collaborators with access to the space.
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Authentication failed. Verify the Authorization header contains a valid personal access token or OAuth token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-  parameters:
-    SpaceId:
-      name: space_id
-      in: path
-      description: Numeric ID of the Storyblok space.
-      required: true
-      schema:
-        type: integer
-      example: 12345
+    Error:
+      type: object
+      description: Error response returned when an API request fails.
+      properties:
+        error:
+          type: string
+          description: Human-readable message describing the error.
   securitySchemes:
     personalAccessToken:
       type: http
