@@ -68,3 +68,37 @@ tool_quality:
   scored: false
   note: Facts from the saved tools/list capture (mcp_tool_quality.py); recorded, not scored. Checks learned
     from Glimind's agent-readiness audit.
+tools:
+- name: search
+  description: 'Search for available Storyblok API endpoints. Returns the top 3 matching operations with
+    their operationId, summary, and behavior.
+
+
+    Always use this first when you don''t know which operation to call. Then call `describe` with the
+    operationId to get all parameters, request body schema, and the `executeWith` field that tells you
+    which execute tool to call.'
+- name: describe
+  description: 'Get full details for a Storyblok API operation. Returns all parameters (path, query) with
+    descriptions and schemas, the request body schema for write operations, available response fields,
+    the `executeWith` tool name to call next, and a `requiresRegion` flag when the user''s region must
+    be confirmed before executing.
+
+
+    Always call this after `search` and before executing.'
+- name: execute_readonly
+  description: 'Execute a read-only Storyblok API operation (behavior: ''readOnly''). Supports pagination
+    via `page` and `per_page`; check `pagination.total_pages` in response.'
+- name: execute_mutating
+  description: 'Execute a mutating Storyblok API operation (behavior: ''idempotent'' or unset).'
+- name: execute_destructive
+  description: 'Execute a destructive Storyblok API operation (behavior: ''destructive''). Data may be
+    permanently lost.'
+- name: upload_asset
+  description: Create an asset record in Storyblok and get a signed S3 upload URL. Returns a ready-to-use
+    curl command for environments with shell access (Claude Code, Cursor), or a Storyblok asset manager
+    link for manual upload. After the file is uploaded to S3, call `upload_asset_finish` to finalize the
+    asset.
+- name: upload_asset_finish
+  description: Finalize an asset upload after the file has been uploaded to S3 externally. Call this after
+    using a signed S3 URL (from `upload_asset`) to complete the upload via curl or manual upload.
+tools_count: 7
