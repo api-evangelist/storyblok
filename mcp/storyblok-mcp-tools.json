@@ -1,0 +1,302 @@
+{
+  "endpoint": "https://mcp.labs.storyblok.com/mcp",
+  "captured": "2026-10-20",
+  "method": "initialize + tools/list (anonymous, no tool called; roadmap#992)",
+  "protocol_version": "2025-06-18",
+  "server_info": {
+    "name": "Storyblok",
+    "version": "0.1.0"
+  },
+  "result": {
+    "tools": [
+      {
+        "name": "search",
+        "description": "Search for available Storyblok API endpoints. Returns the top 3 matching operations with their operationId, summary, and behavior.\n\nAlways use this first when you don't know which operation to call. Then call `describe` with the operationId to get all parameters, request body schema, and the `executeWith` field that tells you which execute tool to call.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "query": {
+              "type": "string",
+              "description": "Search query. Use keywords — results are ranked by how many match. Synonyms like 'fetch'/'retrieve'→get, 'remove'→delete, 'add'→create, 'edit'/'modify'→update are resolved automatically. (e.g., 'publish story', 'fetch asset', 'remove component')"
+            }
+          },
+          "required": [
+            "query"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "describe",
+        "description": "Get full details for a Storyblok API operation. Returns all parameters (path, query) with descriptions and schemas, the request body schema for write operations, available response fields, the `executeWith` tool name to call next, and a `requiresRegion` flag when the user's region must be confirmed before executing.\n\nAlways call this after `search` and before executing.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "operationId": {
+              "type": "string",
+              "description": "The operationId to describe (from search results)"
+            }
+          },
+          "required": [
+            "operationId"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "execute_readonly",
+        "description": "Execute a read-only Storyblok API operation (behavior: 'readOnly'). Supports pagination via `page` and `per_page`; check `pagination.total_pages` in response.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "operation": {
+              "type": "string",
+              "description": "The operation ID to execute (from search results)"
+            },
+            "parameters": {
+              "description": "Parameters for the operation",
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            },
+            "region": {
+              "description": "Storyblok region — only provide when `describe` shows `requiresRegion: true`. Auto-detected from space_id otherwise.",
+              "type": "string",
+              "enum": [
+                "eu",
+                "cn",
+                "us",
+                "ca",
+                "ap"
+              ]
+            },
+            "fields": {
+              "description": "Response fields to return using dot notation (e.g., [\"stories.id\", \"stories.name\"]). See `responseFields` in `describe` result. Omit for full response.",
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "operation"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": true,
+          "openWorldHint": false
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "execute_mutating",
+        "description": "Execute a mutating Storyblok API operation (behavior: 'idempotent' or unset).",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "operation": {
+              "type": "string",
+              "description": "The operation ID to execute (from search results)"
+            },
+            "parameters": {
+              "description": "Parameters for the operation",
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            },
+            "region": {
+              "description": "Storyblok region — only provide when `describe` shows `requiresRegion: true`. Auto-detected from space_id otherwise.",
+              "type": "string",
+              "enum": [
+                "eu",
+                "cn",
+                "us",
+                "ca",
+                "ap"
+              ]
+            }
+          },
+          "required": [
+            "operation"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": false
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "execute_destructive",
+        "description": "Execute a destructive Storyblok API operation (behavior: 'destructive'). Data may be permanently lost.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "operation": {
+              "type": "string",
+              "description": "The operation ID to execute (from search results)"
+            },
+            "parameters": {
+              "description": "Parameters for the operation",
+              "type": "object",
+              "propertyNames": {
+                "type": "string"
+              },
+              "additionalProperties": {}
+            },
+            "region": {
+              "description": "Storyblok region — only provide when `describe` shows `requiresRegion: true`. Auto-detected from space_id otherwise.",
+              "type": "string",
+              "enum": [
+                "eu",
+                "cn",
+                "us",
+                "ca",
+                "ap"
+              ]
+            }
+          },
+          "required": [
+            "operation"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "upload_asset",
+        "description": "Create an asset record in Storyblok and get a signed S3 upload URL. Returns a ready-to-use curl command for environments with shell access (Claude Code, Cursor), or a Storyblok asset manager link for manual upload. After the file is uploaded to S3, call `upload_asset_finish` to finalize the asset.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "space_id": {
+              "type": "number",
+              "description": "Storyblok space ID"
+            },
+            "filename": {
+              "type": "string",
+              "description": "Filename including extension (e.g. 'image.jpg')"
+            },
+            "alt": {
+              "description": "Alt text for the asset",
+              "type": "string"
+            },
+            "title": {
+              "description": "Title for the asset",
+              "type": "string"
+            },
+            "copyright": {
+              "description": "Copyright information for the asset",
+              "type": "string"
+            },
+            "asset_folder_id": {
+              "description": "ID of the asset folder to upload into",
+              "type": "number"
+            },
+            "region": {
+              "description": "Storyblok region (eu, us, cn, ap, ca). Do NOT provide this parameter by default — it is auto-detected from space_id. Only provide it when the operation description explicitly asks you to.",
+              "type": "string",
+              "enum": [
+                "eu",
+                "cn",
+                "us",
+                "ca",
+                "ap"
+              ]
+            }
+          },
+          "required": [
+            "space_id",
+            "filename"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": false,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      },
+      {
+        "name": "upload_asset_finish",
+        "description": "Finalize an asset upload after the file has been uploaded to S3 externally. Call this after using a signed S3 URL (from `upload_asset`) to complete the upload via curl or manual upload.",
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "space_id": {
+              "type": "number",
+              "description": "Storyblok space ID"
+            },
+            "asset_id": {
+              "type": "number",
+              "description": "Asset ID returned by `upload_asset`"
+            },
+            "region": {
+              "description": "Storyblok region (eu, us, cn, ap, ca). Do NOT provide this parameter by default — it is auto-detected from space_id. Only provide it when the operation description explicitly asks you to.",
+              "type": "string",
+              "enum": [
+                "eu",
+                "cn",
+                "us",
+                "ca",
+                "ap"
+              ]
+            }
+          },
+          "required": [
+            "space_id",
+            "asset_id"
+          ]
+        },
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "idempotentHint": true,
+          "openWorldHint": true
+        },
+        "execution": {
+          "taskSupport": "forbidden"
+        }
+      }
+    ]
+  }
+}
