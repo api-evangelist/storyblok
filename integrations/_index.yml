@@ -223,3 +223,16 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: storyblok-netlify-own
+  label: Netlify (own)
+  partner: netlify
+  partner_name: Netlify (own)
+  category: CMS
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://www.netlify.com/integrations/storyblok/
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
